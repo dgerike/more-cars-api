@@ -1,0 +1,2489 @@
+---
+swagger: "2.0"
+info:
+  description: "**ATTENTION: This documentation as well as the API itself are currently\
+    \ under construction. Any part of it can change anytime.**\n\nMore Cars is designed\
+    \ as an open car database. All the information is contributed by the community\
+    \ and can be used by everyone, for any purpose, for free.\n\nThis API is the counterpart\
+    \ of the More Cars website https://more-cars.net/. All the information found there\
+    \ can be accessed via this REST API."
+  version: "0.0.2-alpha"
+  title: "More Cars API"
+  termsOfService: ""
+  contact:
+    name: "Dennis Gerike"
+    url: "https://more-cars.net"
+    email: "dennis.gerike@more-cars.net"
+  license:
+    name: ""
+    url: ""
+host: "{host}"
+schemes:
+- "https"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /stats:
+    get:
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+  /car-model-variants:
+    get:
+      description: "Returns a collection of all `Car Model Variants` that are stored\
+        \ in the More Cars database."
+      produces:
+      - "application/json"
+      parameters:
+      - name: "page"
+        in: "query"
+        required: false
+        type: "integer"
+        description: "pagination parameter"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model Variant"
+            minItems: 0
+            maxItems: 24
+    x-restlet:
+      section: "Car Model Variants"
+  /car-model-variants/{car_model_variant_id}:
+    get:
+      description: "Returns a `Car Model Variant` specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Model Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_variant_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Model Variants"
+  /car-model-variants/{car_model_variant_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Car Model\
+        \ Variant`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_variant_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Model Variants"
+  /car-model-variants/{car_model_variant_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Car Model Variant`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_variant_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Car Model Variants"
+  /car-model-variants/{car_model_variant_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Car Model\
+        \ Variant`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_variant_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Model Variants"
+  /car-model-variants/{car_model_variant_id}/car-model:
+    get:
+      description: "Returns the `Car Model` that this `Car Model Variant` is derived\
+        \ from."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Model"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_variant_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Model Variants"
+  /car-model-variants/{car_model_variant_id}/car-magazine-issues:
+    get:
+      description: "Returns all `Car Magazine Issues` where the specified `Car Model\
+        \ Variant` has been presented."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Magazine Issue"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_variant_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Car Model Variants"
+  /car-model-variants/{car_model_variant_id}/car-programme-episodes:
+    get:
+      description: "Returns all `Car Programme Episodes` where the specified `Car\
+        \ Model Variant` has been presented."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Programme Episode"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_variant_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Car Model Variants"
+  /car-models:
+    get:
+      description: "Returns a collection of all `Car Models` that are stored in the\
+        \ More Cars database."
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model"
+            minItems: 1
+            maxItems: 50
+    x-restlet:
+      section: "Car Models"
+  /car-models/{car_model_id}:
+    get:
+      description: "Returns a `Car Model` specified by its ID."
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Model"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "integer"
+      x-example: 1019
+    x-restlet:
+      section: "Car Models"
+  /car-models/{car_model_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Car Model`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Car Models"
+  /car-models/{car_model_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Car Model`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Car Models"
+  /car-models/{car_model_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Car Model`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Car Models"
+  /car-models/{car_model_id}/car-model-variants:
+    get:
+      description: "Returns all `Car Model Variants` that exist of the specified `Car\
+        \ Model`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Car Models"
+  /car-models/{car_model_id}/car-magazine-issues:
+    get:
+      description: "Returns all `Car Magazine Issues` that have featured the specified\
+        \ `Car Model`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Magazine Issue"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Car Models"
+  /car-models/{car_model_id}/car-programme-episodes:
+    get:
+      description: "Returns all `Car Programme Episodes` in which the specified `Car\
+        \ Model` has been presented."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Programme Episode"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Car Models"
+  /brands:
+    get:
+      description: "Returns a collection of all `Brands` that are stored in the More\
+        \ Cars database."
+      parameters:
+      - name: "page"
+        in: "query"
+        required: false
+        type: "integer"
+        x-example: 1
+      - name: "per_page"
+        in: "query"
+        required: false
+        type: "integer"
+        x-example: 10
+      - name: "limit"
+        in: "query"
+        required: false
+        type: "integer"
+        x-example: 100
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Brand"
+    x-restlet:
+      section: "Brands"
+  /brands/{brand_id}:
+    get:
+      description: "Returns a `Brand` specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Brand"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "brand_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Brands"
+  /brands/{brand_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Brand`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "brand_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Brands"
+  /brands/{brand_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Brand`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "brand_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Brands"
+  /brands/{brand_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Brand`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "brand_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Brands"
+  /brands/{brand_id}/car-models:
+    get:
+      description: "Returns all `Car Models` that the specified `Brand` has created."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "brand_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Brands"
+  /brands/{brand_id}/company:
+    get:
+      description: "Returns the `Company` that owns the specified `Brand`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Company"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "brand_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Brands"
+  /brands/{brand_id}/country:
+    get:
+      description: "Returns the `Country` from which the `Brand` originates."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Country"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "brand_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Brands"
+  /companies:
+    get:
+      description: "Returns a collection of all `Companies` that are stored in the\
+        \ More Cars database."
+      parameters:
+      - name: "page"
+        in: "query"
+        required: false
+        type: "integer"
+        x-example: 1
+      - name: "per_page"
+        in: "query"
+        required: false
+        type: "integer"
+        x-example: 10
+      - name: "limit"
+        in: "query"
+        required: false
+        type: "integer"
+        x-example: 100
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Company"
+    x-restlet:
+      section: "Companies"
+  /companies/{company_id}:
+    get:
+      description: "Returns a `Company`, specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Company"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "company_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Companies"
+  /companies/{company_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Company`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "company_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Companies"
+  /companies/{company_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Brand`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "company_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Companies"
+  /companies/{company_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Company`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "company_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Companies"
+  /companies/{company_id}/brands:
+    get:
+      description: "Returns all `Brands` that belong to the specified `Company`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "company_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Companies"
+  /companies/{company_id}/country:
+    get:
+      description: "Returns the `Country` from which the `Company` originates."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Country"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "company_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Companies"
+  /companies/{company_id}/country-hq:
+    get:
+      description: "Returns the `Country` where the `Company` has it's legal headquarter."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Country"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "company_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Companies"
+  /car-magazines:
+    get:
+      description: "Returns a collection of all `Car Magazines` that are stored in\
+        \ the More Cars database."
+      parameters:
+      - name: "page"
+        in: "query"
+        required: false
+        type: "integer"
+        x-example: 1
+      - name: "per_page"
+        in: "query"
+        required: false
+        type: "integer"
+        x-example: 10
+      - name: "limit"
+        in: "query"
+        required: false
+        type: "integer"
+        x-example: 100
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Magazine"
+    x-restlet:
+      section: "Car Magazines"
+  /car-magazines/{car_magazine_id}:
+    get:
+      description: "Returns a `Car Magazine` specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Magazine"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazines"
+  /car-magazines/{car_magazine_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Car Magazine`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazines"
+  /car-magazines/{car_magazine_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Car Magazine`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazines"
+  /car-magazines/{car_magazine_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Car Magazine`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazines"
+  /car-magazines/{car_magazine_id}/car-magazine-issues:
+    get:
+      description: "Returns all `Car Magazine Issues` that were created by the specified\
+        \ `Car Magazine`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Magazine Issue"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazines"
+  /car-magazines/{car_magazine_id}/country:
+    get:
+      description: "Returns the `Country` from which the `Car Magazine` originates."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Country"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazines"
+  /car-magazine-issues:
+    get:
+      description: "Returns a collection of all `Car Magazine Issues` that are stored\
+        \ in the More Cars database."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Magazine Issue"
+    x-restlet:
+      section: "Car Magazine Issues"
+  /car-magazine-issues/{car_magazine_issue_id}:
+    get:
+      description: "Returns a `Car Magazine Issue` specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Magazine Issue"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_issue_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazine Issues"
+  /car-magazine-issues/{car_magazine_issue_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Car Magazine\
+        \ Issue`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_issue_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazine Issues"
+  /car-magazine-issues/{car_magazine_issue_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Car Magazine Issue`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_issue_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazine Issues"
+  /car-magazine-issues/{car_magazine_issue_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Car Magazine\
+        \ Issue`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_issue_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazine Issues"
+  /car-magazine-issues/{car_magazine_issue_id}/car-magazine:
+    get:
+      description: "Returns the `Car Magazine` this `Car Magazine Issue` belongs to."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Magazine"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_issue_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazine Issues"
+  /car-magazine-issues/{car_magazine_issue_id}/car-model-variants:
+    get:
+      description: "Returns all `Car Model Variants` that have been featured in the\
+        \ specified `Car Magazine Issue`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_issue_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazine Issues"
+  /car-magazine-issues/{car_magazine_issue_id}/car-models:
+    get:
+      description: "Returns all `Car Models` that have been featured in the specified\
+        \ `Car Magazine Issue`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_issue_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazine Issues"
+  /car-magazine-issues/{car_magazine_issue_id}/successor:
+    get:
+      description: "Returns the next issue of this `Car Magazine Issue`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Magazine Issue"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_issue_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazine Issues"
+  /car-magazine-issues/{car_magazine_issue_id}/predecessor:
+    get:
+      description: "Returns the previous issue of this `Car Magazine Issue`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Magazine Issue"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_magazine_issue_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Magazine Issues"
+  /car-programmes:
+    get:
+      description: "Returns a collection of all `Car Programmes` that are stored in\
+        \ the More Cars database."
+      parameters:
+      - name: "page"
+        in: "query"
+        required: false
+        type: "integer"
+        x-example: 1
+      - name: "per_page"
+        in: "query"
+        required: false
+        type: "integer"
+        x-example: 10
+      - name: "limit"
+        in: "query"
+        required: false
+        type: "integer"
+        x-example: 100
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Programme"
+    x-restlet:
+      section: "Car Programmes"
+  /car-programmes/{car_programme_id}:
+    get:
+      description: "Returns a `Car Programme` specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Programme"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programmes"
+  /car-programmes/{car_programme_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Car Programme`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programmes"
+  /car-programmes/{car_programme_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Car Programme`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programmes"
+  /car-programmes/{car_programme_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Car Programme`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programmes"
+  /car-programmes/{car_programme_id}/car-programme-episodes:
+    get:
+      description: "Returns all `Car Magazine Episodes` that were produced by the\
+        \ specified `Car Programme`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Programme Episode"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programmes"
+  /car-programmes/{car_programme_id}/country:
+    get:
+      description: "Returns the `Country` from which the `Car Programme` originates."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Country"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programmes"
+  /car-programme-episodes:
+    get:
+      description: "Returns a collection of all `Car Programme Episodes` that are\
+        \ stored in the More Cars database."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Programme Episode"
+            minItems: 0
+            maxItems: 24
+    x-restlet:
+      section: "Car Programme Episodes"
+  /car-programme-episodes/{car_programme_episode_id}:
+    get:
+      description: "Returns a `Car Programme Episode` specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Programme Episode"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_episode_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programme Episodes"
+  /car-programme-episodes/{car_programme_episode_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Car Programme\
+        \ Episode`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_episode_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programme Episodes"
+  /car-programme-episodes/{car_programme_episode_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Car Programme Episode`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_episode_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programme Episodes"
+  /car-programme-episodes/{car_programme_episode_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Car Programme\
+        \ Episode`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_episode_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programme Episodes"
+  /car-programme-episodes/{car_programme_episode_id}/car-programme:
+    get:
+      description: "Returns the `Car Programme` the specified `Car Programme Episode`\
+        \ belongs to."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Programme"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_episode_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programme Episodes"
+  /car-programme-episodes/{car_programme_episode_id}/successor:
+    get:
+      description: "Returns the successor of the specified `Car Programme Episode`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Programme Episode"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_episode_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programme Episodes"
+  /car-programme-episodes/{car_programme_episode_id}/predecessor:
+    get:
+      description: "Returns the predecessor of the specified `Car Programme Episode`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Programme Episode"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_episode_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programme Episodes"
+  /car-programme-episodes/{car_programme_episode_id}/car-models:
+    get:
+      description: "Returns all `Car Models` that were presented in the specified\
+        \ `Car Programme Episode`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_episode_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programme Episodes"
+  /car-programme-episodes/{car_programme_episode_id}/car-model-variants:
+    get:
+      description: "Returns all `Car Model Variants` that were presented in the specified\
+        \ `Car Programme Episode`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_programme_episode_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Car Programme Episodes"
+  /racing-games:
+    get:
+      description: "Returns a collection of all `Racing Games` that are stored in\
+        \ the More Cars database."
+      produces:
+      - "application/json"
+      parameters:
+      - name: "page"
+        in: "query"
+        required: false
+        type: "integer"
+        description: "pagination parameter"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Game"
+            minItems: 0
+            maxItems: 24
+    x-restlet:
+      section: "Racing Games"
+  /racing-games/{racing_game_id}:
+    get:
+      description: "Returns a `Racing Game` specified by its ID"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Racing Game"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_game_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Racing Games"
+  /racing-games/{racing_game_id}/car-model-variants:
+    get:
+      description: "Returns all `Car Model Variants` that are represented in the specified\
+        \ `Racing Game`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_game_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Racing Games"
+  /racing-games/{racing_game_id}/gaming-platforms:
+    get:
+      description: "Returns all `Gaming Platforms` the specified `Racing Game` is\
+        \ available for."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Gaming Platform"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_game_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Racing Games"
+  /racing-games/{racing_game_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Racing\
+        \ Game`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_game_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Racing Games"
+  /racing-games/{racing_game_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Racing Game`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_game_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Racing Games"
+  /racing-games/{racing_game_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Racing\
+        \ Game`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_game_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Racing Games"
+  /gaming-platforms:
+    get:
+      description: "Returns a collection of all `Gaming Platforms` that are stored\
+        \ in the More Cars database."
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Gaming Platform"
+            minItems: 1
+            maxItems: 50
+    x-restlet:
+      section: "Gaming Platforms"
+  /gaming-platforms/{gaming_platform_id}:
+    get:
+      description: "Returns a `Gaming Platform` specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Gaming Platform"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "gaming_platform_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Gaming Platforms"
+  /gaming-platforms/{gaming_platform_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Gaming\
+        \ Platform`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "gaming_platform_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Gaming Platforms"
+  /gaming-platforms/{gaming_platform_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Gaming Platform`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "gaming_platform_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Gaming Platforms"
+  /gaming-platforms/{gaming_platform_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Company`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "gaming_platform_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Gaming Platforms"
+  /gaming-platforms/{gaming_platform_id}/racing-games:
+    get:
+      description: "Returns all `Racing Games` that are available for the specified\
+        \ `Gaming Platform`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Game"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "gaming_platform_id"
+      in: "path"
+      required: true
+      type: "integer"
+    x-restlet:
+      section: "Gaming Platforms"
+  /images:
+    get:
+      description: "Returns a collection of all `Images` that are stored in the More\
+        \ Cars database."
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 1
+            maxItems: 50
+    x-restlet:
+      section: "Images"
+  /online-articles:
+    get:
+      summary: "Get Collection of Online Articles"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 1
+            maxItems: 50
+    x-restlet:
+      section: "Online Articles"
+  /online-articles/{online_article_id}:
+    get:
+      summary: "Get Online Article by ID"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Online Article"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "string"
+    x-restlet:
+      section: "Online Articles"
+  /videos:
+    get:
+      description: "Returns a collection of all `Videos` that are stored in the More\
+        \ Cars database."
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 1
+            maxItems: 50
+    x-restlet:
+      section: "Videos"
+definitions:
+  Car Model Variant:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+        minimum: 1
+        maximum: 1000000
+        example: 3954
+      name:
+        type: "string"
+        description: "The official name of this variant, respecting upper/lower case,\
+          \ whitespaces and special characters."
+        example: "Lamborghini Huracán LP610-4 Spyder"
+      code:
+        type: "string"
+        description: "The internal code name of this vehicle as given by the manufacturer.\
+          \ \nUsed to distinguish between multiple generations of one car model variant.\n\
+          Sometimes the manufacturer gives each variant a different code.\nSometimes\
+          \ they have no code at all."
+        example: "E46"
+      built_from:
+        type: "integer"
+        description: "The year this car went into production."
+        minimum: 1800
+        maximum: 2100
+        example: 1886
+      built_to:
+        type: "integer"
+        description: "The final year of production."
+        minimum: 1800
+        maximum: 2100
+        example: 1985
+      body_style:
+        type: "string"
+        description: "Classification based on the the number of doors, seats, size\
+          \ and the overall shape of the car."
+        enum:
+        - "coupe"
+        - "convertible"
+        - "hatchback"
+        - "motorbike"
+        - "pickup truck"
+        - "offroad"
+        - "quad"
+        - "roadster"
+        - "sedan"
+        - "station wagon"
+        - "suv"
+        - "targa"
+        - "van"
+        - "truck"
+        - "other"
+      cd:
+        type: "number"
+        description: "Drag coefficient. Also referred to as `cd value` or `cw value`."
+        example: 0.29
+      doors:
+        type: "integer"
+        description: "The number of doors."
+      weight:
+        type: "integer"
+        description: "The official weight of this car, as provided by the manufacturer."
+      weight_unit:
+        type: "string"
+        enum:
+        - "kg"
+        - "lbs"
+      max_power:
+        type: "integer"
+        description: "The peak power output of this engine, as claimed by the manufacturer."
+      max_power_unit:
+        type: "string"
+        enum:
+        - "PS"
+        - "bhp"
+        - "kW"
+      max_torque:
+        type: "integer"
+        description: "The peak torque of this engine, as claimed by the manufacturer."
+      max_torque_unit:
+        type: "string"
+        enum:
+        - "Nm"
+        - "lb ft"
+      cylinders:
+        type: "integer"
+        description: "The number of cylinders (petrol or diesel engine) or rotors\
+          \ (wankel engine). (Only applicable to combustion engines.)"
+      engine_configuration:
+        type: "string"
+        description: "The alignment of the cylinders resp. rotors. (Only applicable\
+          \ to combustion engines.)"
+        enum:
+        - "Inline"
+        - "Flat"
+        - "V"
+        - "W"
+        - "H"
+        - "U"
+        - "Rotary"
+        - "Radial"
+      displacement:
+        type: "integer"
+        description: "The size (volume) of all combustion chamber(s) combined.\n(Only\
+          \ applicable to combustion engines.)"
+      displacement_unit:
+        type: "string"
+        enum:
+        - "ccm"
+        - "cu in"
+      charger:
+        type: "string"
+        description: "The method how the air is forced into the engine.\n(Only applicable\
+          \ to combustion engines.)"
+        enum:
+        - "none"
+        - "turbo"
+        - "super"
+      engine_type:
+        type: "string"
+        description: "The thermodynamic and physical principles the engine is build\
+          \ upon. \n(The type of fuel is secondary.)"
+        enum:
+        - "otto"
+        - "diesel"
+        - "wankel"
+        - "turbine"
+        - "hybrid"
+        - "electric"
+        - "other"
+      energy_source:
+        type: "string"
+        description: "The type of 'fuel' this engine runs on. \nFor hybrid cars the\
+          \ primary engine is selected."
+        enum:
+        - "petrol"
+        - "diesel"
+        - "natural gas"
+        - "liquid gas"
+        - "hydrogen"
+        - "ethanol"
+        - "electricity"
+        - "other"
+      energy_source_2:
+        type: "string"
+        description: "On what 'fuel' runs the second engine? (Only applicable to hybrid\
+          \ engines.)"
+        enum:
+        - "petrol"
+        - "diesel"
+        - "natural gas"
+        - "liquid gas"
+        - "hydrogen"
+        - "ethanol"
+        - "electricity"
+        - "other"
+      fuel_consumption:
+        type: "number"
+        description: "The official fuel (or energy) consumption of this car, as provided\
+          \ by the manufacturer."
+      fuel_consumption_unit:
+        type: "string"
+        enum:
+        - "l / 100 km"
+        - "mpg"
+        - "kWh / 100 km"
+      energy_capacity:
+        type: "number"
+        description: "The capacity of the fuel tank (resp. the battery in case of\
+          \ an electric vehicle.)"
+      energy_capacity_unit:
+        type: "string"
+        enum:
+        - "l"
+        - "kg"
+        - "kWh"
+      energy_capacity_2:
+        type: "number"
+        description: "The capacity of the second fuel tank. (Only applicable to hybrid\
+          \ engines.)"
+      energy_capacity_2_unit:
+        type: "string"
+        enum:
+        - "l"
+        - "kg"
+        - "kWh"
+      transmission:
+        type: "string"
+        description: "The gearbox type."
+        enum:
+        - "manual"
+        - "sequential"
+        - "dual clutch"
+        - "direct"
+        - "cvt"
+        - "auto"
+      gears:
+        type: "integer"
+        description: "The number of gears."
+      drivetrain:
+        type: "string"
+        description: "The wheel(s) to which the engine power is transferred.\n`All\
+          \ Wheel Drive` includes `4WD`, `AWD`, `IWD` and all the other variations\
+          \ that are on the market."
+        enum:
+        - "FWD"
+        - "RWD"
+        - "AWD"
+      sprint_0_100:
+        type: "number"
+        description: "The acceleration time from 0 to 100 km/h, resp. 62 mph (in seconds),\
+          \ as claimed by the manufacturer"
+      topspeed:
+        type: "number"
+        description: "The maximum speed (vmax) of the car, as claimed by the manufacturer."
+      topspeed_unit:
+        type: "string"
+        enum:
+        - "km/h"
+        - "mph"
+      total_production:
+        type: "integer"
+        description: "The number of units that have been built of this car."
+        minimum: 1
+        maximum: 1000000000
+        example: 11713
+      price:
+        type: "number"
+        description: "The base price of this model when it was introduced (incl. VAT)."
+      price_unit:
+        type: "string"
+        enum:
+        - "€"
+        - "$"
+        - "£"
+        - "DM"
+        - "¥"
+    x-restlet:
+      section: "Car Model Variants"
+  Car Model:
+    type: "object"
+    required:
+    - "generation"
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+        minimum: 1
+        maximum: 1000000
+        example: 3954
+      name:
+        type: "string"
+        description: "The official name of this model, respecting upper/lower case,\
+          \ whitespaces and special characters.\n\n**Important:** The brand name is\
+          \ always omitted!"
+      generation:
+        type: "integer"
+        format: "int8"
+        description: "What generation is this model?"
+        default: 1
+        minimum: 1
+        maximum: 99
+        example: 1
+      code:
+        type: "string"
+        description: "The internal code of this model as given by the manufacturer."
+        example: "E46"
+      built_from:
+        type: "integer"
+        description: "What is the first year of production for this model?"
+        minimum: 1800
+        maximum: 2100
+        example: 1886
+      built_to:
+        type: "integer"
+        description: "What is the last year of production for this model?"
+        minimum: 1800
+        maximum: 2100
+        example: 1985
+      total_production:
+        type: "integer"
+        description: "All variations combined, how many units of this model (of this\
+          \ generation) have been produced in total?"
+        minimum: 1
+        maximum: 1000000000
+        example: 11713
+    x-restlet:
+      section: "Car Models"
+  Brand:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+      name:
+        type: "string"
+        description: "The name of the brand (e.g. `VW`).\nNot to be confused with\
+          \ the name of the company (e.g. `VW AG`). \nThe legal form is always omitted\
+          \ (no `AG`, `N.V.`, `Ltd.` or `GmbH`).\nThe official spelling is used (e.g.\
+          \ `MINI` instead of `Mini`)."
+        example: "BMW"
+      full_name:
+        type: "string"
+        description: "The long form of the brand's name (e.g. `VW` for `Volkswagen`).\n\
+          This field is only set if the name is actually abbreviated (e.g. `Porsche`\
+          \ is not.)"
+        example: "BMW -> Bayerische Motoren Werke"
+      founded:
+        type: "integer"
+        description: "The year in which the brand has been created resp. introduced\
+          \ to the market. \nThis is not necessarily the year the company was founded.\
+          \ \nE.g.: The history of `Peugeot` goes back to `1810`, but they are building\
+          \ cars only since `1891`."
+        minimum: 1800
+        maximum: 2100
+      defunct:
+        type: "integer"
+        description: "The final year the brand name was officially used (for a car)."
+        minimum: 1800
+        maximum: 2100
+      wmi:
+        type: "string"
+        description: "The WMI is a two- or three-character code that identifies the\
+          \ car manufacturer globally.\n`WMI` stands for `World Manufacturer Identifier`\
+          \ and is specified in `ISO 3780`. \nSome manufacturers have multiple WMIs,\
+          \ some have none at all.\nMultiple WMIs are separated by comma."
+      hsn:
+        type: "string"
+        description: "`HSN` stands for `Herstellerschlüsselnummer` and is the German\
+          \ counterpart of the `WMI`.\nIt's a four-digit number that identifies the\
+          \ car manufacturer globally. \nSome manufacturers have multiple HSNs, some\
+          \ have none at all.\nMultiple HSNs are separated by comma."
+        minLength: 4
+        maxLength: 4
+        pattern: "[0-9][0-9][0-9][0-9]"
+    x-restlet:
+      section: "Brands"
+  Company:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+      name:
+        type: "string"
+    x-restlet:
+      section: "Companies"
+  Car Magazine:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+      name:
+        type: "string"
+      founded:
+        type: "integer"
+      defunct:
+        type: "integer"
+      focus:
+        type: "string"
+      issues_per_year:
+        type: "integer"
+      single_copy_price:
+        type: "string"
+      primary_distribution:
+        type: "string"
+        enum:
+        - "print"
+        - "online"
+      circulation:
+        type: "integer"
+      publisher:
+        type: "string"
+      issn:
+        type: "string"
+    x-restlet:
+      section: "Car Magazines"
+  Car Magazine Issue:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+      name:
+        type: "string"
+        description: "The title of this issue or - if not available - the main topic."
+      issue:
+        type: "integer"
+        description: "The issue's number as is printed on the cover. E.g. '9' for\
+          \ the September issue or '483' if the magazine is using consecutive numbering."
+      year:
+        type: "integer"
+        description: "The year that is printed on the cover. It might vary from the\
+          \ release date, e.g. issue '1/2010' could already been released in December\
+          \ of 2009."
+        minimum: 1800
+        maximum: 2100
+      release_date:
+        type: "string"
+        format: "date"
+        description: "The official release date of the print version of this issue."
+      single_copy_price:
+        type: "number"
+        format: "double"
+        description: "The price for this issue on the domestic market, as printed\
+          \ on the cover. Incl. VAT."
+      pages:
+        type: "integer"
+        description: "Number of pages. Including cover and flipside. Excluding booklets\
+          \ and flyers."
+    x-restlet:
+      section: "Car Magazine Issues"
+  Car Programme:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+      name:
+        type: "string"
+        description: "Title of the programme. Use the official spelling, e.g 'Top\
+          \ Gear' insted of 'TopGear' or 'GRIP' instead of 'Grip'."
+      aired_from:
+        type: "integer"
+        description: "First year the programme was on air."
+      aired_to:
+        type: "integer"
+        description: "Final year of the programme."
+      channel:
+        type: "string"
+        description: "On which channel does/did the programme run? Can be a classic\
+          \ TV station or an online channel."
+      seasons:
+        type: "integer"
+        description: "Number of seasons until today."
+      episodes:
+        type: "integer"
+        description: "Total number of episodes across all seasons until today, including\
+          \ specials."
+      running_time:
+        type: "integer"
+        description: "Regular length of one episode (in minutes). If it changed over\
+          \ time use the running time of the newest season."
+    x-restlet:
+      section: "Car Programmes"
+  Car Programme Episode:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+      name:
+        type: "string"
+    x-restlet:
+      section: "Car Programme Episodes"
+  Country:
+    type: "object"
+    x-restlet:
+      section: "Countries"
+  Racing Game:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+        minimum: 1
+        maximum: 1000000
+        example: 3954
+      name:
+        type: "string"
+        description: "The official name of this racing game."
+        example: "Need for Speed"
+      release_year:
+        type: "integer"
+        description: "The year this game was released."
+        minimum: 1900
+        maximum: 2100
+        example: 1986
+      developer:
+        type: "string"
+        description: "The name of the developer of this game."
+        example: "Kunos Simulazioni"
+      publisher:
+        type: "string"
+        description: "The name of the publisher of this game."
+        example: "Kunos Simulazioni"
+    x-restlet:
+      section: "Racing Games"
+  Gaming Platform:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+        minimum: 1
+        maximum: 1000000
+        example: 3954
+      name:
+        type: "string"
+        description: "The official name of gaming platform."
+        example: "Xbox One"
+      release_year:
+        type: "integer"
+    x-restlet:
+      section: "Gaming Platforms"
+  Image:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+      name:
+        type: "string"
+        description: "The name or title of this image."
+      image_platform:
+        type: "string"
+        description: "The provider that is hosting the image.\nWhen selecting `Flickr`\
+          \ or `Wikimedia` ONLY the ID field needs to be filled. \nAll the other information\
+          \ will be gathered automatically."
+      image_id:
+        type: "string"
+        description: "The ID resp. the name of the image, depending on the image platform.\
+          \ \nFlickr uses numbers, like `43644091312`.\nWikimedia uses a URL friendly\
+          \ version of the name of the image, like `File:BMW_Z4_Concept.jpg`."
+      source:
+        type: "string"
+        description: "The internet address of the image."
+      origin:
+        type: "string"
+        description: "A page where licensing and additional information about the\
+          \ photo can be found."
+      author:
+        type: "string"
+        description: "The name of the photographer or the rights holder of the image."
+      license:
+        type: "string"
+        description: "The image MUST be licensed under Creative Commons \"CC0\", \"\
+          CC BY\", \"CC BY-SA\" or \"CC BY-ND\". \nONLY when there is absolutely no\
+          \ CC image available, official press photos are tolerated temporarily. \n\
+          Images without proper license will be visible to logged-in users only and\
+          \ might be deleted anytime."
+      description:
+        type: "string"
+        description: "A short description of what can be seen on the photo, \nwhere\
+          \ it was taken,\nwhen it was taken."
+      tags:
+        type: "string"
+        description: "A comma-separated list of keywords describing the picture."
+    x-restlet:
+      section: "Images"
+  Online Article:
+    type: "object"
+    required:
+    - "id"
+    - "title"
+    - "url"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+      title:
+        type: "string"
+        description: "The headline of this article."
+      description:
+        type: "string"
+        description: "Characterization of the article (Car review? News flash? Interview?\
+          \ Race report?) or an excerpt or a quote."
+      author:
+        type: "string"
+        description: "The creator of the article."
+      publish_date:
+        type: "string"
+        format: "date"
+        description: "The date when the article was published. Format is `YYYY-MM-DD`."
+        example: "2016-04-12"
+      url:
+        type: "string"
+        description: "Where can the article be found on the internet?"
+    description: "An online article dealing with a car model or a brand or anything\
+      \ car related. Can be a review, a group test, a discussion, a discourse etc. "
+    x-restlet:
+      section: "Online Articles"
+  Video:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+    x-restlet:
+      section: "Videos"
+x-restlet:
+  sections:
+    Car Model Variants:
+      description: "Most car models are produced in multiple variants (or versions\
+        \ or variations). \nThe difference can be in the engine type (gasoline, diesel,\
+        \ electric, hybrid), size or configuration (2 litre I4, 5 litre V8),\nthe\
+        \ transmission (manual, dual clutch, automatic),\nthe drivetrain (FWD, RWD,\
+        \ AWD),\nthe body style (sedan, coupe, cabrio)\nor any combination.\n\nThe\
+        \ variant can be a regular, street-legal vehicle, a prototype, a concept car\
+        \ or even a race car - as long as there exists at least one unit in real life.\n\
+        # Relationships\n## **Car Models**\n* Each `Car Model Variant` belongs to\
+        \ exactly one `Car Model`. (1:1)\n* Each `Car Model` can have one or many\
+        \ `Car Model Variants`. (1:n)\n\n## **Images**\n* Each `Car Model Variant`\
+        \ can have multiple `Images`. (1:n)\n* Each `Image` can belong to one or many\
+        \ `Car Model Variants`. (1:n)\n* Images should show the car in a total or\
+        \ as a close-up.\n* Images should not show the car in a group of cars.\n*\
+        \ The car should not be blocked by objects or people.\n* The main image should\
+        \ show the car from a rear-side angle."
+    Car Models:
+      description: "A car model represents the whole generation of a vehicle. Within\
+        \ that generation multiple variants can be produced, like a coupes and cabriolets,\
+        \ gasoline and diesel or manual and automatic variants.\n# Relationships\n\
+        ## **Car Model Variants**\n* Each `Car Model` can have one or many `Car Model\
+        \ Variants`. (1:n)\n* Each `Car Model Variant` belongs to exactly one `Car\
+        \ Model`. (1:1)\n\n## **Images**\n* Each `Car Model` can have multiple `Images`.\
+        \ (1:n)\n* Each `Image` can belong to one or many `Car Model`. (1:n)\n* Images\
+        \ should show the car in a total or as a close-up.\n* The car should not be\
+        \ blocked by objects or people.\n* The main image should show the car from\
+        \ a front-side angle."
+    Brands: {}
+    Companies: {}
+    Car Magazines: {}
+    Car Magazine Issues: {}
+    Car Programmes: {}
+    Car Programme Episodes: {}
+    Countries: {}
+    Racing Games:
+      description: "Racing games include all video games where the main activity is\
+        \ to race or have some kind of competition with cars. There is only one restriction.\
+        \ The featured vehicles `MUST` all be `officially licensed`. So, games like\
+        \ GTA cannot be added to the database, even if all the cars there are inspired\
+        \ by real ones. The games can be arcade style or simulation heavy or anything\
+        \ between. There is no restriction regarding the era. The most current Gran\
+        \ Turismo is as admissible as an Out Run from 1986. Same goes for the platform.\
+        \ PC, PlayStation, NES, C64 or an old Arcade cabinet - all of them are admissible.\
+        \ \n\nDLCs (and other forms of add-ons) are not listed as separate entries.\
+        \ They are treated as if they were part of the original game. So, any additional\
+        \ content (vehicles, race tracks) is added to that original game.\n# Relationships\n\
+        ## **Car Model Variations**\n* Each `Racing Game` can feature one or many\
+        \ `Car Model Variations`. (1:n)\n* Each `Car Model Variation` can be featured\
+        \ in many `Racing Games`. (1:n)\n\n## **Gaming Platforms**\n* Each `Racing\
+        \ Game` can be published on multiple `Gaming Platforms`. (1:n)\n* Each `Gaming\
+        \ Platform` can have multiple `Racing Games` published. (1:n)"
+    Gaming Platforms: {}
+    Images:
+      description: "Images are photos or illustrations of cars or car related objects.\
+        \ Here at More Cars this can be images of car models, brand logos, car magazine\
+        \ covers, model cars, race tracks and so on.\n\nImages can be attached to\
+        \ all information types (car models, brands, racing games, countries, etc.).\
+        \ There is no limitation to the count.\n\n## **Quality**\nImages don't need\
+        \ to be of professional high quality, but they should have at least a decent\
+        \ quality. Meaning: sharp, at least 640x480 resolution, motive clearly visible.\n\
+        \n## **Copyright / Licensing**\nCopyright laws and regulations are quite tricky\
+        \ and on top very different in every country. Because More Cars is based in\
+        \ Germany, German (resp. EU law) law will be applied. The first consequence\
+        \ is that there is no option to add photos under fair-use condition. Because\
+        \ there is no such rule (or equivalent) here. So adding commercial photos\
+        \ in low resolution would be allowed in the USA, but here it is still a copyright\
+        \ infringement.\n\nTo avoid any potential legal trouble More Cars only allows\
+        \ images that are licensed under [Creative Commons](https://creativecommons.org/licenses/)\
+        \ terms. To be precise, only\n[CC BY](https://creativecommons.org/licenses/by/2.0/),\n\
+        [CC BY-SA](https://creativecommons.org/licenses/by-sa/2.0/),\n[CC-BY-ND](https://creativecommons.org/licenses/by-nd/2.0/)\n\
+        and\n[CC0](https://creativecommons.org/publicdomain/zero/1.0/)\nare allowed.\n\
+        ## **Hosting**\nMore Cars does not host any of the images found here. They\
+        \ are all hot-linked and primarily come from image hosting services like Flickr\
+        \ or Wikimedia."
+    Online Articles: {}
+    Videos: {}
