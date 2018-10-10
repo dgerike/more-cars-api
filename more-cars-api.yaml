@@ -7,7 +7,7 @@ info:
     \ and can be used by everyone, for any purpose, for free.\n\nThis API is the counterpart\
     \ of the More Cars website https://more-cars.net/. All the information found there\
     \ can be accessed via this REST API."
-  version: "0.0.2-alpha"
+  version: "0.1.0-alpha"
   title: "More Cars API"
   termsOfService: ""
   contact:
@@ -25,12 +25,6 @@ consumes:
 produces:
 - "application/json"
 paths:
-  /stats:
-    get:
-      parameters: []
-      responses:
-        200:
-          description: "Status 200"
   /car-model-variants:
     get:
       description: "Returns a collection of all `Car Model Variants` that are stored\
@@ -1555,8 +1549,233 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Image"
-            minItems: 1
-            maxItems: 50
+            minItems: 0
+            maxItems: 24
+  /images/{image_id}:
+    get:
+      description: "Returns an `Image` specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Image"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/car-model-variants:
+    get:
+      description: "Returns all `Car Model Variants` that have the specified `Image`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/car-models:
+    get:
+      description: "Returns all `Car Model Variants` that have the specified `Image`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/brands:
+    get:
+      description: "Returns all `Brands` that have the specified `Image` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Brand"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/companies:
+    get:
+      description: "Returns all `Companies` that have the specified `Image` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Company"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/car-magazines:
+    get:
+      description: "Returns all `Car Magazines` that have the specified `Image` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Magazine"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/car-magazine-issues:
+    get:
+      description: "Returns all `Car Magazine Issues` that have the specified `Image`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Magazine Issue"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/car-programmes:
+    get:
+      description: "Returns all `Car Programmes` that have the specified `Image` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Programme"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/car-programme-episodes:
+    get:
+      description: "Returns all `Car Programme Episodes` that have the specified `Image`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Programme Episode"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/racing-games:
+    get:
+      description: "Returns all `Racing Games` that have the specified `Image` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Game"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/gaming-platforms:
+    get:
+      description: "Returns all `Gaming Platforms` that have the specified `Image`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Gaming Platform"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/countries:
+    get:
+      description: "Returns all `Countries` that have the specified `Image` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Country"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
   /online-articles:
     get:
       summary: "Get Collection of Online Articles"
@@ -2139,7 +2358,7 @@ definitions:
           \ the system and cannot be altered."
       name:
         type: "string"
-        description: "The name or title of this image."
+        description: "The name resp. title of this image."
       image_platform:
         type: "string"
         description: "The provider that is hosting the image.\nWhen selecting `Flickr`\
@@ -2152,14 +2371,15 @@ definitions:
           \ version of the name of the image, like `File:BMW_Z4_Concept.jpg`."
       source:
         type: "string"
-        description: "The internet address of the image."
+        description: "The internet address of the image file."
       origin:
         type: "string"
-        description: "A page where licensing and additional information about the\
-          \ photo can be found."
+        description: "A description page where additional information about the photo\
+          \ can be found. Like licensing details, author, camera model etc."
       author:
         type: "string"
-        description: "The name of the photographer or the rights holder of the image."
+        description: "The name of the photographer resp. the rights holder of the\
+          \ image."
       license:
         type: "string"
         description: "The image MUST be licensed under Creative Commons \"CC0\", \"\
