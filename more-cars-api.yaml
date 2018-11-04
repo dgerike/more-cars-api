@@ -7,7 +7,7 @@ info:
     \ and can be used by everyone, for any purpose, for free.\n\nThis API is the counterpart\
     \ of the More Cars website https://more-cars.net/. All the information found there\
     \ can be accessed via this REST API."
-  version: "0.1.0-alpha"
+  version: "0.2.0-alpha"
   title: "More Cars API"
   termsOfService: ""
   contact:
@@ -25,6 +25,163 @@ consumes:
 produces:
 - "application/json"
 paths:
+  /car-models:
+    get:
+      description: "Returns a collection of all `Car Models` that are stored in the\
+        \ More Cars database."
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model"
+            minItems: 1
+            maxItems: 50
+  /car-models/{car_model_id}:
+    get:
+      description: "Returns a `Car Model` specified by its ID."
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Model"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "integer"
+      x-example: 1019
+  /car-models/{car_model_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Car Model`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "string"
+  /car-models/{car_model_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Car Model`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "string"
+  /car-models/{car_model_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Car Model`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "string"
+  /car-models/{car_model_id}/car-model-variants:
+    get:
+      description: "Returns all `Car Model Variants` that exist of the specified `Car\
+        \ Model`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "string"
+  /car-models/{car_model_id}/car-magazine-issues:
+    get:
+      description: "Returns all `Car Magazine Issues` that have featured the specified\
+        \ `Car Model`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Magazine Issue"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "string"
+  /car-models/{car_model_id}/car-programme-episodes:
+    get:
+      description: "Returns all `Car Programme Episodes` in which the specified `Car\
+        \ Model` has been presented."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Programme Episode"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "car_model_id"
+      in: "path"
+      required: true
+      type: "string"
   /car-model-variants:
     get:
       description: "Returns a collection of all `Car Model Variants` that are stored\
@@ -181,163 +338,6 @@ paths:
           description: "Status 404"
     parameters:
     - name: "car_model_variant_id"
-      in: "path"
-      required: true
-      type: "string"
-  /car-models:
-    get:
-      description: "Returns a collection of all `Car Models` that are stored in the\
-        \ More Cars database."
-      produces:
-      - "application/json"
-      parameters: []
-      responses:
-        200:
-          description: "Status 200"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Car Model"
-            minItems: 1
-            maxItems: 50
-  /car-models/{car_model_id}:
-    get:
-      description: "Returns a `Car Model` specified by its ID."
-      produces:
-      - "application/json"
-      parameters: []
-      responses:
-        200:
-          description: "Status 200"
-          schema:
-            $ref: "#/definitions/Car Model"
-        404:
-          description: "Status 404"
-    parameters:
-    - name: "car_model_id"
-      in: "path"
-      required: true
-      type: "integer"
-      x-example: 1019
-  /car-models/{car_model_id}/images:
-    get:
-      description: "Returns all `Images` that are attached to the specified `Car Model`."
-      parameters: []
-      responses:
-        200:
-          description: "Status 200"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Image"
-            minItems: 0
-            maxItems: 24
-        404:
-          description: "Status 404"
-    parameters:
-    - name: "car_model_id"
-      in: "path"
-      required: true
-      type: "string"
-  /car-models/{car_model_id}/online-articles:
-    get:
-      description: "Returns all `Online Articles` that are attached to the specified\
-        \ `Car Model`."
-      parameters: []
-      responses:
-        200:
-          description: "Status 200"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Online Article"
-            minItems: 0
-            maxItems: 24
-        404:
-          description: "Status 404"
-    parameters:
-    - name: "car_model_id"
-      in: "path"
-      required: true
-      type: "string"
-  /car-models/{car_model_id}/videos:
-    get:
-      description: "Returns all `Videos` that are attached to the specified `Car Model`."
-      parameters: []
-      responses:
-        200:
-          description: "Status 200"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Video"
-            minItems: 0
-            maxItems: 24
-        404:
-          description: "Status 404"
-    parameters:
-    - name: "car_model_id"
-      in: "path"
-      required: true
-      type: "string"
-  /car-models/{car_model_id}/car-model-variants:
-    get:
-      description: "Returns all `Car Model Variants` that exist of the specified `Car\
-        \ Model`."
-      parameters: []
-      responses:
-        200:
-          description: "Status 200"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Car Model Variant"
-        404:
-          description: "Status 404"
-    parameters:
-    - name: "car_model_id"
-      in: "path"
-      required: true
-      type: "string"
-  /car-models/{car_model_id}/car-magazine-issues:
-    get:
-      description: "Returns all `Car Magazine Issues` that have featured the specified\
-        \ `Car Model`."
-      parameters: []
-      responses:
-        200:
-          description: "Status 200"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Car Magazine Issue"
-            minItems: 0
-            maxItems: 24
-        404:
-          description: "Status 404"
-    parameters:
-    - name: "car_model_id"
-      in: "path"
-      required: true
-      type: "string"
-  /car-models/{car_model_id}/car-programme-episodes:
-    get:
-      description: "Returns all `Car Programme Episodes` in which the specified `Car\
-        \ Model` has been presented."
-      parameters: []
-      responses:
-        200:
-          description: "Status 200"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Car Programme Episode"
-            minItems: 0
-            maxItems: 24
-        404:
-          description: "Status 404"
-    parameters:
-    - name: "car_model_id"
       in: "path"
       required: true
       type: "string"
@@ -1288,6 +1288,796 @@ paths:
       in: "path"
       required: true
       type: "integer"
+  /racing-series:
+    get:
+      description: "Returns a collection of all `Racing Series` that are stored in\
+        \ the More Cars database."
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Series"
+            minItems: 1
+            maxItems: 50
+  /racing-series/{racing_series_id}:
+    get:
+      description: "Returns a `Racing Series`, specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Racing Series"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_series_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /racing-series/{racing_series_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Racing\
+        \ Series`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_series_id"
+      in: "path"
+      required: true
+      type: "string"
+  /racing-series/{racing_series_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Racing Series`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_series_id"
+      in: "path"
+      required: true
+      type: "string"
+  /racing-series/{racing_series_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Racing\
+        \ Series`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_series_id"
+      in: "path"
+      required: true
+      type: "string"
+  /racing-series/{racing_series_id}/racing-events:
+    get:
+      description: "Returns all `Racing Events` that took place in the specified `Racing\
+        \ Series`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Event"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_series_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /racing-series/{racing_series_id}/country:
+    get:
+      description: "Returns the `Country` (market) the specified `Racing Series` is\
+        \ made for."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Event"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_series_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /racing-events:
+    get:
+      description: "Returns a collection of all `Racing Series` that are stored in\
+        \ the More Cars database."
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Series"
+            minItems: 1
+            maxItems: 50
+  /racing-events/{racing_event_id}:
+    get:
+      description: "Returns a `Racing Series`, specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Racing Series"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_event_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /racing-events/{racing_event_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Racing\
+        \ Series`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_event_id"
+      in: "path"
+      required: true
+      type: "string"
+  /racing-events/{racing_event_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Racing Series`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_event_id"
+      in: "path"
+      required: true
+      type: "string"
+  /racing-events/{racing_event_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Racing\
+        \ Series`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_event_id"
+      in: "path"
+      required: true
+      type: "string"
+  /racing-events/{racing_event_id}/racing-series:
+    get:
+      description: "Returns all `Racing Events` that took place in the specified `Racing\
+        \ Series`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Event"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_event_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /racing-events/{racing_event_id}/race-track-variant:
+    get:
+      description: "Returns the `Race Track Variant` at which the specified `Racing\
+        \ Event` took place."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Event"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_event_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /racing-events/{racing_event_id}/racing-event-sessions:
+    get:
+      description: "Returns the `Race Track Variant` at which the specified `Racing\
+        \ Event` took place."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Event"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_event_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /racing-event-sessions:
+    get:
+      description: "Returns a collection of all `Racing Event Sessions` that are stored\
+        \ in the More Cars database."
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Event Session"
+            minItems: 1
+            maxItems: 50
+  /racing-event-sessions/{racing_event_session_id}:
+    get:
+      description: "Returns a `Racing Event Session`, specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Racing Event Session"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_event_session_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /racing-event-sessions/{racing_event_session_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Racing\
+        \ Event Session`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_event_session_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /racing-event-sessions/{racing_event_session_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Racing Event Session`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_event_session_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /racing-event-sessions/{racing_event_session_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Racing\
+        \ Event Session`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_event_session_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /racing-event-sessions/{racing_event_session_id}/racing-event:
+    get:
+      description: "Returns the `Racing Event` the specified `Racing Event Session`\
+        \ belongs to."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Racing Event"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_event_session_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /racing-event-sessions/{racing_event_session_id}/race-results:
+    get:
+      description: "Returns all `Race Results` for the specified `Racing Event Session`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Result"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_event_session_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-results:
+    get:
+      description: "Returns a collection of all `Race Results` that are stored in\
+        \ the More Cars database."
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Result"
+            minItems: 1
+            maxItems: 50
+  /race-results/{race_result_id}:
+    get:
+      description: "Returns a `Race Result`, specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Race Result"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_result_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-results/{race_result_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Race\
+        \ Result`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_result_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-results/{race_result_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Race Result`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_result_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-results/{race_result_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Race\
+        \ Result`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_result_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-results/{race_result_id}/racing-event-session:
+    get:
+      description: "Returns the `Racing Event Session` the specified `Race Result`\
+        \ belongs to."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Racing Event Session"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_result_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-tracks:
+    get:
+      description: "Returns a collection of all `Race Tracks` that are stored in the\
+        \ More Cars database."
+      produces:
+      - "application/json"
+      parameters:
+      - name: "page"
+        in: "query"
+        required: false
+        type: "integer"
+        description: "pagination parameter"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Track"
+            minItems: 0
+            maxItems: 24
+  /race-tracks/{race_track_id}:
+    get:
+      description: "Returns a `Race  Track`, specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Race Track"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_track_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-tracks/{race_track_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Race\
+        \ Track`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_track_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-tracks/{race_track_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Race Track`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_track_id"
+      in: "path"
+      required: true
+      type: "string"
+  /race-tracks/{race_track_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Race\
+        \ Track`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_track_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-tracks/{race_track_id}/race-track-variants:
+    get:
+      description: "Returns all `Race Track Variants` that exist of the specified\
+        \ `Race Track`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Track Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_track_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-tracks/{race_track_id}/country:
+    get:
+      description: "Returns the `Country` in which the specified `Race Track` is located."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Country"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_track_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-track-variants:
+    get:
+      description: "Returns a collection of all `Race Track Variants` that are stored\
+        \ in the More Cars database."
+      produces:
+      - "application/json"
+      parameters:
+      - name: "page"
+        in: "query"
+        required: false
+        type: "integer"
+        description: "pagination parameter"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Track Variant"
+            minItems: 0
+            maxItems: 24
+  /race-track-variants/{race_track_variant_id}:
+    get:
+      description: "Returns a `Race  Track Variant`, specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Race Track Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_track_variant_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-track-variants/{race_track_variant_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Race\
+        \ Track Variant`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_track_variant_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-track-variants/{race_track_variant_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Race Track Variant`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_track_variant_id"
+      in: "path"
+      required: true
+      type: "string"
+  /race-track-variants/{race_track_variant_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Race\
+        \ Track Variant`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_track_variant_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-track-variants/{race_track_variant_id}/race-track:
+    get:
+      description: "Returns the `Race Track` the specified `Race Track Variant` belongs\
+        \ to."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Race Track"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_track_variant_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /race-track-variants/{race_track_variant_id}/racing-events:
+    get:
+      description: "Returns all `Racing Events` that took place at the specified `Race\
+        \ Track Variant`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Event"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "race_track_variant_id"
+      in: "path"
+      required: true
+      type: "string"
   /racing-games:
     get:
       description: "Returns a collection of all `Racing Games` that are stored in\
@@ -1311,51 +2101,13 @@ paths:
             maxItems: 24
   /racing-games/{racing_game_id}:
     get:
-      description: "Returns a `Racing Game` specified by its ID"
+      description: "Returns a `Racing Game`, specified by its ID"
       parameters: []
       responses:
         200:
           description: "Status 200"
           schema:
             $ref: "#/definitions/Racing Game"
-        404:
-          description: "Status 404"
-    parameters:
-    - name: "racing_game_id"
-      in: "path"
-      required: true
-      type: "integer"
-  /racing-games/{racing_game_id}/car-model-variants:
-    get:
-      description: "Returns all `Car Model Variants` that are represented in the specified\
-        \ `Racing Game`."
-      parameters: []
-      responses:
-        200:
-          description: "Status 200"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Car Model Variant"
-        404:
-          description: "Status 404"
-    parameters:
-    - name: "racing_game_id"
-      in: "path"
-      required: true
-      type: "integer"
-  /racing-games/{racing_game_id}/gaming-platforms:
-    get:
-      description: "Returns all `Gaming Platforms` the specified `Racing Game` is\
-        \ available for."
-      parameters: []
-      responses:
-        200:
-          description: "Status 200"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Gaming Platform"
         404:
           description: "Status 404"
     parameters:
@@ -1422,6 +2174,44 @@ paths:
       in: "path"
       required: true
       type: "integer"
+  /racing-games/{racing_game_id}/car-model-variants:
+    get:
+      description: "Returns all `Car Model Variants` that are represented in the specified\
+        \ `Racing Game`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_game_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /racing-games/{racing_game_id}/gaming-platforms:
+    get:
+      description: "Returns all `Gaming Platforms` the specified `Racing Game` is\
+        \ available for."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Gaming Platform"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "racing_game_id"
+      in: "path"
+      required: true
+      type: "integer"
   /gaming-platforms:
     get:
       description: "Returns a collection of all `Gaming Platforms` that are stored\
@@ -1440,7 +2230,7 @@ paths:
             maxItems: 50
   /gaming-platforms/{gaming_platform_id}:
     get:
-      description: "Returns a `Gaming Platform` specified by its ID."
+      description: "Returns a `Gaming Platform`, specified by its ID."
       parameters: []
       responses:
         200:
@@ -1498,7 +2288,8 @@ paths:
       type: "string"
   /gaming-platforms/{gaming_platform_id}/videos:
     get:
-      description: "Returns all `Videos` that are attached to the specified `Company`."
+      description: "Returns all `Videos` that are attached to the specified `Gaming\
+        \ Platform`."
       parameters: []
       responses:
         200:
@@ -1535,6 +2326,147 @@ paths:
       in: "path"
       required: true
       type: "integer"
+  /countries:
+    get:
+      description: "Returns a collection of all `Countries` that are stored in the\
+        \ More Cars database."
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Country"
+            minItems: 0
+            maxItems: 24
+  /countries/{country_id}:
+    get:
+      description: "Returns a `Country`, specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Country"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "country_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /countries/{country_id}/brands:
+    get:
+      description: "Returns all `Brands` that are from the specified `Country`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Brand"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "country_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /countries/{country_id}/companies:
+    get:
+      description: "Returns all `Companies` that are located in the specified `Country`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Company"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "country_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /countries/{country_id}/car-magazines:
+    get:
+      description: "vReturns all `Car Magazines` that are from the specified `Country`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Magazine"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "country_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /countries/{country_id}/car-programmes:
+    get:
+      description: "Returns all `Car Programmes` that are from the specified `Country`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Programme"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "country_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /countries/{country_id}/racing-series:
+    get:
+      description: "Returns all `Racing Series` which have the specified `Country`\
+        \ as targeted market."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Series"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "country_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /countries/{country_id}/race-tracks:
+    get:
+      description: "Returns all `Race Tracks` that are located in the specified `Country`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Track"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "country_id"
+      in: "path"
+      required: true
+      type: "integer"
   /images:
     get:
       description: "Returns a collection of all `Images` that are stored in the More\
@@ -1553,13 +2485,32 @@ paths:
             maxItems: 24
   /images/{image_id}:
     get:
-      description: "Returns an `Image` specified by its ID."
+      description: "Returns an `Image`, specified by its ID."
       parameters: []
       responses:
         200:
           description: "Status 200"
           schema:
             $ref: "#/definitions/Image"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/car-models:
+    get:
+      description: "Returns all `Car Models` that have the specified `Image` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model"
         404:
           description: "Status 404"
     parameters:
@@ -1579,25 +2530,6 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Car Model Variant"
-        404:
-          description: "Status 404"
-    parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
-  /images/{image_id}/car-models:
-    get:
-      description: "Returns all `Car Model Variants` that have the specified `Image`\
-        \ attached to it."
-      parameters: []
-      responses:
-        200:
-          description: "Status 200"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Car Model"
         404:
           description: "Status 404"
     parameters:
@@ -1719,6 +2651,139 @@ paths:
       in: "path"
       required: true
       type: "integer"
+  /images/{image_id}/countries:
+    get:
+      description: "Returns all `Countries` that have the specified `Image` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Country"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/racing-series:
+    get:
+      description: "Returns all `Racing Series` that have the specified `Image` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Series"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/racing-events:
+    get:
+      description: "Returns all `Racing Events` that have the specified `Image` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Event"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/racing-event-sessions:
+    get:
+      description: "Returns all `Racing Event Sessions` that have the specified `Image`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Event Session"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/race-results:
+    get:
+      description: "Returns all `Race Results` that have the specified `Image` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Result"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/race-tracks:
+    get:
+      description: "Returns all `Race Tracks` that have the specified `Image` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Track"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /images/{image_id}/race-track-variants:
+    get:
+      description: "Returns all `Race Track Variants` that have the specified `Image`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Track Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "image_id"
+      in: "path"
+      required: true
+      type: "integer"
   /images/{image_id}/racing-games:
     get:
       description: "Returns all `Racing Games` that have the specified `Image` attached\
@@ -1757,28 +2822,10 @@ paths:
       in: "path"
       required: true
       type: "integer"
-  /images/{image_id}/countries:
-    get:
-      description: "Returns all `Countries` that have the specified `Image` attached\
-        \ to it."
-      parameters: []
-      responses:
-        200:
-          description: "Status 200"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Country"
-        404:
-          description: "Status 404"
-    parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
   /online-articles:
     get:
-      summary: "Get Collection of Online Articles"
+      description: "Returns a collection of all `Online Articles` that are stored\
+        \ in the More Cars database."
       parameters: []
       responses:
         200:
@@ -1791,7 +2838,7 @@ paths:
             maxItems: 50
   /online-articles/{online_article_id}:
     get:
-      summary: "Get Online Article by ID"
+      description: "Returns an `Online Article`, specified by its ID."
       parameters: []
       responses:
         200:
@@ -1804,7 +2851,311 @@ paths:
     - name: "online_article_id"
       in: "path"
       required: true
-      type: "string"
+      type: "integer"
+  /online-articles/{online_article_id}/car-models:
+    get:
+      description: "Returns all `Car Models` that have the specified `Online Article`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/car-model-variants:
+    get:
+      description: "Returns all `Car Model Variants` that have the specified `Online\
+        \ Article` attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/brands:
+    get:
+      description: "Returns all `Brands` that have the specified `Online Article`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Brand"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/companies:
+    get:
+      description: "Returns all `Companies` that have the specified `Online Article`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Company"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/car-magazines:
+    get:
+      description: "Returns all `Car Magazines` that have the specified `Online Article`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Magazine"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/car-magazine-issues:
+    get:
+      description: "Returns all `Car Magazine Issues` that have the specified `Online\
+        \ Article` attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Magazine Issue"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/car-programmes:
+    get:
+      description: "Returns all `Car Programmes` that have the specified `Online Article`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Programme"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/car-programme-episodes:
+    get:
+      description: "Returns all `Car Programme Episodes` that have the specified `Online\
+        \ Article` attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Programme Episode"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/countries:
+    get:
+      description: "Returns all `Countries` that have the specified `Online Article`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Country"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/racing-series:
+    get:
+      description: "Returns all `Racing Series` that have the specified `Online Article`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Series"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/racing-event-sessions:
+    get:
+      description: "Returns all `Racing Event Sessions` that have the specified `Online\
+        \ Article` attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Event Session"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/race-results:
+    get:
+      description: "Returns all `Race Results` that have the specified `Online Article`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Result"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/race-tracks:
+    get:
+      description: "Returns all `Race Tracks` that have the specified `Online Article`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Track"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/race-track-variants:
+    get:
+      description: "Returns all `Race Track Variants` that have the specified `Online\
+        \ Article` attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Track Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/racing-games:
+    get:
+      description: "Returns all `Racing Games` that have the specified `Online Article`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Game"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /online-articles/{online_article_id}/gaming-platforms:
+    get:
+      description: "Returns all `Gaming Platforms` that have the specified `Online\
+        \ Article` attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Gaming Platform"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "online_article_id"
+      in: "path"
+      required: true
+      type: "integer"
   /videos:
     get:
       description: "Returns a collection of all `Videos` that are stored in the More\
@@ -1821,7 +3172,396 @@ paths:
               $ref: "#/definitions/Video"
             minItems: 1
             maxItems: 50
+  /videos/{video_id}:
+    get:
+      description: "Returns a `Video`, specified by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Video"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/car-models:
+    get:
+      description: "Returns all `Car Models` that have the specified `Video` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/car-model-variants:
+    get:
+      description: "Returns all `Car Model Variants` that have the specified `Video`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Model Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/brands:
+    get:
+      description: "Returns all `Brands` that have the specified `Video` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Brand"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/companies:
+    get:
+      description: "Returns all `Companies` that have the specified `Video` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Company"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/car-magazines:
+    get:
+      description: "Returns all `Car Magazines` that have the specified `Video` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Magazine"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/car-magazine-issues:
+    get:
+      description: "Returns all `Car Magazine Issues` that have the specified `Video`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Magazine Issue"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/car-programmes:
+    get:
+      description: "Returns all `Car Programmes` that have the specified `Video` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Programme"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/car-programme-episodes:
+    get:
+      description: "Returns all `Car Programme Episodes` that have the specified `Video`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Car Programme Episode"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/countries:
+    get:
+      description: "Returns all `Countries` that have the specified `Video` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Country"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/racing-series:
+    get:
+      description: "Returns all `Racing Series` that have the specified `Video` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Series"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/racing-events:
+    get:
+      description: "Returns all `Racing Events` that have the specified `Video` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Event"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/racing-event-sessions:
+    get:
+      description: "Returns all `Racing Event Sessions` that have the specified `Video`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Event Session"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/race-results:
+    get:
+      description: "Returns all `Race Results` that have the specified `Video` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Result"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/race-tracks:
+    get:
+      description: "Returns all `Race Tracks` that have the specified `Video` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Track"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/race-track-variants:
+    get:
+      description: "Returns all `Race Track Variants` that have the specified `Video`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Race Track Variant"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/racing-games:
+    get:
+      description: "Returns all `Racing Games` that have the specified `Video` attached\
+        \ to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Game"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
+  /videos/{video_id}/gaming-platforms:
+    get:
+      description: "Returns all `Gaming Platforms` that have the specified `Video`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Gaming Platform"
+        404:
+          description: "Status 404"
+    parameters:
+    - name: "video_id"
+      in: "path"
+      required: true
+      type: "integer"
 definitions:
+  Car Model:
+    type: "object"
+    required:
+    - "generation"
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+        minimum: 1
+        maximum: 1000000
+        example: 3954
+      name:
+        type: "string"
+        description: "The official name of this model, respecting upper/lower case,\
+          \ whitespaces and special characters.\n\n**Important:** The brand name is\
+          \ always omitted!"
+      generation:
+        type: "integer"
+        format: "int8"
+        description: "What generation is this model?"
+        default: 1
+        minimum: 1
+        maximum: 99
+        example: 1
+      code:
+        type: "string"
+        description: "The internal code of this model as given by the manufacturer."
+        example: "E46"
+      built_from:
+        type: "integer"
+        description: "What is the first year of production for this model?"
+        minimum: 1800
+        maximum: 2100
+        example: 1886
+      built_to:
+        type: "integer"
+        description: "What is the last year of production for this model?"
+        minimum: 1800
+        maximum: 2100
+        example: 1985
+      total_production:
+        type: "integer"
+        description: "All variations combined, how many units of this model (of this\
+          \ generation) have been produced in total?"
+        minimum: 1
+        maximum: 1000000000
+        example: 11713
   Car Model Variant:
     type: "object"
     required:
@@ -2064,56 +3804,6 @@ definitions:
         - "£"
         - "DM"
         - "¥"
-  Car Model:
-    type: "object"
-    required:
-    - "generation"
-    - "id"
-    - "name"
-    properties:
-      id:
-        type: "integer"
-        description: "The internal `More Cars` ID of this node. It's generated by\
-          \ the system and cannot be altered."
-        minimum: 1
-        maximum: 1000000
-        example: 3954
-      name:
-        type: "string"
-        description: "The official name of this model, respecting upper/lower case,\
-          \ whitespaces and special characters.\n\n**Important:** The brand name is\
-          \ always omitted!"
-      generation:
-        type: "integer"
-        format: "int8"
-        description: "What generation is this model?"
-        default: 1
-        minimum: 1
-        maximum: 99
-        example: 1
-      code:
-        type: "string"
-        description: "The internal code of this model as given by the manufacturer."
-        example: "E46"
-      built_from:
-        type: "integer"
-        description: "What is the first year of production for this model?"
-        minimum: 1800
-        maximum: 2100
-        example: 1886
-      built_to:
-        type: "integer"
-        description: "What is the last year of production for this model?"
-        minimum: 1800
-        maximum: 2100
-        example: 1985
-      total_production:
-        type: "integer"
-        description: "All variations combined, how many units of this model (of this\
-          \ generation) have been produced in total?"
-        minimum: 1
-        maximum: 1000000000
-        example: 11713
   Brand:
     type: "object"
     required:
@@ -2294,8 +3984,152 @@ definitions:
           \ the system and cannot be altered."
       name:
         type: "string"
-  Country:
+  Racing Series:
     type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+      name:
+        type: "string"
+      short_name:
+        type: "string"
+      founded:
+        type: "string"
+      defunct:
+        type: "string"
+      organization:
+        type: "string"
+      type:
+        type: "string"
+  Racing Event:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+        description: "The official name of this event. \nIn general a combination\
+          \ of year, racing series and the location. \nMight also contain the main\
+          \ sponsor's name."
+      start_date:
+        type: "string"
+      end_date:
+        type: "string"
+      location:
+        type: "string"
+  Racing Event Session:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+        example: "Race"
+      start_datetime:
+        type: "string"
+        format: "date-time"
+        description: "The planned start date and time of the session."
+      duration:
+        type: "number"
+        description: "The planned length of the session. Can be a fixed time or a\
+          \ number of laps."
+      duration_unit:
+        type: "string"
+        enum:
+        - "laps"
+        - "minutes"
+        - "hours"
+  Race Result:
+    type: "object"
+    required:
+    - "id"
+    - "position"
+    properties:
+      id:
+        type: "integer"
+      position:
+        type: "integer"
+      driver_number:
+        type: "string"
+      driver_name:
+        type: "string"
+      team_name:
+        type: "string"
+      race_time:
+        type: "string"
+      fastest_lap_time:
+        type: "string"
+      points:
+        type: "string"
+  Race Track:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+      name:
+        type: "string"
+        description: "The official name of the race track.\nMight contain the name\
+          \ of the owner or a sponsor, like `Red Bull Ring`.\nThe most up to date\
+          \ name is used."
+      opened:
+        type: "integer"
+      closed:
+        type: "integer"
+      type:
+        type: "string"
+        enum:
+        - "permanent race track"
+        - "street circuit"
+        - "other"
+      location:
+        type: "string"
+        description: "The city or region where the track is located."
+      coordinates:
+        type: "string"
+  Race Track Variant:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
+      name:
+        type: "string"
+      length:
+        type: "number"
+      direction:
+        type: "string"
+      elevation_change:
+        type: "string"
+      surface:
+        type: "string"
+        enum:
+        - "asphalt"
+        - "gravel"
+        - "sand"
+        - "ice"
+        - "salt"
+        - "mixed"
+        - "other"
   Racing Game:
     type: "object"
     required:
@@ -2346,6 +4180,16 @@ definitions:
         example: "Xbox One"
       release_year:
         type: "integer"
+  Country:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
   Image:
     type: "object"
     required:
@@ -2398,14 +4242,14 @@ definitions:
     type: "object"
     required:
     - "id"
-    - "title"
+    - "name"
     - "url"
     properties:
       id:
         type: "integer"
         description: "The internal `More Cars` ID of this node. It's generated by\
           \ the system and cannot be altered."
-      title:
+      name:
         type: "string"
         description: "The headline of this article."
       description:
@@ -2435,3 +4279,29 @@ definitions:
         type: "integer"
       name:
         type: "string"
+        description: "The title of the video."
+      video_platform:
+        type: "string"
+        description: "The platform or service that is hosting the video."
+        enum:
+        - "youtube"
+      video_platform_id:
+        type: "string"
+      source:
+        type: "string"
+        description: "The address of a web page where licensing and additional information\
+          \ about the video can be found."
+      creator:
+        type: "string"
+        description: "The name of the creator (or uploader) of the video."
+      license:
+        type: "string"
+      duration:
+        type: "string"
+        description: "The length of this video in minutes and seconds."
+      description:
+        type: "string"
+      tags:
+        type: "string"
+        description: "A comma-separated list of keywords, describing the key aspects\
+          \ of this video."
