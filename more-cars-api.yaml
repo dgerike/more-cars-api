@@ -7,7 +7,7 @@ info:
     \ and can be used by everyone, for any purpose, for free.\n\nThis API is the counterpart\
     \ of the More Cars website https://more-cars.net/. All the information found there\
     \ can be accessed via this REST API."
-  version: "0.2.0-alpha"
+  version: "0.3.0-alpha"
   title: "More Cars API"
   termsOfService: ""
   contact:
@@ -19,18 +19,18 @@ info:
     url: ""
 host: "{host}"
 schemes:
-- "https"
+  - "https"
 consumes:
-- "application/json"
+  - "application/json"
 produces:
-- "application/json"
+  - "application/json"
 paths:
   /car-models:
     get:
       description: "Returns a collection of all `Car Models` that are stored in the\
         \ More Cars database."
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         200:
@@ -45,7 +45,7 @@ paths:
     get:
       description: "Returns a `Car Model` specified by its ID."
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         200:
@@ -55,11 +55,11 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_id"
-      in: "path"
-      required: true
-      type: "integer"
-      x-example: 1019
+      - name: "car_model_id"
+        in: "path"
+        required: true
+        type: "integer"
+        x-example: 1019
   /car-models/{car_model_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Car Model`."
@@ -76,10 +76,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "car_model_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-models/{car_model_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -97,10 +97,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "car_model_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-models/{car_model_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Car Model`."
@@ -117,10 +117,26 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "car_model_id"
+        in: "path"
+        required: true
+        type: "integer"
+  /car-models/{car_model_id}/brand:
+    get:
+      description: "Returns the `Brand` which owns the specified `Car Model`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Brand"
+        404:
+          description: "Status 404"
+    parameters:
+      - name: "car_model_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-models/{car_model_id}/car-model-variants:
     get:
       description: "Returns all `Car Model Variants` that exist of the specified `Car\
@@ -136,10 +152,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "car_model_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-models/{car_model_id}/car-magazine-issues:
     get:
       description: "Returns all `Car Magazine Issues` that have featured the specified\
@@ -157,10 +173,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "car_model_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-models/{car_model_id}/car-programme-episodes:
     get:
       description: "Returns all `Car Programme Episodes` in which the specified `Car\
@@ -178,22 +194,22 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "car_model_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-model-variants:
     get:
       description: "Returns a collection of all `Car Model Variants` that are stored\
         \ in the More Cars database."
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "page"
-        in: "query"
-        required: false
-        type: "integer"
-        description: "pagination parameter"
+        - name: "page"
+          in: "query"
+          required: false
+          type: "integer"
+          description: "pagination parameter"
       responses:
         200:
           description: "Status 200"
@@ -215,10 +231,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_variant_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_model_variant_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-model-variants/{car_model_variant_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Car Model\
@@ -236,10 +252,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_variant_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_model_variant_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-model-variants/{car_model_variant_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -257,10 +273,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_variant_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "car_model_variant_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-model-variants/{car_model_variant_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Car Model\
@@ -278,10 +294,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_variant_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_model_variant_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-model-variants/{car_model_variant_id}/car-model:
     get:
       description: "Returns the `Car Model` that this `Car Model Variant` is derived\
@@ -295,10 +311,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_variant_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_model_variant_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-model-variants/{car_model_variant_id}/car-magazine-issues:
     get:
       description: "Returns all `Car Magazine Issues` where the specified `Car Model\
@@ -316,10 +332,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_variant_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "car_model_variant_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-model-variants/{car_model_variant_id}/car-programme-episodes:
     get:
       description: "Returns all `Car Programme Episodes` where the specified `Car\
@@ -337,30 +353,30 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_model_variant_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "car_model_variant_id"
+        in: "path"
+        required: true
+        type: "integer"
   /brands:
     get:
       description: "Returns a collection of all `Brands` that are stored in the More\
         \ Cars database."
       parameters:
-      - name: "page"
-        in: "query"
-        required: false
-        type: "integer"
-        x-example: 1
-      - name: "per_page"
-        in: "query"
-        required: false
-        type: "integer"
-        x-example: 10
-      - name: "limit"
-        in: "query"
-        required: false
-        type: "integer"
-        x-example: 100
+        - name: "page"
+          in: "query"
+          required: false
+          type: "integer"
+          x-example: 1
+        - name: "per_page"
+          in: "query"
+          required: false
+          type: "integer"
+          x-example: 10
+        - name: "limit"
+          in: "query"
+          required: false
+          type: "integer"
+          x-example: 100
       responses:
         200:
           description: "Status 200"
@@ -380,10 +396,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "brand_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "brand_id"
+        in: "path"
+        required: true
+        type: "integer"
   /brands/{brand_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Brand`."
@@ -398,12 +414,12 @@ paths:
             minItems: 0
             maxItems: 24
         404:
-          description: "Status 404"
+          description: "Brand not found"
     parameters:
-    - name: "brand_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "brand_id"
+        in: "path"
+        required: true
+        type: "string"
   /brands/{brand_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -421,10 +437,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "brand_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "brand_id"
+        in: "path"
+        required: true
+        type: "string"
   /brands/{brand_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Brand`."
@@ -441,10 +457,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "brand_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "brand_id"
+        in: "path"
+        required: true
+        type: "string"
   /brands/{brand_id}/car-models:
     get:
       description: "Returns all `Car Models` that the specified `Brand` has created."
@@ -459,10 +475,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "brand_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "brand_id"
+        in: "path"
+        required: true
+        type: "string"
   /brands/{brand_id}/company:
     get:
       description: "Returns the `Company` that owns the specified `Brand`."
@@ -475,10 +491,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "brand_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "brand_id"
+        in: "path"
+        required: true
+        type: "string"
   /brands/{brand_id}/country:
     get:
       description: "Returns the `Country` from which the `Brand` originates."
@@ -491,30 +507,30 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "brand_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "brand_id"
+        in: "path"
+        required: true
+        type: "string"
   /companies:
     get:
       description: "Returns a collection of all `Companies` that are stored in the\
         \ More Cars database."
       parameters:
-      - name: "page"
-        in: "query"
-        required: false
-        type: "integer"
-        x-example: 1
-      - name: "per_page"
-        in: "query"
-        required: false
-        type: "integer"
-        x-example: 10
-      - name: "limit"
-        in: "query"
-        required: false
-        type: "integer"
-        x-example: 100
+        - name: "page"
+          in: "query"
+          required: false
+          type: "integer"
+          x-example: 1
+        - name: "per_page"
+          in: "query"
+          required: false
+          type: "integer"
+          x-example: 10
+        - name: "limit"
+          in: "query"
+          required: false
+          type: "integer"
+          x-example: 100
       responses:
         200:
           description: "Status 200"
@@ -534,10 +550,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "company_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "company_id"
+        in: "path"
+        required: true
+        type: "integer"
   /companies/{company_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Company`."
@@ -554,10 +570,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "company_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "company_id"
+        in: "path"
+        required: true
+        type: "string"
   /companies/{company_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -575,10 +591,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "company_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "company_id"
+        in: "path"
+        required: true
+        type: "string"
   /companies/{company_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Company`."
@@ -595,10 +611,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "company_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "company_id"
+        in: "path"
+        required: true
+        type: "string"
   /companies/{company_id}/brands:
     get:
       description: "Returns all `Brands` that belong to the specified `Company`."
@@ -613,10 +629,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "company_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "company_id"
+        in: "path"
+        required: true
+        type: "string"
   /companies/{company_id}/country:
     get:
       description: "Returns the `Country` from which the `Company` originates."
@@ -629,10 +645,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "company_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "company_id"
+        in: "path"
+        required: true
+        type: "string"
   /companies/{company_id}/country-hq:
     get:
       description: "Returns the `Country` where the `Company` has it's legal headquarter."
@@ -645,30 +661,30 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "company_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "company_id"
+        in: "path"
+        required: true
+        type: "string"
   /car-magazines:
     get:
       description: "Returns a collection of all `Car Magazines` that are stored in\
         \ the More Cars database."
       parameters:
-      - name: "page"
-        in: "query"
-        required: false
-        type: "integer"
-        x-example: 1
-      - name: "per_page"
-        in: "query"
-        required: false
-        type: "integer"
-        x-example: 10
-      - name: "limit"
-        in: "query"
-        required: false
-        type: "integer"
-        x-example: 100
+        - name: "page"
+          in: "query"
+          required: false
+          type: "integer"
+          x-example: 1
+        - name: "per_page"
+          in: "query"
+          required: false
+          type: "integer"
+          x-example: 10
+        - name: "limit"
+          in: "query"
+          required: false
+          type: "integer"
+          x-example: 100
       responses:
         200:
           description: "Status 200"
@@ -688,10 +704,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazines/{car_magazine_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Car Magazine`."
@@ -708,10 +724,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazines/{car_magazine_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -729,10 +745,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazines/{car_magazine_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Car Magazine`."
@@ -749,10 +765,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazines/{car_magazine_id}/car-magazine-issues:
     get:
       description: "Returns all `Car Magazine Issues` that were created by the specified\
@@ -770,10 +786,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazines/{car_magazine_id}/country:
     get:
       description: "Returns the `Country` from which the `Car Magazine` originates."
@@ -786,10 +802,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazine-issues:
     get:
       description: "Returns a collection of all `Car Magazine Issues` that are stored\
@@ -814,10 +830,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_issue_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_issue_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazine-issues/{car_magazine_issue_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Car Magazine\
@@ -835,10 +851,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_issue_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_issue_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazine-issues/{car_magazine_issue_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -856,10 +872,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_issue_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_issue_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazine-issues/{car_magazine_issue_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Car Magazine\
@@ -877,10 +893,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_issue_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_issue_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazine-issues/{car_magazine_issue_id}/car-magazine:
     get:
       description: "Returns the `Car Magazine` this `Car Magazine Issue` belongs to."
@@ -893,10 +909,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_issue_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_issue_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazine-issues/{car_magazine_issue_id}/car-model-variants:
     get:
       description: "Returns all `Car Model Variants` that have been featured in the\
@@ -912,10 +928,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_issue_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_issue_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazine-issues/{car_magazine_issue_id}/car-models:
     get:
       description: "Returns all `Car Models` that have been featured in the specified\
@@ -931,10 +947,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_issue_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_issue_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazine-issues/{car_magazine_issue_id}/successor:
     get:
       description: "Returns the next issue of this `Car Magazine Issue`."
@@ -947,10 +963,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_issue_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_issue_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-magazine-issues/{car_magazine_issue_id}/predecessor:
     get:
       description: "Returns the previous issue of this `Car Magazine Issue`."
@@ -963,30 +979,30 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_magazine_issue_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_magazine_issue_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programmes:
     get:
       description: "Returns a collection of all `Car Programmes` that are stored in\
         \ the More Cars database."
       parameters:
-      - name: "page"
-        in: "query"
-        required: false
-        type: "integer"
-        x-example: 1
-      - name: "per_page"
-        in: "query"
-        required: false
-        type: "integer"
-        x-example: 10
-      - name: "limit"
-        in: "query"
-        required: false
-        type: "integer"
-        x-example: 100
+        - name: "page"
+          in: "query"
+          required: false
+          type: "integer"
+          x-example: 1
+        - name: "per_page"
+          in: "query"
+          required: false
+          type: "integer"
+          x-example: 10
+        - name: "limit"
+          in: "query"
+          required: false
+          type: "integer"
+          x-example: 100
       responses:
         200:
           description: "Status 200"
@@ -1006,10 +1022,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programmes/{car_programme_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Car Programme`."
@@ -1026,10 +1042,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programmes/{car_programme_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -1047,10 +1063,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programmes/{car_programme_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Car Programme`."
@@ -1067,10 +1083,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programmes/{car_programme_id}/car-programme-episodes:
     get:
       description: "Returns all `Car Magazine Episodes` that were produced by the\
@@ -1088,10 +1104,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programmes/{car_programme_id}/country:
     get:
       description: "Returns the `Country` from which the `Car Programme` originates."
@@ -1104,10 +1120,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programme-episodes:
     get:
       description: "Returns a collection of all `Car Programme Episodes` that are\
@@ -1134,10 +1150,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_episode_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_episode_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programme-episodes/{car_programme_episode_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Car Programme\
@@ -1155,10 +1171,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_episode_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_episode_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programme-episodes/{car_programme_episode_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -1176,10 +1192,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_episode_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_episode_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programme-episodes/{car_programme_episode_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Car Programme\
@@ -1197,10 +1213,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_episode_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_episode_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programme-episodes/{car_programme_episode_id}/car-programme:
     get:
       description: "Returns the `Car Programme` the specified `Car Programme Episode`\
@@ -1214,10 +1230,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_episode_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_episode_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programme-episodes/{car_programme_episode_id}/successor:
     get:
       description: "Returns the successor of the specified `Car Programme Episode`."
@@ -1230,10 +1246,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_episode_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_episode_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programme-episodes/{car_programme_episode_id}/predecessor:
     get:
       description: "Returns the predecessor of the specified `Car Programme Episode`."
@@ -1246,10 +1262,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_episode_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_episode_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programme-episodes/{car_programme_episode_id}/car-models:
     get:
       description: "Returns all `Car Models` that were presented in the specified\
@@ -1265,10 +1281,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_episode_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_episode_id"
+        in: "path"
+        required: true
+        type: "integer"
   /car-programme-episodes/{car_programme_episode_id}/car-model-variants:
     get:
       description: "Returns all `Car Model Variants` that were presented in the specified\
@@ -1284,16 +1300,16 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "car_programme_episode_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "car_programme_episode_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-series:
     get:
       description: "Returns a collection of all `Racing Series` that are stored in\
         \ the More Cars database."
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         200:
@@ -1316,10 +1332,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_series_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_series_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-series/{racing_series_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Racing\
@@ -1337,10 +1353,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_series_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "racing_series_id"
+        in: "path"
+        required: true
+        type: "string"
   /racing-series/{racing_series_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -1358,10 +1374,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_series_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "racing_series_id"
+        in: "path"
+        required: true
+        type: "string"
   /racing-series/{racing_series_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Racing\
@@ -1379,10 +1395,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_series_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "racing_series_id"
+        in: "path"
+        required: true
+        type: "string"
   /racing-series/{racing_series_id}/racing-events:
     get:
       description: "Returns all `Racing Events` that took place in the specified `Racing\
@@ -1398,10 +1414,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_series_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_series_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-series/{racing_series_id}/country:
     get:
       description: "Returns the `Country` (market) the specified `Racing Series` is\
@@ -1417,16 +1433,16 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_series_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_series_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-events:
     get:
       description: "Returns a collection of all `Racing Series` that are stored in\
         \ the More Cars database."
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         200:
@@ -1449,10 +1465,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_event_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_event_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-events/{racing_event_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Racing\
@@ -1470,10 +1486,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_event_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "racing_event_id"
+        in: "path"
+        required: true
+        type: "string"
   /racing-events/{racing_event_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -1491,10 +1507,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_event_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "racing_event_id"
+        in: "path"
+        required: true
+        type: "string"
   /racing-events/{racing_event_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Racing\
@@ -1512,10 +1528,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_event_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "racing_event_id"
+        in: "path"
+        required: true
+        type: "string"
   /racing-events/{racing_event_id}/racing-series:
     get:
       description: "Returns all `Racing Events` that took place in the specified `Racing\
@@ -1531,10 +1547,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_event_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_event_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-events/{racing_event_id}/race-track-variant:
     get:
       description: "Returns the `Race Track Variant` at which the specified `Racing\
@@ -1550,10 +1566,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_event_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_event_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-events/{racing_event_id}/racing-event-sessions:
     get:
       description: "Returns the `Race Track Variant` at which the specified `Racing\
@@ -1569,16 +1585,16 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_event_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_event_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-event-sessions:
     get:
       description: "Returns a collection of all `Racing Event Sessions` that are stored\
         \ in the More Cars database."
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         200:
@@ -1601,10 +1617,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_event_session_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_event_session_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-event-sessions/{racing_event_session_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Racing\
@@ -1622,10 +1638,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_event_session_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_event_session_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-event-sessions/{racing_event_session_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -1643,10 +1659,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_event_session_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_event_session_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-event-sessions/{racing_event_session_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Racing\
@@ -1664,10 +1680,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_event_session_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_event_session_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-event-sessions/{racing_event_session_id}/racing-event:
     get:
       description: "Returns the `Racing Event` the specified `Racing Event Session`\
@@ -1681,10 +1697,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_event_session_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_event_session_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-event-sessions/{racing_event_session_id}/race-results:
     get:
       description: "Returns all `Race Results` for the specified `Racing Event Session`."
@@ -1699,16 +1715,16 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_event_session_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_event_session_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-results:
     get:
       description: "Returns a collection of all `Race Results` that are stored in\
         \ the More Cars database."
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         200:
@@ -1731,10 +1747,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_result_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_result_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-results/{race_result_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Race\
@@ -1752,10 +1768,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_result_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_result_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-results/{race_result_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -1773,10 +1789,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_result_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_result_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-results/{race_result_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Race\
@@ -1794,10 +1810,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_result_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_result_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-results/{race_result_id}/racing-event-session:
     get:
       description: "Returns the `Racing Event Session` the specified `Race Result`\
@@ -1811,22 +1827,22 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_result_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_result_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-tracks:
     get:
       description: "Returns a collection of all `Race Tracks` that are stored in the\
         \ More Cars database."
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "page"
-        in: "query"
-        required: false
-        type: "integer"
-        description: "pagination parameter"
+        - name: "page"
+          in: "query"
+          required: false
+          type: "integer"
+          description: "pagination parameter"
       responses:
         200:
           description: "Status 200"
@@ -1848,10 +1864,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_track_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_track_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-tracks/{race_track_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Race\
@@ -1867,10 +1883,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_track_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_track_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-tracks/{race_track_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -1888,10 +1904,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_track_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "race_track_id"
+        in: "path"
+        required: true
+        type: "string"
   /race-tracks/{race_track_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Race\
@@ -1907,10 +1923,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_track_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_track_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-tracks/{race_track_id}/race-track-variants:
     get:
       description: "Returns all `Race Track Variants` that exist of the specified\
@@ -1926,10 +1942,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_track_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_track_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-tracks/{race_track_id}/country:
     get:
       description: "Returns the `Country` in which the specified `Race Track` is located."
@@ -1942,22 +1958,22 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_track_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_track_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-track-variants:
     get:
       description: "Returns a collection of all `Race Track Variants` that are stored\
         \ in the More Cars database."
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "page"
-        in: "query"
-        required: false
-        type: "integer"
-        description: "pagination parameter"
+        - name: "page"
+          in: "query"
+          required: false
+          type: "integer"
+          description: "pagination parameter"
       responses:
         200:
           description: "Status 200"
@@ -1979,10 +1995,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_track_variant_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_track_variant_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-track-variants/{race_track_variant_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Race\
@@ -1998,10 +2014,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_track_variant_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_track_variant_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-track-variants/{race_track_variant_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -2019,10 +2035,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_track_variant_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "race_track_variant_id"
+        in: "path"
+        required: true
+        type: "string"
   /race-track-variants/{race_track_variant_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Race\
@@ -2038,10 +2054,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_track_variant_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_track_variant_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-track-variants/{race_track_variant_id}/race-track:
     get:
       description: "Returns the `Race Track` the specified `Race Track Variant` belongs\
@@ -2055,10 +2071,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_track_variant_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "race_track_variant_id"
+        in: "path"
+        required: true
+        type: "integer"
   /race-track-variants/{race_track_variant_id}/racing-events:
     get:
       description: "Returns all `Racing Events` that took place at the specified `Race\
@@ -2074,22 +2090,22 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "race_track_variant_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "race_track_variant_id"
+        in: "path"
+        required: true
+        type: "string"
   /racing-games:
     get:
       description: "Returns a collection of all `Racing Games` that are stored in\
         \ the More Cars database."
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "page"
-        in: "query"
-        required: false
-        type: "integer"
-        description: "pagination parameter"
+        - name: "page"
+          in: "query"
+          required: false
+          type: "integer"
+          description: "pagination parameter"
       responses:
         200:
           description: "Status 200"
@@ -2111,10 +2127,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_game_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_game_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-games/{racing_game_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Racing\
@@ -2130,10 +2146,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_game_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_game_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-games/{racing_game_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -2151,10 +2167,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_game_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "racing_game_id"
+        in: "path"
+        required: true
+        type: "string"
   /racing-games/{racing_game_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Racing\
@@ -2170,10 +2186,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_game_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_game_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-games/{racing_game_id}/car-model-variants:
     get:
       description: "Returns all `Car Model Variants` that are represented in the specified\
@@ -2189,10 +2205,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_game_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_game_id"
+        in: "path"
+        required: true
+        type: "integer"
   /racing-games/{racing_game_id}/gaming-platforms:
     get:
       description: "Returns all `Gaming Platforms` the specified `Racing Game` is\
@@ -2208,16 +2224,16 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "racing_game_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "racing_game_id"
+        in: "path"
+        required: true
+        type: "integer"
   /gaming-platforms:
     get:
       description: "Returns a collection of all `Gaming Platforms` that are stored\
         \ in the More Cars database."
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         200:
@@ -2240,10 +2256,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "gaming_platform_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "gaming_platform_id"
+        in: "path"
+        required: true
+        type: "integer"
   /gaming-platforms/{gaming_platform_id}/images:
     get:
       description: "Returns all `Images` that are attached to the specified `Gaming\
@@ -2261,10 +2277,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "gaming_platform_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "gaming_platform_id"
+        in: "path"
+        required: true
+        type: "string"
   /gaming-platforms/{gaming_platform_id}/online-articles:
     get:
       description: "Returns all `Online Articles` that are attached to the specified\
@@ -2282,10 +2298,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "gaming_platform_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "gaming_platform_id"
+        in: "path"
+        required: true
+        type: "string"
   /gaming-platforms/{gaming_platform_id}/videos:
     get:
       description: "Returns all `Videos` that are attached to the specified `Gaming\
@@ -2303,10 +2319,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "gaming_platform_id"
-      in: "path"
-      required: true
-      type: "string"
+      - name: "gaming_platform_id"
+        in: "path"
+        required: true
+        type: "string"
   /gaming-platforms/{gaming_platform_id}/racing-games:
     get:
       description: "Returns all `Racing Games` that are available for the specified\
@@ -2322,16 +2338,16 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "gaming_platform_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "gaming_platform_id"
+        in: "path"
+        required: true
+        type: "integer"
   /countries:
     get:
       description: "Returns a collection of all `Countries` that are stored in the\
         \ More Cars database."
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         200:
@@ -2354,10 +2370,71 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "country_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "country_id"
+        in: "path"
+        required: true
+        type: "integer"
+  /countries/{country_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Country`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+      - name: "country_id"
+        in: "path"
+        required: true
+        type: "integer"
+  /countries/{country_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Country`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+      - name: "country_id"
+        in: "path"
+        required: true
+        type: "integer"
+  /countries/{country_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Country`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+      - name: "country_id"
+        in: "path"
+        required: true
+        type: "integer"
   /countries/{country_id}/brands:
     get:
       description: "Returns all `Brands` that are from the specified `Country`."
@@ -2372,10 +2449,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "country_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "country_id"
+        in: "path"
+        required: true
+        type: "integer"
   /countries/{country_id}/companies:
     get:
       description: "Returns all `Companies` that are located in the specified `Country`."
@@ -2390,10 +2467,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "country_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "country_id"
+        in: "path"
+        required: true
+        type: "integer"
   /countries/{country_id}/car-magazines:
     get:
       description: "vReturns all `Car Magazines` that are from the specified `Country`."
@@ -2408,10 +2485,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "country_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "country_id"
+        in: "path"
+        required: true
+        type: "integer"
   /countries/{country_id}/car-programmes:
     get:
       description: "Returns all `Car Programmes` that are from the specified `Country`."
@@ -2426,10 +2503,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "country_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "country_id"
+        in: "path"
+        required: true
+        type: "integer"
   /countries/{country_id}/racing-series:
     get:
       description: "Returns all `Racing Series` which have the specified `Country`\
@@ -2445,10 +2522,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "country_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "country_id"
+        in: "path"
+        required: true
+        type: "integer"
   /countries/{country_id}/race-tracks:
     get:
       description: "Returns all `Race Tracks` that are located in the specified `Country`."
@@ -2463,16 +2540,16 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "country_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "country_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images:
     get:
       description: "Returns a collection of all `Images` that are stored in the More\
         \ Cars database."
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         200:
@@ -2495,10 +2572,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/car-models:
     get:
       description: "Returns all `Car Models` that have the specified `Image` attached\
@@ -2514,10 +2591,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/car-model-variants:
     get:
       description: "Returns all `Car Model Variants` that have the specified `Image`\
@@ -2533,10 +2610,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/brands:
     get:
       description: "Returns all `Brands` that have the specified `Image` attached\
@@ -2552,10 +2629,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/companies:
     get:
       description: "Returns all `Companies` that have the specified `Image` attached\
@@ -2571,10 +2648,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/car-magazines:
     get:
       description: "Returns all `Car Magazines` that have the specified `Image` attached\
@@ -2590,10 +2667,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/car-magazine-issues:
     get:
       description: "Returns all `Car Magazine Issues` that have the specified `Image`\
@@ -2609,10 +2686,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/car-programmes:
     get:
       description: "Returns all `Car Programmes` that have the specified `Image` attached\
@@ -2628,10 +2705,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/car-programme-episodes:
     get:
       description: "Returns all `Car Programme Episodes` that have the specified `Image`\
@@ -2647,10 +2724,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/countries:
     get:
       description: "Returns all `Countries` that have the specified `Image` attached\
@@ -2666,10 +2743,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/racing-series:
     get:
       description: "Returns all `Racing Series` that have the specified `Image` attached\
@@ -2685,10 +2762,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/racing-events:
     get:
       description: "Returns all `Racing Events` that have the specified `Image` attached\
@@ -2704,10 +2781,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/racing-event-sessions:
     get:
       description: "Returns all `Racing Event Sessions` that have the specified `Image`\
@@ -2723,10 +2800,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/race-results:
     get:
       description: "Returns all `Race Results` that have the specified `Image` attached\
@@ -2742,10 +2819,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/race-tracks:
     get:
       description: "Returns all `Race Tracks` that have the specified `Image` attached\
@@ -2761,10 +2838,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/race-track-variants:
     get:
       description: "Returns all `Race Track Variants` that have the specified `Image`\
@@ -2780,10 +2857,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/racing-games:
     get:
       description: "Returns all `Racing Games` that have the specified `Image` attached\
@@ -2799,10 +2876,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /images/{image_id}/gaming-platforms:
     get:
       description: "Returns all `Gaming Platforms` that have the specified `Image`\
@@ -2818,10 +2895,31 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "image_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
+  /images/{image_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Image`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+      - name: "image_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles:
     get:
       description: "Returns a collection of all `Online Articles` that are stored\
@@ -2848,10 +2946,52 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
+  /online-articles/{online_article_id}/images:
+    get:
+      description: "Returns all `Images` that are attached to the specified `Online\
+        \ Article`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Image"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
+  /online-articles/{online_article_id}/videos:
+    get:
+      description: "Returns all `Videos` that are attached to the specified `Online\
+        \ Article`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Video"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/car-models:
     get:
       description: "Returns all `Car Models` that have the specified `Online Article`\
@@ -2867,10 +3007,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/car-model-variants:
     get:
       description: "Returns all `Car Model Variants` that have the specified `Online\
@@ -2886,10 +3026,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/brands:
     get:
       description: "Returns all `Brands` that have the specified `Online Article`\
@@ -2905,10 +3045,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/companies:
     get:
       description: "Returns all `Companies` that have the specified `Online Article`\
@@ -2924,10 +3064,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/car-magazines:
     get:
       description: "Returns all `Car Magazines` that have the specified `Online Article`\
@@ -2943,10 +3083,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/car-magazine-issues:
     get:
       description: "Returns all `Car Magazine Issues` that have the specified `Online\
@@ -2962,10 +3102,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/car-programmes:
     get:
       description: "Returns all `Car Programmes` that have the specified `Online Article`\
@@ -2981,10 +3121,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/car-programme-episodes:
     get:
       description: "Returns all `Car Programme Episodes` that have the specified `Online\
@@ -3000,10 +3140,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/countries:
     get:
       description: "Returns all `Countries` that have the specified `Online Article`\
@@ -3019,10 +3159,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/racing-series:
     get:
       description: "Returns all `Racing Series` that have the specified `Online Article`\
@@ -3038,10 +3178,29 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
+  /online-articles/{online_article_id}/racing-events:
+    get:
+      description: "Returns all `Racing Events` that have the specified `Online Article`\
+        \ attached to it."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Racing Event"
+        404:
+          description: "Status 404"
+    parameters:
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/racing-event-sessions:
     get:
       description: "Returns all `Racing Event Sessions` that have the specified `Online\
@@ -3057,10 +3216,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/race-results:
     get:
       description: "Returns all `Race Results` that have the specified `Online Article`\
@@ -3076,10 +3235,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/race-tracks:
     get:
       description: "Returns all `Race Tracks` that have the specified `Online Article`\
@@ -3095,10 +3254,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/race-track-variants:
     get:
       description: "Returns all `Race Track Variants` that have the specified `Online\
@@ -3114,10 +3273,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/racing-games:
     get:
       description: "Returns all `Racing Games` that have the specified `Online Article`\
@@ -3133,10 +3292,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /online-articles/{online_article_id}/gaming-platforms:
     get:
       description: "Returns all `Gaming Platforms` that have the specified `Online\
@@ -3152,16 +3311,16 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "online_article_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "online_article_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos:
     get:
       description: "Returns a collection of all `Videos` that are stored in the More\
         \ Cars database."
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         200:
@@ -3184,10 +3343,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/car-models:
     get:
       description: "Returns all `Car Models` that have the specified `Video` attached\
@@ -3203,10 +3362,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/car-model-variants:
     get:
       description: "Returns all `Car Model Variants` that have the specified `Video`\
@@ -3222,10 +3381,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/brands:
     get:
       description: "Returns all `Brands` that have the specified `Video` attached\
@@ -3241,10 +3400,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/companies:
     get:
       description: "Returns all `Companies` that have the specified `Video` attached\
@@ -3260,10 +3419,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/car-magazines:
     get:
       description: "Returns all `Car Magazines` that have the specified `Video` attached\
@@ -3279,10 +3438,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/car-magazine-issues:
     get:
       description: "Returns all `Car Magazine Issues` that have the specified `Video`\
@@ -3298,10 +3457,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/car-programmes:
     get:
       description: "Returns all `Car Programmes` that have the specified `Video` attached\
@@ -3317,10 +3476,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/car-programme-episodes:
     get:
       description: "Returns all `Car Programme Episodes` that have the specified `Video`\
@@ -3336,10 +3495,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/countries:
     get:
       description: "Returns all `Countries` that have the specified `Video` attached\
@@ -3355,10 +3514,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/racing-series:
     get:
       description: "Returns all `Racing Series` that have the specified `Video` attached\
@@ -3374,10 +3533,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/racing-events:
     get:
       description: "Returns all `Racing Events` that have the specified `Video` attached\
@@ -3393,10 +3552,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/racing-event-sessions:
     get:
       description: "Returns all `Racing Event Sessions` that have the specified `Video`\
@@ -3412,10 +3571,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/race-results:
     get:
       description: "Returns all `Race Results` that have the specified `Video` attached\
@@ -3431,10 +3590,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/race-tracks:
     get:
       description: "Returns all `Race Tracks` that have the specified `Video` attached\
@@ -3450,10 +3609,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/race-track-variants:
     get:
       description: "Returns all `Race Track Variants` that have the specified `Video`\
@@ -3469,10 +3628,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/racing-games:
     get:
       description: "Returns all `Racing Games` that have the specified `Video` attached\
@@ -3488,10 +3647,10 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
   /videos/{video_id}/gaming-platforms:
     get:
       description: "Returns all `Gaming Platforms` that have the specified `Video`\
@@ -3507,17 +3666,37 @@ paths:
         404:
           description: "Status 404"
     parameters:
-    - name: "video_id"
-      in: "path"
-      required: true
-      type: "integer"
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
+  /videos/{video_id}/online-articles:
+    get:
+      description: "Returns all `Online Articles` that are attached to the specified\
+        \ `Video`."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Online Article"
+            minItems: 0
+            maxItems: 24
+        404:
+          description: "Status 404"
+    parameters:
+      - name: "video_id"
+        in: "path"
+        required: true
+        type: "integer"
 definitions:
   Car Model:
     type: "object"
     required:
-    - "generation"
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -3565,8 +3744,8 @@ definitions:
   Car Model Variant:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -3604,21 +3783,21 @@ definitions:
         description: "Classification based on the the number of doors, seats, size\
           \ and the overall shape of the car."
         enum:
-        - "coupe"
-        - "convertible"
-        - "hatchback"
-        - "motorbike"
-        - "pickup truck"
-        - "offroad"
-        - "quad"
-        - "roadster"
-        - "sedan"
-        - "station wagon"
-        - "suv"
-        - "targa"
-        - "van"
-        - "truck"
-        - "other"
+          - "coupe"
+          - "convertible"
+          - "hatchback"
+          - "motorbike"
+          - "pickup truck"
+          - "offroad"
+          - "quad"
+          - "roadster"
+          - "sedan"
+          - "station wagon"
+          - "suv"
+          - "targa"
+          - "van"
+          - "truck"
+          - "other"
       cd:
         type: "number"
         description: "Drag coefficient. Also referred to as `cd value` or `cw value`."
@@ -3632,25 +3811,25 @@ definitions:
       weight_unit:
         type: "string"
         enum:
-        - "kg"
-        - "lbs"
+          - "kg"
+          - "lbs"
       max_power:
         type: "integer"
         description: "The peak power output of this engine, as claimed by the manufacturer."
       max_power_unit:
         type: "string"
         enum:
-        - "PS"
-        - "bhp"
-        - "kW"
+          - "PS"
+          - "bhp"
+          - "kW"
       max_torque:
         type: "integer"
         description: "The peak torque of this engine, as claimed by the manufacturer."
       max_torque_unit:
         type: "string"
         enum:
-        - "Nm"
-        - "lb ft"
+          - "Nm"
+          - "lb ft"
       cylinders:
         type: "integer"
         description: "The number of cylinders (petrol or diesel engine) or rotors\
@@ -3660,14 +3839,14 @@ definitions:
         description: "The alignment of the cylinders resp. rotors. (Only applicable\
           \ to combustion engines.)"
         enum:
-        - "Inline"
-        - "Flat"
-        - "V"
-        - "W"
-        - "H"
-        - "U"
-        - "Rotary"
-        - "Radial"
+          - "Inline"
+          - "Flat"
+          - "V"
+          - "W"
+          - "H"
+          - "U"
+          - "Rotary"
+          - "Radial"
       displacement:
         type: "integer"
         description: "The size (volume) of all combustion chamber(s) combined.\n(Only\
@@ -3675,54 +3854,54 @@ definitions:
       displacement_unit:
         type: "string"
         enum:
-        - "ccm"
-        - "cu in"
+          - "ccm"
+          - "cu in"
       charger:
         type: "string"
         description: "The method how the air is forced into the engine.\n(Only applicable\
           \ to combustion engines.)"
         enum:
-        - "none"
-        - "turbo"
-        - "super"
+          - "none"
+          - "turbo"
+          - "super"
       engine_type:
         type: "string"
         description: "The thermodynamic and physical principles the engine is build\
           \ upon. \n(The type of fuel is secondary.)"
         enum:
-        - "otto"
-        - "diesel"
-        - "wankel"
-        - "turbine"
-        - "hybrid"
-        - "electric"
-        - "other"
+          - "otto"
+          - "diesel"
+          - "wankel"
+          - "turbine"
+          - "hybrid"
+          - "electric"
+          - "other"
       energy_source:
         type: "string"
         description: "The type of 'fuel' this engine runs on. \nFor hybrid cars the\
           \ primary engine is selected."
         enum:
-        - "petrol"
-        - "diesel"
-        - "natural gas"
-        - "liquid gas"
-        - "hydrogen"
-        - "ethanol"
-        - "electricity"
-        - "other"
+          - "petrol"
+          - "diesel"
+          - "natural gas"
+          - "liquid gas"
+          - "hydrogen"
+          - "ethanol"
+          - "electricity"
+          - "other"
       energy_source_2:
         type: "string"
         description: "On what 'fuel' runs the second engine? (Only applicable to hybrid\
           \ engines.)"
         enum:
-        - "petrol"
-        - "diesel"
-        - "natural gas"
-        - "liquid gas"
-        - "hydrogen"
-        - "ethanol"
-        - "electricity"
-        - "other"
+          - "petrol"
+          - "diesel"
+          - "natural gas"
+          - "liquid gas"
+          - "hydrogen"
+          - "ethanol"
+          - "electricity"
+          - "other"
       fuel_consumption:
         type: "number"
         description: "The official fuel (or energy) consumption of this car, as provided\
@@ -3730,9 +3909,9 @@ definitions:
       fuel_consumption_unit:
         type: "string"
         enum:
-        - "l / 100 km"
-        - "mpg"
-        - "kWh / 100 km"
+          - "l / 100 km"
+          - "mpg"
+          - "kWh / 100 km"
       energy_capacity:
         type: "number"
         description: "The capacity of the fuel tank (resp. the battery in case of\
@@ -3740,9 +3919,9 @@ definitions:
       energy_capacity_unit:
         type: "string"
         enum:
-        - "l"
-        - "kg"
-        - "kWh"
+          - "l"
+          - "kg"
+          - "kWh"
       energy_capacity_2:
         type: "number"
         description: "The capacity of the second fuel tank. (Only applicable to hybrid\
@@ -3750,19 +3929,19 @@ definitions:
       energy_capacity_2_unit:
         type: "string"
         enum:
-        - "l"
-        - "kg"
-        - "kWh"
+          - "l"
+          - "kg"
+          - "kWh"
       transmission:
         type: "string"
         description: "The gearbox type."
         enum:
-        - "manual"
-        - "sequential"
-        - "dual clutch"
-        - "direct"
-        - "cvt"
-        - "auto"
+          - "manual"
+          - "sequential"
+          - "dual clutch"
+          - "direct"
+          - "cvt"
+          - "auto"
       gears:
         type: "integer"
         description: "The number of gears."
@@ -3772,21 +3951,21 @@ definitions:
           \ Wheel Drive` includes `4WD`, `AWD`, `IWD` and all the other variations\
           \ that are on the market."
         enum:
-        - "FWD"
-        - "RWD"
-        - "AWD"
+          - "FWD"
+          - "RWD"
+          - "AWD"
       sprint_0_100:
         type: "number"
         description: "The acceleration time from 0 to 100 km/h, resp. 62 mph (in seconds),\
           \ as claimed by the manufacturer"
-      topspeed:
+      top_speed:
         type: "number"
         description: "The maximum speed (vmax) of the car, as claimed by the manufacturer."
-      topspeed_unit:
+      top_speed_unit:
         type: "string"
         enum:
-        - "km/h"
-        - "mph"
+          - "km/h"
+          - "mph"
       total_production:
         type: "integer"
         description: "The number of units that have been built of this car."
@@ -3799,16 +3978,16 @@ definitions:
       price_unit:
         type: "string"
         enum:
-        - "€"
-        - "$"
-        - "£"
-        - "DM"
-        - "¥"
+          - "€"
+          - "$"
+          - "£"
+          - "DM"
+          - "¥"
   Brand:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -3858,8 +4037,8 @@ definitions:
   Company:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -3867,11 +4046,21 @@ definitions:
           \ the system and cannot be altered."
       name:
         type: "string"
+      founded:
+        type: "integer"
+      defunct:
+        type: "integer"
+      headquarter_city:
+        type: "string"
+      legal_headquarter_city:
+        type: "string"
+      employees:
+        type: "integer"
   Car Magazine:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -3888,12 +4077,15 @@ definitions:
       issues_per_year:
         type: "integer"
       single_copy_price:
+        type: "number"
+      single_copy_price_unit:
         type: "string"
-      primary_distribution:
+      distribution:
         type: "string"
         enum:
-        - "print"
-        - "online"
+          - "print"
+          - "digital"
+          - "print_and_digital"
       circulation:
         type: "integer"
       publisher:
@@ -3903,8 +4095,8 @@ definitions:
   Car Magazine Issue:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -3913,15 +4105,15 @@ definitions:
       name:
         type: "string"
         description: "The title of this issue or - if not available - the main topic."
-      issue:
+      number:
         type: "integer"
         description: "The issue's number as is printed on the cover. E.g. '9' for\
           \ the September issue or '483' if the magazine is using consecutive numbering."
       year:
         type: "integer"
-        description: "The year that is printed on the cover. It might vary from the\
-          \ release date, e.g. issue '1/2010' could already been released in December\
-          \ of 2009."
+        description: "The year that is printed on the cover. This might vary from\
+          \ the real release date, e.g. issue '1/2010' could already have been released\
+          \ in December of 2009."
         minimum: 1800
         maximum: 2100
       release_date:
@@ -3932,16 +4124,18 @@ definitions:
         type: "number"
         format: "double"
         description: "The price for this issue on the domestic market, as printed\
-          \ on the cover. Incl. VAT."
+          \ on the cover, incl. VAT."
+      single_copy_price_unit:
+        type: "string"
       pages:
         type: "integer"
-        description: "Number of pages. Including cover and flipside. Excluding booklets\
-          \ and flyers."
+        description: "The total number of pages this issue has. This includes cover\
+          \ and flipside, but not booklets or flyers."
   Car Programme:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -3951,32 +4145,32 @@ definitions:
         type: "string"
         description: "Title of the programme. Use the official spelling, e.g 'Top\
           \ Gear' insted of 'TopGear' or 'GRIP' instead of 'Grip'."
-      aired_from:
+      aired_from_year:
         type: "integer"
-        description: "First year the programme was on air."
-      aired_to:
+        description: "The first year the programme was broadcoasted."
+      aired_to_year:
         type: "integer"
-        description: "Final year of the programme."
+        description: "The final year of the programme."
       channel:
         type: "string"
         description: "On which channel does/did the programme run? Can be a classic\
           \ TV station or an online channel."
       seasons:
         type: "integer"
-        description: "Number of seasons until today."
+        description: "The number of seasons (or series) until today."
       episodes:
         type: "integer"
-        description: "Total number of episodes across all seasons until today, including\
-          \ specials."
+        description: "The total number of episodes, across all seasons, until today,\
+          \ including specials."
       running_time:
         type: "integer"
-        description: "Regular length of one episode (in minutes). If it changed over\
-          \ time use the running time of the newest season."
+        description: "The regular length of one episode (in minutes). If it changed\
+          \ over time the running time of the latest episodes is used."
   Car Programme Episode:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -3984,11 +4178,27 @@ definitions:
           \ the system and cannot be altered."
       name:
         type: "string"
+        description: "The official name or title of this episode. \nAlternatively\
+          \ the main topic when there is no official title."
+      season:
+        type: "integer"
+        description: "The season number this episode belongs to."
+      season_episode:
+        type: "integer"
+        description: "The episode number within this season. (This is not the overall\
+          \ count!)"
+      original_air_date:
+        type: "string"
+        format: "date"
+        description: "The date this episode was broadcasted for the very first time."
+      duration:
+        type: "string"
+        description: "The length of this episode in minutes and seconds."
   Racing Series:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -3996,50 +4206,78 @@ definitions:
           \ the system and cannot be altered."
       name:
         type: "string"
+        description: "The official name of the series."
+        example: "Formula 1"
       short_name:
         type: "string"
+        description: "The abbreviation or short form of the series (if applicable)."
+        example: "F1"
       founded:
-        type: "string"
+        type: "integer"
+        description: "The year the racing series started."
       defunct:
-        type: "string"
+        type: "integer"
+        description: "The final year of the racing series."
       organization:
         type: "string"
+        description: "The governing body of this series."
+        example: "FIA"
       type:
         type: "string"
+        description: "The kind of vehicle that are driven in this series."
+        enum:
+          - "formula racing cars"
+          - "touring cars"
+          - "sports cars"
+          - "production cars"
+          - "cup cars"
+          - "stock cars"
+          - "rally cars"
+          - "dragster"
+          - "go-karts"
+          - "historical cars"
+          - "trucks"
+          - "other"
   Racing Event:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
       name:
         type: "string"
         description: "The official name of this event. \nIn general a combination\
           \ of year, racing series and the location. \nMight also contain the main\
           \ sponsor's name."
+        example: "2016 WTCC Race of Morocco"
       start_date:
         type: "string"
+        description: "The first (official) day of the event."
       end_date:
         type: "string"
-      location:
-        type: "string"
+        description: "The last day of the event - usually the race day."
   Racing Event Session:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
       name:
         type: "string"
         example: "Race"
-      start_datetime:
+      start_time:
         type: "string"
         format: "date-time"
         description: "The planned start date and time of the session."
+        example: "2017-09-03T14:00"
       duration:
         type: "number"
         description: "The planned length of the session. Can be a fixed time or a\
@@ -4047,36 +4285,51 @@ definitions:
       duration_unit:
         type: "string"
         enum:
-        - "laps"
-        - "minutes"
-        - "hours"
+          - "laps"
+          - "minutes"
+          - "hours"
   Race Result:
     type: "object"
     required:
-    - "id"
-    - "position"
+      - "id"
+      - "name"
+      - "position"
     properties:
       id:
         type: "integer"
+        description: "The internal More Cars ID of this node. It’s generated by the\
+          \ system and cannot be altered."
+      name:
+        type: "string"
       position:
         type: "integer"
+        description: "The driver's final position in this session."
       driver_number:
         type: "string"
+        description: "The start number of the driver."
+        example: "77"
       driver_name:
         type: "string"
+        description: "The full name of the driver."
       team_name:
         type: "string"
+        description: "The full name of the team."
       race_time:
         type: "string"
+        description: "Total time"
       fastest_lap_time:
         type: "string"
+        description: "Driver's fastest lap in this session."
       points:
-        type: "string"
+        type: "number"
+        description: "The number of championship points earned in this session. \n\
+          \                Depending on the regulations this can be based on the position,\
+          \ the fastest lap, malus points for fouls etc."
   Race Track:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -4094,19 +4347,21 @@ definitions:
       type:
         type: "string"
         enum:
-        - "permanent race track"
-        - "street circuit"
-        - "other"
+          - "permanent race track"
+          - "street circuit"
+          - "other"
       location:
         type: "string"
         description: "The city or region where the track is located."
       coordinates:
         type: "string"
+        description: "The geographic position of the race track. \nFor longer tracks\
+          \ the start line is used as reference."
   Race Track Variant:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -4114,27 +4369,38 @@ definitions:
           \ the system and cannot be altered."
       name:
         type: "string"
+        description: "The name of this variant."
       length:
         type: "number"
+        description: "The length of this variant."
+      length_unit:
+        type: "string"
       direction:
         type: "string"
+        enum:
+          - "clockwise"
+          - "counterclockwise"
       elevation_change:
+        type: "number"
+        description: "The height difference between lowest and highest point of the\
+          \ track."
+      elevation_change_unit:
         type: "string"
       surface:
         type: "string"
         enum:
-        - "asphalt"
-        - "gravel"
-        - "sand"
-        - "ice"
-        - "salt"
-        - "mixed"
-        - "other"
+          - "asphalt"
+          - "gravel"
+          - "sand"
+          - "ice"
+          - "salt"
+          - "mixed"
+          - "other"
   Racing Game:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -4160,12 +4426,12 @@ definitions:
       publisher:
         type: "string"
         description: "The name of the publisher of this game."
-        example: "Kunos Simulazioni"
+        example: "Sony Interactive Entertainment"
   Gaming Platform:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -4176,25 +4442,45 @@ definitions:
         example: 3954
       name:
         type: "string"
-        description: "The official name of gaming platform."
+        description: "The official name of this gaming platform."
         example: "Xbox One"
       release_year:
         type: "integer"
+        description: "The year this gaming platform was released."
+      company:
+        type: "string"
+        description: "The company that created this gaming platform."
   Country:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
       name:
         type: "string"
+        description: "The official (english) name of the country."
+      adjectival:
+        type: "string"
+        description: "The adjectival form of the country's name.\nE.g.: 'The `Italian`\
+          \ carmaker...' or 'The `British` version of this model...'"
+      demonym:
+        type: "string"
+        description: "How are the inhabitants of this country called? \nE.g.: 'The\
+          \ `Italians` have the prettiest cars...')"
+      short_name:
+        type: "string"
+        description: "Short form of the country name (if applicable)."
+        example: "UK"
+      code:
+        type: "string"
+        description: "The official (2-letter) country code, according to ISO 3166-1."
   Image:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
@@ -4205,17 +4491,18 @@ definitions:
         description: "The name resp. title of this image."
       image_platform:
         type: "string"
-        description: "The provider that is hosting the image.\nWhen selecting `Flickr`\
-          \ or `Wikimedia` ONLY the ID field needs to be filled. \nAll the other information\
-          \ will be gathered automatically."
-      image_id:
+        description: "The provider that is hosting the image."
+        enum:
+          - "flickr"
+          - "wikimedia"
+      image_platform_id:
         type: "string"
-        description: "The ID resp. the name of the image, depending on the image platform.\
+        description: "The ID resp. the name of the image, as given by the image platform.\
           \ \nFlickr uses numbers, like `43644091312`.\nWikimedia uses a URL friendly\
           \ version of the name of the image, like `File:BMW_Z4_Concept.jpg`."
       source:
         type: "string"
-        description: "The internet address of the image file."
+        description: "The internet address of the concrete image file."
       origin:
         type: "string"
         description: "A description page where additional information about the photo\
@@ -4226,11 +4513,7 @@ definitions:
           \ image."
       license:
         type: "string"
-        description: "The image MUST be licensed under Creative Commons \"CC0\", \"\
-          CC BY\", \"CC BY-SA\" or \"CC BY-ND\". \nONLY when there is absolutely no\
-          \ CC image available, official press photos are tolerated temporarily. \n\
-          Images without proper license will be visible to logged-in users only and\
-          \ might be deleted anytime."
+        description: "The license this image was published under."
       description:
         type: "string"
         description: "A short description of what can be seen on the photo, \nwhere\
@@ -4241,9 +4524,9 @@ definitions:
   Online Article:
     type: "object"
     required:
-    - "id"
-    - "name"
-    - "url"
+      - "id"
+      - "name"
+      - "url"
     properties:
       id:
         type: "integer"
@@ -4267,16 +4550,22 @@ definitions:
       url:
         type: "string"
         description: "Where can the article be found on the internet?"
-    description: "An online article dealing with a car model or a brand or anything\
-      \ car related. Can be a review, a group test, a discussion, a discourse etc. "
+    description: "An `Online Article` is a blog post or the online version of an article\
+      \ written in a car magazine. \nAn article is suited for the database when it\
+      \ discusses a car related topic that is covered by More Cars (e.g. Car Models,\
+      \ Brands, Racing Games, Motorsport).\nThere is no restriction on the format.\
+      \ It can be a review, a group test, a discussion, a discourse, an interview\
+      \ etc.\nThere is no restriction on the language, but English articles are preferred."
   Video:
     type: "object"
     required:
-    - "id"
-    - "name"
+      - "id"
+      - "name"
     properties:
       id:
         type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
       name:
         type: "string"
         description: "The title of the video."
@@ -4284,9 +4573,10 @@ definitions:
         type: "string"
         description: "The platform or service that is hosting the video."
         enum:
-        - "youtube"
+          - "youtube"
       video_platform_id:
         type: "string"
+        description: "The ID of the video, as given by the video hosting service."
       source:
         type: "string"
         description: "The address of a web page where licensing and additional information\
@@ -4296,6 +4586,7 @@ definitions:
         description: "The name of the creator (or uploader) of the video."
       license:
         type: "string"
+        description: "The license under which the video was published."
       duration:
         type: "string"
         description: "The length of this video in minutes and seconds."
