@@ -7,7 +7,7 @@ info:
     \ and can be used by everyone, for any purpose, for free.\n\nThis API is the counterpart\
     \ of the More Cars website https://more-cars.net/. All the information found there\
     \ can be accessed via this REST API."
-  version: "0.3.0-alpha"
+  version: "0.4.0-alpha"
   title: "More Cars API"
   termsOfService: ""
   contact:
