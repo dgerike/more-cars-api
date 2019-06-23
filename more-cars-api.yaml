@@ -75,6 +75,33 @@ paths:
             maxItems: 24
         404:
           description: "Status 404"
+    post:
+      description: "**!!!EXPERIMENTAL!!!**\n\nAttaches an existing `Image` to the\
+        \ specified `Car Model`.\n\n**Guidelines**\n* The car should be in the focus.\
+        \ There can be other cars and people around, but the car itself should be\
+        \ clearly visible and should dominate the image.\n* The selected images should\
+        \ show the car from multiple angles. So, instead of adding the 5th photo showing\
+        \ the car from the front select one with another angle.\n* Any variation of\
+        \ the car can be added here (stock, tuned, prototype), as long as it is from\
+        \ the same generation."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            required:
+              - "image_id"
+            properties:
+              image_id:
+                type: "integer"
+                description: "The internal More Cars ID of the image."
+      responses:
+        200:
+          description: "Status 200"
+      security:
+        - Access Token: []
     parameters:
       - name: "car_model_id"
         in: "path"
@@ -116,6 +143,32 @@ paths:
             maxItems: 24
         404:
           description: "Status 404"
+    post:
+      description: "**!!!EXPERIMENTAL!!!**\n\nAttachs an existing `Video` to the specified\
+        \ `Car Model`.\n\n**Guidelines**\n* Only select videos that talk about this\
+        \ car model in general, or the whole generation. \n* If it's about about a\
+        \ specific version of this model then please add the video to the matching\
+        \ `Car Model Variant`.\n* The format of the video is more or less open. It\
+        \ can be a trailer (official, fan-made, mood), a discussion, an unveiling\
+        \ at a car show, a history lesson etc."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            required:
+              - "video_id"
+            properties:
+              video_id:
+                type: "integer"
+                description: "The internal More Cars ID of the video."
+      responses:
+        200:
+          description: "Status 200"
+      security:
+        - Access Token: []
     parameters:
       - name: "car_model_id"
         in: "path"
@@ -230,6 +283,17 @@ paths:
             $ref: "#/definitions/Car Model Variant"
         404:
           description: "Status 404"
+    put:
+      description: "**!!!EXPERIMENTAL!!!**\n\nUpdates a `Car Model Variant` specified\
+        \ by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Model Variant"
+        404:
+          description: "Status 404"
     parameters:
       - name: "car_model_variant_id"
         in: "path"
@@ -251,6 +315,31 @@ paths:
             maxItems: 24
         404:
           description: "Status 404"
+    post:
+      description: "**!!!EXPERIMENTAL!!!**\n\nAttaches an existing `Image` to the\
+        \ specified `Car Model Variant`.\n\n**Guidelines**\n* Only select images that\
+        \ match the specified variant. So, don't use photos that show a sedan or convertible\
+        \ version when adding photos for a `BMW M3 Coupe`.\n* The car should be in\
+        \ the focus. There can be other cars and people around, but the car itself\
+        \ should be clearly visible and should dominate the image.\n* The selected\
+        \ images should show the car from multiple angles. So, instead of adding the\
+        \ 5th photo showing the car from the front select one with another angle."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            required:
+              - "image_id"
+            properties:
+              image_id:
+                type: "integer"
+                description: "The internal More Cars ID of the image."
+      responses:
+        200:
+          description: "Status 200"
     parameters:
       - name: "car_model_variant_id"
         in: "path"
@@ -415,6 +504,29 @@ paths:
             maxItems: 24
         404:
           description: "Brand not found"
+    post:
+      description: "**!!!EXPERIMENTAL!!!**\n\nAttaches an existing `Image` to the\
+        \ specified `Brand`.\n\n**Guidelines**\n* Only add photos that show the brand's\
+        \ logo.\n* This can be a close-up shot of the car's bonnet, the logo on the\
+        \ engine block, a photo of a billboard or something similar.\n* There may\
+        \ be more to see in the photo, but the logo has to be dominant.\n* Don't add\
+        \ illustrations or the original logo files. This could lead to trademark problems."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            required:
+              - "image_id"
+            properties:
+              image_id:
+                type: "integer"
+                description: "The internal More Cars ID of the image."
+      responses:
+        200:
+          description: "Status 200"
     parameters:
       - name: "brand_id"
         in: "path"
@@ -456,6 +568,29 @@ paths:
             maxItems: 24
         404:
           description: "Status 404"
+    post:
+      description: "**!!!EXPERIMENTAL!!!**\n\nAttaches an existing `Video` to the\
+        \ specified `Brand`.\n\n**Guidelines**\n* All videos are permitted that somehow\
+        \ deal with the history (or the current state) of the brand.\n* This can be\
+        \ a documentation, an interview, a discussion panel. \n* It can be a video\
+        \ that presents/summarizes/categorizes the brand's whole range of cars.\n\
+        * It can be a marketing/promotion video from the brand itself."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            required:
+              - "image_id"
+            properties:
+              image_id:
+                type: "integer"
+                description: "The internal More Cars ID of the image."
+      responses:
+        200:
+          description: "Status 200"
     parameters:
       - name: "brand_id"
         in: "path"
@@ -2560,6 +2695,21 @@ paths:
               $ref: "#/definitions/Image"
             minItems: 0
             maxItems: 24
+    post:
+      description: "**!!!EXPERIMENTAL!!!**\n\nAdds a new `Image` to the More Cars\
+        \ database.\n\n**Guidelines**\n* In general, all photos are allowed that are\
+        \ car related.\n* They must be legal, of course.\n* And they must be under\
+        \ Creative Commons license (see above).\n"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Image"
+      responses:
+        200:
+          description: "Status 200"
   /images/{image_id}:
     get:
       description: "Returns an `Image`, specified by its ID."
@@ -3331,6 +3481,79 @@ paths:
               $ref: "#/definitions/Video"
             minItems: 1
             maxItems: 50
+    post:
+      description: "Adds a new `Video` to the More Cars database.\n\n**General**\n\
+        * ...\n\n**YouTube videos**\n* Shortcut is available:\n  * Only `video_platform`\
+        \ and `video_platform_id` need to be supplied to the request.\n  * Author\
+        \ and licence information will be gathered automatically.\n* Duplicate videos\
+        \ will not be accepted by the system.\n* Videos with invalid ID will not be\
+        \ accepted by the system."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Video"
+      responses:
+        201:
+          description: "Video successfully created"
+          schema:
+            required:
+              - "data"
+              - "links"
+            type: "object"
+            properties:
+              data:
+                $ref: "#/definitions/Video"
+              links:
+                required:
+                  - "self"
+                type: "object"
+                properties:
+                  self:
+                    type: "string"
+                    description: "The URL of the created `Video`"
+          headers:
+            Location:
+              type: "string"
+              description: "The URL of the created `Video`"
+        400:
+          description: "Mandatory information missing"
+          schema:
+            $ref: "#/definitions/General Error"
+        401:
+          description: "Authorization information missing"
+          schema:
+            $ref: "#/definitions/General Error"
+        422:
+          description: "Invalid video ID or video is already in the database"
+          schema:
+            required:
+              - "detail"
+              - "errors"
+              - "status"
+            type: "object"
+            properties:
+              errors:
+                type: "object"
+                properties:
+                  links:
+                    required:
+                      - "about"
+                    type: "object"
+                    properties:
+                      about:
+                        type: "string"
+                        description: "URL of the already existing `Video`"
+              status:
+                type: "string"
+                description: "HTTP error code"
+              detail:
+                type: "string"
+                description: "Description of the error"
+      security:
+        - Access Token: []
   /videos/{video_id}:
     get:
       description: "Returns a `Video`, specified by its ID."
@@ -3342,6 +3565,27 @@ paths:
             $ref: "#/definitions/Video"
         404:
           description: "Status 404"
+    delete:
+      description: "Deletes a `Video` from the More Cars database.\n\n\U0001f512 Operation\
+        \ requires elevated permissions."
+      parameters: []
+      responses:
+        204:
+          description: "Video successfully deleted"
+        401:
+          description: "Authorization information missing"
+          schema:
+            $ref: "#/definitions/General Error"
+        403:
+          description: "Insufficient permissions"
+          schema:
+            $ref: "#/definitions/General Error"
+        404:
+          description: "Video not found"
+          schema:
+            $ref: "#/definitions/General Error"
+      security:
+        - Access Token: []
     parameters:
       - name: "video_id"
         in: "path"
@@ -3691,7 +3935,29 @@ paths:
         in: "path"
         required: true
         type: "integer"
+securityDefinitions:
+  Access Token:
+    type: "apiKey"
+    name: "access-token"
+    in: "header"
 definitions:
+  General Error:
+    type: "object"
+    required:
+      - "errors"
+    properties:
+      errors:
+        required:
+          - "detail"
+          - "status"
+        type: "object"
+        properties:
+          status:
+            type: "string"
+            description: "HTTP status code"
+          detail:
+            type: "string"
+            description: "Description of the error"
   Car Model:
     type: "object"
     required:
@@ -4579,8 +4845,8 @@ definitions:
         description: "The ID of the video, as given by the video hosting service."
       source:
         type: "string"
-        description: "The address of a web page where licensing and additional information\
-          \ about the video can be found."
+        description: "The URL of the video or the web page where the licensing and\
+          \ additional information can be found."
       creator:
         type: "string"
         description: "The name of the creator (or uploader) of the video."
@@ -4596,3 +4862,17 @@ definitions:
         type: "string"
         description: "A comma-separated list of keywords, describing the key aspects\
           \ of this video."
+  Video (Youtube):
+    type: "object"
+    required:
+      - "video_platform"
+      - "video_platform_id"
+    properties:
+      video_platform:
+        type: "string"
+        description: "The platform or service that is hosting the video."
+        enum:
+          - "youtube"
+      video_platform_id:
+        type: "string"
+        description: "The ID of the video, as given by the video hosting service."

@@ -79,6 +79,33 @@ paths:
             maxItems: 24
         404:
           description: "Status 404"
+    post:
+      description: "**!!!EXPERIMENTAL!!!**\n\nAttaches an existing `Image` to the\
+        \ specified `Car Model`.\n\n**Guidelines**\n* The car should be in the focus.\
+        \ There can be other cars and people around, but the car itself should be\
+        \ clearly visible and should dominate the image.\n* The selected images should\
+        \ show the car from multiple angles. So, instead of adding the 5th photo showing\
+        \ the car from the front select one with another angle.\n* Any variation of\
+        \ the car can be added here (stock, tuned, prototype), as long as it is from\
+        \ the same generation."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            required:
+              - "image_id"
+            properties:
+              image_id:
+                type: "integer"
+                description: "The internal More Cars ID of the image."
+      responses:
+        200:
+          description: "Status 200"
+      security:
+        - Access Token: []
     parameters:
       - name: "car_model_id"
         in: "path"
@@ -124,6 +151,32 @@ paths:
             maxItems: 24
         404:
           description: "Status 404"
+    post:
+      description: "**!!!EXPERIMENTAL!!!**\n\nAttachs an existing `Video` to the specified\
+        \ `Car Model`.\n\n**Guidelines**\n* Only select videos that talk about this\
+        \ car model in general, or the whole generation. \n* If it's about about a\
+        \ specific version of this model then please add the video to the matching\
+        \ `Car Model Variant`.\n* The format of the video is more or less open. It\
+        \ can be a trailer (official, fan-made, mood), a discussion, an unveiling\
+        \ at a car show, a history lesson etc."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            required:
+              - "video_id"
+            properties:
+              video_id:
+                type: "integer"
+                description: "The internal More Cars ID of the video."
+      responses:
+        200:
+          description: "Status 200"
+      security:
+        - Access Token: []
     parameters:
       - name: "car_model_id"
         in: "path"
@@ -250,6 +303,17 @@ paths:
             $ref: "#/definitions/Car Model Variant"
         404:
           description: "Status 404"
+    put:
+      description: "**!!!EXPERIMENTAL!!!**\n\nUpdates a `Car Model Variant` specified\
+        \ by its ID."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Model Variant"
+        404:
+          description: "Status 404"
     parameters:
       - name: "car_model_variant_id"
         in: "path"
@@ -273,6 +337,31 @@ paths:
             maxItems: 24
         404:
           description: "Status 404"
+    post:
+      description: "**!!!EXPERIMENTAL!!!**\n\nAttaches an existing `Image` to the\
+        \ specified `Car Model Variant`.\n\n**Guidelines**\n* Only select images that\
+        \ match the specified variant. So, don't use photos that show a sedan or convertible\
+        \ version when adding photos for a `BMW M3 Coupe`.\n* The car should be in\
+        \ the focus. There can be other cars and people around, but the car itself\
+        \ should be clearly visible and should dominate the image.\n* The selected\
+        \ images should show the car from multiple angles. So, instead of adding the\
+        \ 5th photo showing the car from the front select one with another angle."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            required:
+              - "image_id"
+            properties:
+              image_id:
+                type: "integer"
+                description: "The internal More Cars ID of the image."
+      responses:
+        200:
+          description: "Status 200"
     parameters:
       - name: "car_model_variant_id"
         in: "path"
@@ -453,6 +542,29 @@ paths:
             maxItems: 24
         404:
           description: "Brand not found"
+    post:
+      description: "**!!!EXPERIMENTAL!!!**\n\nAttaches an existing `Image` to the\
+        \ specified `Brand`.\n\n**Guidelines**\n* Only add photos that show the brand's\
+        \ logo.\n* This can be a close-up shot of the car's bonnet, the logo on the\
+        \ engine block, a photo of a billboard or something similar.\n* There may\
+        \ be more to see in the photo, but the logo has to be dominant.\n* Don't add\
+        \ illustrations or the original logo files. This could lead to trademark problems."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            required:
+              - "image_id"
+            properties:
+              image_id:
+                type: "integer"
+                description: "The internal More Cars ID of the image."
+      responses:
+        200:
+          description: "Status 200"
     parameters:
       - name: "brand_id"
         in: "path"
@@ -498,6 +610,29 @@ paths:
             maxItems: 24
         404:
           description: "Status 404"
+    post:
+      description: "**!!!EXPERIMENTAL!!!**\n\nAttaches an existing `Video` to the\
+        \ specified `Brand`.\n\n**Guidelines**\n* All videos are permitted that somehow\
+        \ deal with the history (or the current state) of the brand.\n* This can be\
+        \ a documentation, an interview, a discussion panel. \n* It can be a video\
+        \ that presents/summarizes/categorizes the brand's whole range of cars.\n\
+        * It can be a marketing/promotion video from the brand itself."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            required:
+              - "image_id"
+            properties:
+              image_id:
+                type: "integer"
+                description: "The internal More Cars ID of the image."
+      responses:
+        200:
+          description: "Status 200"
     parameters:
       - name: "brand_id"
         in: "path"
@@ -2826,6 +2961,21 @@ paths:
               $ref: "#/definitions/Image"
             minItems: 0
             maxItems: 24
+    post:
+      description: "**!!!EXPERIMENTAL!!!**\n\nAdds a new `Image` to the More Cars\
+        \ database.\n\n**Guidelines**\n* In general, all photos are allowed that are\
+        \ car related.\n* They must be legal, of course.\n* And they must be under\
+        \ Creative Commons license (see above).\n"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Image"
+      responses:
+        200:
+          description: "Status 200"
     x-restlet:
       section: "Images"
   /images/{image_id}:
@@ -3679,6 +3829,79 @@ paths:
               $ref: "#/definitions/Video"
             minItems: 1
             maxItems: 50
+    post:
+      description: "Adds a new `Video` to the More Cars database.\n\n**General**\n\
+        * ...\n\n**YouTube videos**\n* Shortcut is available:\n  * Only `video_platform`\
+        \ and `video_platform_id` need to be supplied to the request.\n  * Author\
+        \ and licence information will be gathered automatically.\n* Duplicate videos\
+        \ will not be accepted by the system.\n* Videos with invalid ID will not be\
+        \ accepted by the system."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Video"
+      responses:
+        201:
+          description: "Video successfully created"
+          schema:
+            required:
+              - "data"
+              - "links"
+            type: "object"
+            properties:
+              data:
+                $ref: "#/definitions/Video"
+              links:
+                required:
+                  - "self"
+                type: "object"
+                properties:
+                  self:
+                    type: "string"
+                    description: "The URL of the created `Video`"
+          headers:
+            Location:
+              type: "string"
+              description: "The URL of the created `Video`"
+        400:
+          description: "Mandatory information missing"
+          schema:
+            $ref: "#/definitions/General Error"
+        401:
+          description: "Authorization information missing"
+          schema:
+            $ref: "#/definitions/General Error"
+        422:
+          description: "Invalid video ID or video is already in the database"
+          schema:
+            required:
+              - "detail"
+              - "errors"
+              - "status"
+            type: "object"
+            properties:
+              errors:
+                type: "object"
+                properties:
+                  links:
+                    required:
+                      - "about"
+                    type: "object"
+                    properties:
+                      about:
+                        type: "string"
+                        description: "URL of the already existing `Video`"
+              status:
+                type: "string"
+                description: "HTTP error code"
+              detail:
+                type: "string"
+                description: "Description of the error"
+      security:
+        - Access Token: []
     x-restlet:
       section: "Videos"
   /videos/{video_id}:
@@ -3692,6 +3915,27 @@ paths:
             $ref: "#/definitions/Video"
         404:
           description: "Status 404"
+    delete:
+      description: "Deletes a `Video` from the More Cars database.\n\n\U0001f512 Operation\
+        \ requires elevated permissions."
+      parameters: []
+      responses:
+        204:
+          description: "Video successfully deleted"
+        401:
+          description: "Authorization information missing"
+          schema:
+            $ref: "#/definitions/General Error"
+        403:
+          description: "Insufficient permissions"
+          schema:
+            $ref: "#/definitions/General Error"
+        404:
+          description: "Video not found"
+          schema:
+            $ref: "#/definitions/General Error"
+      security:
+        - Access Token: []
     parameters:
       - name: "video_id"
         in: "path"
@@ -4079,7 +4323,29 @@ paths:
         type: "integer"
     x-restlet:
       section: "Videos"
+securityDefinitions:
+  Access Token:
+    type: "apiKey"
+    name: "access-token"
+    in: "header"
 definitions:
+  General Error:
+    type: "object"
+    required:
+      - "errors"
+    properties:
+      errors:
+        required:
+          - "detail"
+          - "status"
+        type: "object"
+        properties:
+          status:
+            type: "string"
+            description: "HTTP status code"
+          detail:
+            type: "string"
+            description: "Description of the error"
   Car Model:
     type: "object"
     required:
@@ -5005,8 +5271,8 @@ definitions:
         description: "The ID of the video, as given by the video hosting service."
       source:
         type: "string"
-        description: "The address of a web page where licensing and additional information\
-          \ about the video can be found."
+        description: "The URL of the video or the web page where the licensing and\
+          \ additional information can be found."
       creator:
         type: "string"
         description: "The name of the creator (or uploader) of the video."
@@ -5024,15 +5290,31 @@ definitions:
           \ of this video."
     x-restlet:
       section: "Videos"
+  Video (Youtube):
+    type: "object"
+    required:
+      - "video_platform"
+      - "video_platform_id"
+    properties:
+      video_platform:
+        type: "string"
+        description: "The platform or service that is hosting the video."
+        enum:
+          - "youtube"
+      video_platform_id:
+        type: "string"
+        description: "The ID of the video, as given by the video hosting service."
+    x-restlet:
+      section: "Videos"
 x-restlet:
   sections:
     Car Models:
       description: "A `Car Model` represents one *generation* of a vehicle (e.g. *VW\
         \ Golf VII* or *Ford Fiesta Mk2*). A generation usually last between 5 and\
-        \ 10 years and is built in multiple variants. The variation can be in body\
-        \ style (coupe, station wagon, convertible), engine specification (gasoline,\
-        \ diesel, electric), transmission (manual, automatic), purpose (race car,\
-        \ police car, military vehicle) or other characteristics.\n# Relationships\n\
+        \ 10 years and is built in multiple `Car Model Variants`. The variation can\
+        \ be in body style (coupe, station wagon, convertible), engine specification\
+        \ (gasoline, diesel, electric), transmission (manual, automatic), purpose\
+        \ (race car, police car, military vehicle) or other characteristics.\n# Relationships\n\
         ## **Brand**\n* Each `Car Model` can belong to one `Brand`\n\n## **Car Model\
         \ Variants**\n* Each `Car Model` can have mutiple `Car Model Variants`. (1:n)\n\
         \n## **Car Magazine Issues**\n* The issues in which this car model (generation)\
@@ -5047,15 +5329,15 @@ x-restlet:
         \ or as a close-up.\n* The car should not be blocked by objects or people.\n\
         * The main image should show the car from a front-side angle."
     Car Model Variants:
-      description: "Most `Car Models` are produced in multiple variants (or versions\
-        \ or variations). \nThe difference can be in the engine type (gasoline, diesel,\
-        \ electric, hybrid), size or configuration (2 litre I4, 5 litre V8),\nthe\
-        \ transmission (manual, dual clutch, automatic),\nthe drivetrain (FWD, RWD,\
-        \ AWD),\nthe body style (sedan, coupe, cabrio)\nor any combination.\n\nThe\
-        \ variant can be a regular, street-legal vehicle, a prototype, a concept car\
-        \ or even a race car - as long as there exists at least one unit in real life.\
-        \ Cars that only exist as renderings or fantasy cars are not permitted in\
-        \ the More Cars database.\n# Relationships\n`Car Model Variants` are the heart\
+      description: "Most `Car Models` are produced in multiple `Car Model Variants`\
+        \ (or versions or variations). \nThe difference can be in the engine type\
+        \ (gasoline, diesel, electric, hybrid), size or configuration (2 litre I4,\
+        \ 5 litre V8),\nthe transmission (manual, dual clutch, automatic),\nthe drivetrain\
+        \ (FWD, RWD, AWD),\nthe body style (sedan, coupe, cabrio)\nor any combination.\n\
+        \nMore Cars accepts all variants, from regular, street-legal vehicles, to\
+        \ prototypes, concept cars or even a race car - as long as there exists at\
+        \ least one unit in real life. \nCars that only exist as renderings or fantasy\
+        \ cars are not permitted.\n# Relationships\n`Car Model Variants` are the heart\
         \ of More Cars. They are connected to all segments of the database, be it\
         \ car programmes, car magazines, racing games or motorsport.\n## **Car Models**\n\
         * Each `Car Model Variant` belongs to exactly one `Car Model`. (1:1)\n* Each\
@@ -5066,30 +5348,60 @@ x-restlet:
         \ a group of cars.\n* The car should not be blocked by objects or people.\n\
         * The main image should show the car from a rear-side angle."
     Brands:
-      description: "A car `Brand` (or marque or make) ...\nNot to be confused with\
-        \ a `Company` which is the legal entity behind one or multiple `Brands`. "
+      description: "`Brands` (or marques or makes) enable us to distinguish between\
+        \ vehicles from different car manufacturers, e.g. BMW, Toyota or Ford.\nHere\
+        \ at More Cars we use the more general term `Company` for these manufacturers.\
+        \ \nThey are the legal entity behind all brands.\nE.g. the brand *Toyota*\
+        \ belongs to the *Toyota Motor Company*."
     Companies:
-      description: "A `Company` is the legal entity behind a `Brand`. E.g. the Volkswagen\
-        \ AG is the `Company` that owns the `Brands` *VW*, *Seat*, *Audi*, *Skoda*\
-        \ and so on. When a brand has multiple owners only the most powerful is selected."
+      description: "A `Company` is the legal entity behind a `Brand`. \nE.g. *Ferrari\
+        \ N.V.* is the company that owns the brand *Ferrari*.\nA company can have\
+        \ multiple brands, like the *Ford Motor Company* which owns the brands *Ford*,\
+        \ *Lincoln*, *Mercury* (and some more). \nTo keep things simple More Cars\
+        \ does not mirror the company structures in detail.\nE.g. the brand *Lamborghini*\
+        \ belongs to the company *Automobili Lamborghini S.p.A.*, which belongs to\
+        \ the *Audi AG*, which is a subsidiary of the *Volkswagen AG*.\nBut here at\
+        \ More Cars we attach *Lamborghini* directly to the *Volkswagen AG*."
     Car Magazines:
       description: "A `Car Magazine` is a publication that is focused on automobiles\
-        \ and is published periodically (in print or digitally). "
+        \ and is published periodically, e.g. `Top Gear` or `Evo` or `Octane`.\nMore\
+        \ Cars allows magazines from all countries and all times.\nMagazines that\
+        \ only occasionally write about cars should not be added.\nThe publishment\
+        \ can be in print or digitally or both."
     Car Magazine Issues: {}
     Car Programmes:
       description: "A `Car Programme` is a show which is a) broadcasted periodically\
         \ and is b) focussed on automobiles. \nThe format can be anything from a review\
-        \ to a road trip, a discussion, a track test or a mix of them.\nDistribution\
-        \ of the programme can be via TV channel or streaming service."
+        \ to a road trip, a discussion, a track test or a mix of them.\nIt can be\
+        \ from any period of time (e.g. classic Top Gear from the 80s or new Top Gear\
+        \ from the 2000s).\nDistribution of the programme can be via TV channel or\
+        \ streaming service or both."
     Car Programme Episodes: {}
     Racing Series: {}
     Racing Events: {}
-    Racing Event Sessions: {}
+    Racing Event Sessions:
+      description: "Usually, each `Racing Event` consists of multiple sessions.\n\
+        The number and the format of these `Racing Event Sessions` depends on the\
+        \ `Racing Series`.\nIn *Formula 1* for example, there are multiple training\
+        \ sessions, a 3-part qualifying session and one racing session.\nThe *British\
+        \ Touring Car Championship* has three racing sessions.\nIn Rallycross there\
+        \ are even more racing sessions, but in a shootout format."
     Race Results:
       description: "A `Race Result` describes the outcome of one driver in one particular\
         \ session within one race event. "
-    Race Tracks: {}
-    Race Track Variants: {}
+    Race Tracks:
+      description: "`Race Tracks` are primarily made for motorsport races, but may\
+        \ also be used for car testing or driver trainings.\nThey come in different\
+        \ forms and flavours.\nIt can be a closed racing circuit like Silverstone,\
+        \ a temporary city race track like Monaco, a mountain trail like Pikes Peak\
+        \ or an open track like a Rallye Dakar route.\nMore Cars allows all race tracks\
+        \ to be added that exist in the real world.\nSo, fantasy tracks from racing\
+        \ games are not permitted."
+    Race Track Variants:
+      description: "Most `Race Tracks` have multiple layouts, so they can host different\
+        \ motorsport classes and events.\nE.g. there might be a longer layout for\
+        \ Formula 1 races, a short version for touring cars and a very short one that\
+        \ is used for car tests or driver trainings."
     Racing Games:
       description: "Racing games include all video games where the main activity is\
         \ to race or have some kind of competition with cars. There is only one restriction.\
@@ -5108,9 +5420,10 @@ x-restlet:
         \ Game` can be published on multiple `Gaming Platforms`. (1:n)\n* Each `Gaming\
         \ Platform` can have multiple `Racing Games` published. (1:n)"
     Gaming Platforms:
-      description: "All hardware that allows to play video games. This can be a next-gen\
-        \ console, a handheld or an old arcade. Also includes platforms that are not\
-        \ purely meant for gaming, like a PC or a Mac."
+      description: "`Gaming Platforms` include all hardware that allows to play video\
+        \ games. \nThis can be a next-gen console, a handheld or an old arcade. \n\
+        Also included are platforms that are not purely meant for gaming, like a PC\
+        \ or a Mac."
     Countries: {}
     Images:
       description: "Images are photos or illustrations of cars or car related objects.\
@@ -5135,4 +5448,8 @@ x-restlet:
         \ to any other node. One exception: images can not be attached to other images\
         \ or to videos."
     Online Articles: {}
-    Videos: {}
+    Videos:
+      description: "* Videos are not hosted on More Cars.\n* Videos are references\
+        \ to the original media files in the internet.\n* Only internet videos may\
+        \ be added.\n* Preferred are videos that can be embedded on a website, e.g.\
+        \ YouTube or Vimeo."
