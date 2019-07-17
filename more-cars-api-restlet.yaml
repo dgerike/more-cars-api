@@ -3,11 +3,21 @@ swagger: "2.0"
 info:
   description: "**ATTENTION: This documentation as well as the API itself are currently\
     \ under construction. Any part of it can change anytime.**\n\nMore Cars is designed\
-    \ as an open car database. All the information is contributed by the community\
-    \ and can be used by everyone, for any purpose, for free.\n\nThis API is the counterpart\
-    \ of the More Cars website https://more-cars.net/. All the information found there\
-    \ can be accessed via this REST API."
-  version: "0.4.0-alpha"
+    \ as an **open car database**. \nAll the information is contributed by the community\
+    \ and can be used by everyone, for any purpose, for free.\nThis API is the counterpart\
+    \ of the More Cars website https://more-cars.net/. \nAll the information found\
+    \ there can be accessed via this REST API here and vice versa. \n\n**Access**\n\
+    \nDepending on the endpoint and the operation you want to execute you might need\
+    \ \n* no permissions at all\n* an access token \n* or privileged permissions.\n\
+    \n**Technical Background**\n\nAll endpoints follow the rules and best practices\
+    \ of **RESTful APIs**. \nMeaning, the correct HTTP verbs are used and proper HTTP\
+    \ status codes are returned. \nSee https://restfulapi.net/ or https://en.wikipedia.org/wiki/Representational_state_transfer.\n\
+    \nThe data structures follow the **JSON API** specification. \nSee https://jsonapi.org/.\n\
+    \nWhen you stumble upon a **required** flag it means that the field needs to be\
+    \ present in the database, not necessarily in every request.\nE.g. in a POST request\
+    \ this required field is needed. When retrieving, updating or deleting it is optional\
+    \ (in most cases)."
+  version: "0.5.0-alpha"
   title: "More Cars API"
   termsOfService: ""
   contact:
@@ -153,12 +163,12 @@ paths:
           description: "Status 404"
     post:
       description: "**!!!EXPERIMENTAL!!!**\n\nAttachs an existing `Video` to the specified\
-        \ `Car Model`.\n\n**Guidelines**\n* Only select videos that talk about this\
+        \ `Car Model`.\n\n**Guidelines**\n* Only select videos that deal with this\
         \ car model in general, or the whole generation. \n* If it's about about a\
         \ specific version of this model then please add the video to the matching\
         \ `Car Model Variant`.\n* The format of the video is more or less open. It\
-        \ can be a trailer (official, fan-made, mood), a discussion, an unveiling\
-        \ at a car show, a history lesson etc."
+        \ can be a commercial, teaser or trailer (official, fan-made, mood), a discussion,\
+        \ an unveiling at a car show, a history lesson etc."
       consumes: []
       parameters:
         - name: "body"
@@ -290,6 +300,18 @@ paths:
               $ref: "#/definitions/Car Model Variant"
             minItems: 0
             maxItems: 24
+    post:
+      description: "Creates a new Car Model `Variant`."
+      parameters: []
+      responses:
+        201:
+          description: "Status 201"
+        401:
+          description: "Status 401"
+        422:
+          description: "Status 422"
+      security:
+        - Access Token: []
     x-restlet:
       section: "Car Model Variants"
   /car-model-variants/{car_model_variant_id}:
@@ -303,17 +325,21 @@ paths:
             $ref: "#/definitions/Car Model Variant"
         404:
           description: "Status 404"
-    put:
-      description: "**!!!EXPERIMENTAL!!!**\n\nUpdates a `Car Model Variant` specified\
-        \ by its ID."
+    delete:
+      description: "Deletes a `Car Model Variant`.\n\n\U0001f512 Operation requires\
+        \ elevated permissions."
       parameters: []
       responses:
-        200:
-          description: "Status 200"
-          schema:
-            $ref: "#/definitions/Car Model Variant"
+        204:
+          description: "Status 204"
+        401:
+          description: "Status 401"
+        403:
+          description: "Status 403"
         404:
-          description: "Status 404"
+          description: "Node not found"
+      security:
+        - Access Token: []
     parameters:
       - name: "car_model_variant_id"
         in: "path"
@@ -2962,10 +2988,16 @@ paths:
             minItems: 0
             maxItems: 24
     post:
-      description: "**!!!EXPERIMENTAL!!!**\n\nAdds a new `Image` to the More Cars\
-        \ database.\n\n**Guidelines**\n* In general, all photos are allowed that are\
-        \ car related.\n* They must be legal, of course.\n* And they must be under\
-        \ Creative Commons license (see above).\n"
+      description: "Adds a new `Image` to the More Cars database.\n\n**General**\n\
+        * They must be under Creative Commons license (see above).\n* Image must be\
+        \ car-related\n* Image should fit to an existing node (e.g. a `Car Model Vaiation`\
+        \ or a `Brand`)\n* Image should be freely available, not locked behind a paywall\n\
+        * Image must be under Creative Commons license (see above).\n\n**Flickr and\
+        \ Wikimedia images**\n* The following shortcut is available:\n  * Only the\
+        \ fields `image_platform` and `image_platform_id` need to be supplied to the\
+        \ request.\n  * Author and licence information will be gathered automatically.\n\
+        * Duplicate images will not be accepted by the system.\n* Images with invalid\
+        \ ID will not be accepted by the system."
       consumes: []
       parameters:
         - name: "body"
@@ -2974,8 +3006,38 @@ paths:
           schema:
             $ref: "#/definitions/Image"
       responses:
-        200:
-          description: "Status 200"
+        201:
+          description: "Image successfully created"
+          schema:
+            required:
+              - "data"
+              - "links"
+            type: "object"
+            properties:
+              data:
+                $ref: "#/definitions/Image"
+              links:
+                required:
+                  - "self"
+                type: "object"
+                properties:
+                  self:
+                    type: "string"
+                    description: "The URL of the created `Image`"
+          headers:
+            Location:
+              type: "string"
+              description: "The URL of the created `Image`"
+        401:
+          description: "Authorization information missing"
+          schema:
+            $ref: "#/definitions/General Error"
+        422:
+          description: "Invalid image ID or image is already in the database"
+          schema:
+            $ref: "#/definitions/General Error"
+      security:
+        - Access Token: []
     x-restlet:
       section: "Images"
   /images/{image_id}:
@@ -2989,6 +3051,27 @@ paths:
             $ref: "#/definitions/Image"
         404:
           description: "Status 404"
+    delete:
+      description: "Deletes an `Image` from the More Cars database.\n\n\U0001f512\
+        \ Operation requires elevated permissions."
+      parameters: []
+      responses:
+        204:
+          description: "Image successfully deleted"
+        401:
+          description: "Authorization information missing"
+          schema:
+            $ref: "#/definitions/General Error"
+        403:
+          description: "Insufficient permissions"
+          schema:
+            $ref: "#/definitions/General Error"
+        404:
+          description: "Image not found"
+          schema:
+            $ref: "#/definitions/General Error"
+      security:
+        - Access Token: []
     parameters:
       - name: "image_id"
         in: "path"
@@ -3390,6 +3473,44 @@ paths:
               $ref: "#/definitions/Online Article"
             minItems: 1
             maxItems: 50
+    post:
+      description: "Adds a new `Online Article` to the More Cars database."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Online Article"
+      responses:
+        201:
+          description: "Online Article successfully created"
+          schema:
+            required:
+              - "data"
+              - "links"
+            type: "object"
+            properties:
+              data:
+                $ref: "#/definitions/Online Article"
+              links:
+                required:
+                  - "self"
+                type: "object"
+                properties:
+                  self:
+                    type: "string"
+                    description: "The URL of the created `Online Article`"
+          headers:
+            Location:
+              type: "string"
+              description: "The URL of the created `Online Article`"
+        401:
+          description: "Authorization information missing"
+          schema:
+            $ref: "#/definitions/General Error"
+      security:
+        - Access Token: []
     x-restlet:
       section: "Online Articles"
   /online-articles/{online_article_id}:
@@ -3403,6 +3524,27 @@ paths:
             $ref: "#/definitions/Online Article"
         404:
           description: "Status 404"
+    delete:
+      description: "Deletes an `Online Article` from the More Cars database.\n\n\U0001f512\
+        \ Operation requires elevated permissions."
+      parameters: []
+      responses:
+        204:
+          description: "Online Article successfully deleted"
+        401:
+          description: "Authorization information missing"
+          schema:
+            $ref: "#/definitions/General Error"
+        403:
+          description: "Insufficient permissions"
+          schema:
+            $ref: "#/definitions/General Error"
+        404:
+          description: "Online Article not found"
+          schema:
+            $ref: "#/definitions/General Error"
+      security:
+        - Access Token: []
     parameters:
       - name: "online_article_id"
         in: "path"
@@ -3831,11 +3973,14 @@ paths:
             maxItems: 50
     post:
       description: "Adds a new `Video` to the More Cars database.\n\n**General**\n\
-        * ...\n\n**YouTube videos**\n* Shortcut is available:\n  * Only `video_platform`\
-        \ and `video_platform_id` need to be supplied to the request.\n  * Author\
-        \ and licence information will be gathered automatically.\n* Duplicate videos\
-        \ will not be accepted by the system.\n* Videos with invalid ID will not be\
-        \ accepted by the system."
+        * Video must be car-related\n* Video should fit to an existing node (e.g.\
+        \ a `Car Model` or a `Car Programme Episode`)\n* Video should be freely available,\
+        \ not locked behind a paywall\n* Video must be credited: creator and license\
+        \ information\n\n**YouTube videos**\n* The following shortcut is available:\n\
+        \  * Only the fields `video_platform` and `video_platform_id` need to be supplied\
+        \ to the request.\n  * Author and licence information will be gathered automatically.\n\
+        * Duplicate videos will not be accepted by the system.\n* Videos with invalid\
+        \ ID will not be accepted by the system."
       consumes: []
       parameters:
         - name: "body"
@@ -3866,10 +4011,6 @@ paths:
             Location:
               type: "string"
               description: "The URL of the created `Video`"
-        400:
-          description: "Mandatory information missing"
-          schema:
-            $ref: "#/definitions/General Error"
         401:
           description: "Authorization information missing"
           schema:
@@ -3877,29 +4018,7 @@ paths:
         422:
           description: "Invalid video ID or video is already in the database"
           schema:
-            required:
-              - "detail"
-              - "errors"
-              - "status"
-            type: "object"
-            properties:
-              errors:
-                type: "object"
-                properties:
-                  links:
-                    required:
-                      - "about"
-                    type: "object"
-                    properties:
-                      about:
-                        type: "string"
-                        description: "URL of the already existing `Video`"
-              status:
-                type: "string"
-                description: "HTTP error code"
-              detail:
-                type: "string"
-                description: "Description of the error"
+            $ref: "#/definitions/General Error"
       security:
         - Access Token: []
     x-restlet:
@@ -4335,17 +4454,19 @@ definitions:
       - "errors"
     properties:
       errors:
-        required:
-          - "detail"
-          - "status"
-        type: "object"
-        properties:
-          status:
-            type: "string"
-            description: "HTTP status code"
-          detail:
-            type: "string"
-            description: "Description of the error"
+        type: "array"
+        items:
+          required:
+            - "detail"
+            - "status"
+          type: "object"
+          properties:
+            status:
+              type: "string"
+              description: "HTTP status code"
+            detail:
+              type: "string"
+              description: "Description of the error"
   Car Model:
     type: "object"
     required:
@@ -5251,8 +5372,11 @@ definitions:
   Video:
     type: "object"
     required:
+      - "creator"
       - "id"
+      - "license"
       - "name"
+      - "source"
     properties:
       id:
         type: "integer"
@@ -5281,29 +5405,14 @@ definitions:
         description: "The license under which the video was published."
       duration:
         type: "string"
-        description: "The length of this video in minutes and seconds."
+        description: "The length of this video, following the ISO 8601 standard."
+        example: "PT6M48S"
       description:
         type: "string"
       tags:
         type: "string"
         description: "A comma-separated list of keywords, describing the key aspects\
           \ of this video."
-    x-restlet:
-      section: "Videos"
-  Video (Youtube):
-    type: "object"
-    required:
-      - "video_platform"
-      - "video_platform_id"
-    properties:
-      video_platform:
-        type: "string"
-        description: "The platform or service that is hosting the video."
-        enum:
-          - "youtube"
-      video_platform_id:
-        type: "string"
-        description: "The ID of the video, as given by the video hosting service."
     x-restlet:
       section: "Videos"
 x-restlet:
