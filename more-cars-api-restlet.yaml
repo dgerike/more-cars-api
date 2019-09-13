@@ -17,7 +17,7 @@ info:
     \ present in the database, not necessarily in every request.\nE.g. in a POST request\
     \ this required field is needed. When retrieving, updating or deleting it is optional\
     \ (in most cases)."
-  version: "0.5.0-alpha"
+  version: "0.6.0-alpha"
   title: "More Cars API"
   termsOfService: ""
   contact:
@@ -434,6 +434,41 @@ paths:
             maxItems: 24
         404:
           description: "Status 404"
+    post:
+      description: "Attaches an existing `Video` to the specified `Car Model Variant`.\n\
+        \n**Guidelines**\n* Only select videos that match the specified variant. So,\
+        \ when the video is about the convertible version of the BMW M3 don't add\
+        \ it to the coupe variant.\n* The car should be in the focus of the video,\
+        \ not just decoration."
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            required:
+              - "video_id"
+            properties:
+              video_id:
+                type: "integer"
+                description: "The internal More Cars ID of the video."
+      responses:
+        204:
+          description: "Status 204"
+        404:
+          description: "Status 404"
+      security:
+        - Access Token: []
+    delete:
+      parameters: []
+      responses:
+        204:
+          description: "Status 204"
+        404:
+          description: "Status 404"
+      security:
+        - Access Token: []
     parameters:
       - name: "car_model_variant_id"
         in: "path"
@@ -458,6 +493,42 @@ paths:
         in: "path"
         required: true
         type: "integer"
+    x-restlet:
+      section: "Car Model Variants"
+  /car-model-variants/{car_model_variant_id}/car-model/{car_model_id}:
+    post:
+      description: "Attaches an existing `Car Model` to the specified `Car Model Variant`.\n\
+        \n⚠ This will disconnect the currently attached `Car Model` (if existing)."
+      parameters: []
+      responses:
+        204:
+          description: "Status 204"
+        404:
+          description: "Status 404"
+      security:
+        - Access Token: []
+    delete:
+      parameters: []
+      responses:
+        204:
+          description: "Status 204"
+        401:
+          description: "Status 401"
+        403:
+          description: "Status 403"
+        404:
+          description: "Status 404"
+      security:
+        - Access Token: []
+    parameters:
+      - name: "car_model_variant_id"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "car_model_id"
+        in: "path"
+        required: true
+        type: "string"
     x-restlet:
       section: "Car Model Variants"
   /car-model-variants/{car_model_variant_id}/car-magazine-issues:
@@ -1734,9 +1805,7 @@ paths:
         200:
           description: "Status 200"
           schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Racing Event"
+            $ref: "#/definitions/Country"
         404:
           description: "Status 404"
     parameters:
@@ -1853,8 +1922,8 @@ paths:
       section: "Racing Events"
   /racing-events/{racing_event_id}/racing-series:
     get:
-      description: "Returns all `Racing Events` that took place in the specified `Racing\
-        \ Series`."
+      description: "Returns the `Racing Series` to which the specified `Racing Event`\
+        \ belongs."
       parameters: []
       responses:
         200:
@@ -1862,7 +1931,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Racing Event"
+              $ref: "#/definitions/Racing Series"
         404:
           description: "Status 404"
     parameters:
@@ -1883,7 +1952,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Racing Event"
+              $ref: "#/definitions/Race Track Variant"
         404:
           description: "Status 404"
     parameters:
@@ -1895,8 +1964,8 @@ paths:
       section: "Racing Events"
   /racing-events/{racing_event_id}/racing-event-sessions:
     get:
-      description: "Returns the `Race Track Variant` at which the specified `Racing\
-        \ Event` took place."
+      description: "Returns all `Racing Event Sessions` that were held in the specified\
+        \ `Racing Event`."
       parameters: []
       responses:
         200:
@@ -1904,7 +1973,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Racing Event"
+              $ref: "#/definitions/Racing Event Session"
         404:
           description: "Status 404"
     parameters:
@@ -2021,8 +2090,8 @@ paths:
       section: "Racing Event Sessions"
   /racing-event-sessions/{racing_event_session_id}/racing-event:
     get:
-      description: "Returns the `Racing Event` the specified `Racing Event Session`\
-        \ belongs to."
+      description: "Returns the `Racing Event` to which the specified `Racing Event\
+        \ Session` belongs to."
       parameters: []
       responses:
         200:
@@ -2165,14 +2234,33 @@ paths:
       section: "Race Results"
   /race-results/{race_result_id}/racing-event-session:
     get:
-      description: "Returns the `Racing Event Session` the specified `Race Result`\
-        \ belongs to."
+      description: "Returns the `Racing Event Session` to which the specified `Race\
+        \ Result` belongs to."
       parameters: []
       responses:
         200:
           description: "Status 200"
           schema:
             $ref: "#/definitions/Racing Event Session"
+        404:
+          description: "Status 404"
+    parameters:
+      - name: "race_result_id"
+        in: "path"
+        required: true
+        type: "integer"
+    x-restlet:
+      section: "Race Results"
+  /race-results/{race_result_id}/car-model-variant:
+    get:
+      description: "Returns the `Car Model Variation` in which this `Race Result`\
+        \ has been achieved."
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Car Model Variant"
         404:
           description: "Status 404"
     parameters:
@@ -4827,16 +4915,27 @@ definitions:
           \ the system and cannot be altered."
       name:
         type: "string"
+        description: "The official name of this car company, incl. the legal suffix\
+          \ (AG, SE, GmbH, N.V., Ltd)."
       founded:
         type: "integer"
       defunct:
         type: "integer"
       headquarter_city:
         type: "string"
+        description: "The city in which the company has its (de facto) headquarter.\
+          \ \nThe English name should be used (if available), e.g. `Munich` instead\
+          \ of `München`."
       legal_headquarter_city:
         type: "string"
+        description: "The city where the company has its official headquarter. (This\
+          \ should only be set when it differs from the de facto headquarter.)\n\n\
+          E.g.: `Ferrari` is an Italian company, based in `Maranello` but on paper\
+          \ they are a Dutch company, located in `Amsterdam`.\n\nThe English name\
+          \ should be used (if available), e.g. `Munich` instead of `München`."
       employees:
         type: "integer"
+        description: "The number of employees that are working for this company."
     x-restlet:
       section: "Companies"
   Car Magazine:
@@ -4857,8 +4956,19 @@ definitions:
         type: "integer"
       focus:
         type: "string"
+        enum:
+          - "new cars"
+          - "classic cars"
+          - "sports cars"
+          - "tuned cars"
+          - "race cars"
+          - "american cars"
+          - "japanese cars"
+          - "brand specific"
+          - "other"
       issues_per_year:
         type: "integer"
+        description: "The number of regular issues per year. Specials are excluded."
       single_copy_price:
         type: "number"
       single_copy_price_unit:
@@ -4944,15 +5054,15 @@ definitions:
           \ TV station or an online channel."
       seasons:
         type: "integer"
-        description: "The number of seasons (or series) until today."
+        description: "The number of seasons (resp. series) until today."
       episodes:
         type: "integer"
         description: "The total number of episodes, across all seasons, until today,\
-          \ including specials."
+          \ including specials, but not re-runs."
       running_time:
         type: "integer"
         description: "The regular length of one episode (in minutes). If it changed\
-          \ over time the running time of the latest episodes is used."
+          \ over time the running time of the latest episodes should be used."
     x-restlet:
       section: "Car Programmes"
   Car Programme Episode:
@@ -4997,7 +5107,7 @@ definitions:
           \ the system and cannot be altered."
       name:
         type: "string"
-        description: "The official name of the series."
+        description: "The official name of the series, in long form, not abbreviated."
         example: "Formula 1"
       short_name:
         type: "string"
@@ -5044,8 +5154,8 @@ definitions:
       name:
         type: "string"
         description: "The official name of this event. \nIn general a combination\
-          \ of year, racing series and the location. \nMight also contain the main\
-          \ sponsor's name."
+          \ of the year, the racing series and the the location. \nMight also contain\
+          \ the main sponsor's name."
         example: "2016 WTCC Race of Morocco"
       start_date:
         type: "string"
@@ -5100,10 +5210,10 @@ definitions:
         type: "string"
       position:
         type: "integer"
-        description: "The driver's final position in this session."
+        description: "The final position of this car in this session."
       driver_number:
         type: "string"
-        description: "The start number of the driver."
+        description: "The start number of the car, reps. the driver's number."
         example: "77"
       driver_name:
         type: "string"
@@ -5122,6 +5232,7 @@ definitions:
         description: "The number of championship points earned in this session. \n\
           \                Depending on the regulations this can be based on the position,\
           \ the fastest lap, malus points for fouls etc."
+        example: 25
     x-restlet:
       section: "Race Results"
   Race Track:
@@ -5265,6 +5376,8 @@ definitions:
     properties:
       id:
         type: "integer"
+        description: "The internal `More Cars` ID of this node. It's generated by\
+          \ the system and cannot be altered."
       name:
         type: "string"
         description: "The official (english) name of the country."
@@ -5275,7 +5388,7 @@ definitions:
       demonym:
         type: "string"
         description: "How are the inhabitants of this country called? \nE.g.: 'The\
-          \ `Italians` have the prettiest cars...')"
+          \ `Italians` have the fastest cars...')"
       short_name:
         type: "string"
         description: "Short form of the country name (if applicable)."
