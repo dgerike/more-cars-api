@@ -5995,108 +5995,6 @@
         }
       } ]
     },
-    "/racing-event-sessions/{racing_event_session_id}/images" : {
-      "get" : {
-        "tags" : [ "Racing Event Sessions" ],
-        "description" : "Returns all `Images` that are attached to the specified `Racing Event Session`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Image"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "racing_event_session_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/racing-event-sessions/{racing_event_session_id}/online-articles" : {
-      "get" : {
-        "tags" : [ "Racing Event Sessions" ],
-        "description" : "Returns all `Online Articles` that are attached to the specified `Racing Event Session`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Online_Article"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "racing_event_session_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/racing-event-sessions/{racing_event_session_id}/videos" : {
-      "get" : {
-        "tags" : [ "Racing Event Sessions" ],
-        "description" : "Returns all `Videos` that are attached to the specified `Racing Event Session`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Video"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "racing_event_session_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
     "/racing-event-sessions/{racing_event_session_id}/racing-event" : {
       "get" : {
         "tags" : [ "Racing Event Sessions" ],
@@ -6156,6 +6054,282 @@
         "schema" : {
           "type" : "integer"
         }
+      } ]
+    },
+    "/racing-event-sessions/{racing_event_session_id}/images" : {
+      "get" : {
+        "tags" : [ "Racing Event Sessions" ],
+        "summary" : "Get connected Images",
+        "description" : "Returns all `Images` that are attached to the specified `Racing Event Sessions`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Image"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "racing_event_session_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 22404
+      } ]
+    },
+    "/racing-event-sessions/{racing_event_session_id}/images/{image_id}" : {
+      "post" : {
+        "tags" : [ "Racing Event Sessions" ],
+        "summary" : "Connect Image",
+        "description" : "Attaches an existing `Image` to the specified `Racing Event Sessions`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Event Sessions" ],
+        "summary" : "Disconnect Image",
+        "description" : "Disconnects an `Image` from the specified `Racing Event Sessions`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_event_session_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 22404
+      }, {
+        "name" : "image_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 15330
+      } ]
+    },
+    "/racing-event-sessions/{racing_event_session_id}/online-articles" : {
+      "get" : {
+        "tags" : [ "Racing Event Sessions" ],
+        "summary" : "Get connected Online Articles",
+        "description" : "Returns all `Online Articles` that are attached to the specified `Racing Event Sessions`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Online_Article"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "racing_event_session_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 22404
+      } ]
+    },
+    "/racing-event-sessions/{racing_event_session_id}/online-articles/{online_article_id}" : {
+      "post" : {
+        "tags" : [ "Racing Event Sessions" ],
+        "summary" : "Connect Online Article",
+        "description" : "Attaches an existing `Online Article` to the specified `Racing Event Sessions`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Event Sessions" ],
+        "summary" : "Disconnect Online Article",
+        "description" : "Disconnects an `Online Article` from the specified `Racing Event Sessions`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_event_session_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 22404
+      }, {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40748
+      } ]
+    },
+    "/racing-event-sessions/{racing_event_session_id}/videos" : {
+      "get" : {
+        "tags" : [ "Racing Event Sessions" ],
+        "summary" : "Get connected Videos",
+        "description" : "Returns all `Videos` that are attached to the specified `Racing Event Sessions`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Video"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "racing_event_session_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 22404
+      } ]
+    },
+    "/racing-event-sessions/{racing_event_session_id}/videos/{video_id}" : {
+      "post" : {
+        "tags" : [ "Racing Event Sessions" ],
+        "summary" : "Connect Video",
+        "description" : "Attachs an existing `Video` to the specified `Racing Event Sessions`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Event Sessions" ],
+        "summary" : "Disconnect Video",
+        "description" : "Disconnects a `Video` from the specified `Racing Event Sessions`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_event_session_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 22404
+      }, {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28091
       } ]
     },
     "/race-results" : {
