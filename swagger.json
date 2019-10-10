@@ -3942,108 +3942,6 @@
         }
       } ]
     },
-    "/car-programme-episodes/{car_programme_episode_id}/images" : {
-      "get" : {
-        "tags" : [ "Car Programme Episodes" ],
-        "description" : "Returns all `Images` that are attached to the specified `Car Programme Episode`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Image"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "car_programme_episode_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/car-programme-episodes/{car_programme_episode_id}/online-articles" : {
-      "get" : {
-        "tags" : [ "Car Programme Episodes" ],
-        "description" : "Returns all `Online Articles` that are attached to the specified `Car Programme Episode`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Online_Article"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "car_programme_episode_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/car-programme-episodes/{car_programme_episode_id}/videos" : {
-      "get" : {
-        "tags" : [ "Car Programme Episodes" ],
-        "description" : "Returns all `Videos` that are attached to the specified `Car Programme Episode`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Video"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "car_programme_episode_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
     "/car-programme-episodes/{car_programme_episode_id}/car-programme" : {
       "get" : {
         "tags" : [ "Car Programme Episodes" ],
@@ -4193,6 +4091,282 @@
         "schema" : {
           "type" : "integer"
         }
+      } ]
+    },
+    "/car-programme-episodes/{car_programme_episode_id}/images" : {
+      "get" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Get connected Images",
+        "description" : "Returns all `Images` that are attached to the specified `Car Programme Episode`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Image"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "car_programme_episode_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 2086
+      } ]
+    },
+    "/car-programme-episodes/{car_programme_episode_id}/images/{image_id}" : {
+      "post" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Connect Image",
+        "description" : "Attaches an existing `Image` to the specified `Car Programme Episode`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Disconnect Image",
+        "description" : "Disconnects an `Image` from the specified `Car Programme Episode`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "car_programme_episode_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 2086
+      }, {
+        "name" : "image_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 4701
+      } ]
+    },
+    "/car-programme-episodes/{car_programme_episode_id}/online-articles" : {
+      "get" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Get connected Online Articles",
+        "description" : "Returns all `Online Articles` that are attached to the specified `Car Programme Episode`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Online_Article"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "car_programme_episode_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 2086
+      } ]
+    },
+    "/car-programme-episodes/{car_programme_episode_id}/online-articles/{online_article_id}" : {
+      "post" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Connect Online Article",
+        "description" : "Attaches an existing `Online Article` to the specified `Car Programme Episode`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Disconnect Online Article",
+        "description" : "Disconnects an `Online Article` from the specified `Car Programme Episode`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "car_programme_episode_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 2086
+      }, {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25957
+      } ]
+    },
+    "/car-programme-episodes/{car_programme_episode_id}/videos" : {
+      "get" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Get connected Videos",
+        "description" : "Returns all `Videos` that are attached to the specified `Car Programme Episode`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Video"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "car_programme_episode_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 2086
+      } ]
+    },
+    "/car-programme-episodes/{car_programme_episode_id}/videos/{video_id}" : {
+      "post" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Connect Video",
+        "description" : "Attachs an existing `Video` to the specified `Car Programme Episode`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Disconnect Video",
+        "description" : "Disconnects a `Video` from the specified `Car Programme Episode`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "car_programme_episode_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 2086
+      }, {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 4252
       } ]
     },
     "/racing-series" : {
