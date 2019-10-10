@@ -4836,19 +4836,21 @@
     "/racing-games" : {
       "get" : {
         "tags" : [ "Racing Games" ],
-        "description" : "Returns a collection of all `Racing Games` that are stored in the More Cars database.",
+        "summary" : "Get all Racing Games",
+        "description" : "Returns a collection of all `Racing Games` that are stored in the *More Cars* database.  If the collection is larger than 24 items (default) then it will be chunked.  Use the \"page\" parameter to fetch the remaining nodes.",
         "parameters" : [ {
           "name" : "page",
           "in" : "query",
           "required" : false,
-          "description" : "pagination parameter",
+          "description" : "pagination",
           "schema" : {
             "type" : "integer"
-          }
+          },
+          "example" : 1
         } ],
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -4863,15 +4865,77 @@
             }
           }
         }
+      },
+      "post" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Create new Racing Game",
+        "description" : "Adds a new `Racing Game` to the More Cars database.",
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Racing_Game"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Node was successfully created",
+            "headers" : {
+              "Location" : {
+                "description" : "The URL of the newly created Node",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "data", "links" ],
+                  "type" : "object",
+                  "properties" : {
+                    "data" : {
+                      "$ref" : "#/components/schemas/Racing_Game"
+                    },
+                    "links" : {
+                      "required" : [ "self" ],
+                      "type" : "object",
+                      "properties" : {
+                        "self" : {
+                          "type" : "string",
+                          "description" : "The URL of the newly created Node",
+                          "example" : "https://more-cars.net/grid-2__21740"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/InvalidData"
+          }
+        }
       }
     },
     "/racing-games/{racing_game_id}" : {
       "get" : {
         "tags" : [ "Racing Games" ],
-        "description" : "Returns a `Racing Game`, specified by its ID",
+        "summary" : "Get specific Car Programme",
+        "description" : "Returns a `Racing Game` specified by its ID.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -4881,9 +4945,28 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
+      },
+      "delete" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Delete Racing Game",
+        "description" : "Deletes a `Racing Game`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully deleted"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "racing_game_id",
@@ -4891,7 +4974,8 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 21740
       } ]
     },
     "/racing-games/{racing_game_id}/car-model-variants" : {
