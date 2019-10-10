@@ -3209,20 +3209,94 @@
     "/car-magazine-issues" : {
       "get" : {
         "tags" : [ "Car Magazine Issues" ],
-        "description" : "Returns a collection of all `Car Magazine Issues` that are stored in the More Cars database.",
+        "summary" : "Get all Car Magazine Issues",
+        "description" : "Returns a collection of all `Car Magazine Issues` that are stored in the *More Cars* database.  If the collection is larger than 24 items (default) then it will be chunked.  Use the \"page\" parameter to fetch the remaining nodes.",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "description" : "pagination",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : 1
+        } ],
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Car_Magazine_Issue"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Car Magazine Issues" ],
+        "summary" : "Create new Car Magazine Issue",
+        "description" : "Adds a new `Car Magazine Issue` to the More Cars database.",
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Car_Magazine_Issue"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Node was successfully created",
+            "headers" : {
+              "Location" : {
+                "description" : "The URL of the newly created Node",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "data", "links" ],
+                  "type" : "object",
+                  "properties" : {
+                    "data" : {
+                      "$ref" : "#/components/schemas/Car_Magazine_Issue"
+                    },
+                    "links" : {
+                      "required" : [ "self" ],
+                      "type" : "object",
+                      "properties" : {
+                        "self" : {
+                          "type" : "string",
+                          "description" : "The URL of the newly created Node",
+                          "example" : "https://more-cars.net/auto-bild-sportscars-42019__27368"
+                        }
+                      }
+                    }
                   }
                 }
               }
             }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/InvalidData"
           }
         }
       }
@@ -3230,10 +3304,11 @@
     "/car-magazine-issues/{car_magazine_issue_id}" : {
       "get" : {
         "tags" : [ "Car Magazine Issues" ],
+        "summary" : "Get specific Car Magazine Issue",
         "description" : "Returns a `Car Magazine Issue` specified by its ID.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -3243,9 +3318,28 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
+      },
+      "delete" : {
+        "tags" : [ "Car Magazine Issues" ],
+        "summary" : "Delete Car Magazine Issue",
+        "description" : "Deletes a `Car Magazine Issue`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully deleted"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "car_magazine_issue_id",
@@ -3253,7 +3347,8 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 27368
       } ]
     },
     "/car-magazine-issues/{car_magazine_issue_id}/car-magazine" : {
@@ -3440,7 +3535,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 910
+        "example" : 27368
       } ]
     },
     "/car-magazines/{car_magazine_issue_id}/images/{image_id}" : {
@@ -3489,7 +3584,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 910
+        "example" : 27368
       }, {
         "name" : "image_id",
         "in" : "path",
@@ -3533,7 +3628,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 910
+        "example" : 27368
       } ]
     },
     "/car-magazines/{car_magazine_issue_id}/online-articles/{online_article_id}" : {
@@ -3579,7 +3674,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 910
+        "example" : 27368
       }, {
         "name" : "online_article_id",
         "in" : "path",
@@ -3623,7 +3718,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 910
+        "example" : 27368
       } ]
     },
     "/car-magazines/{car_magazine_issue_id}/videos/{video_id}" : {
@@ -3672,7 +3767,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 910
+        "example" : 23442
       }, {
         "name" : "video_id",
         "in" : "path",
@@ -3680,7 +3775,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 25155
+        "example" : 20581
       } ]
     },
     "/car-programmes" : {
