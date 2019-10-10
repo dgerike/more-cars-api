@@ -3584,7 +3584,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 27368
+        "example" : 23442
       }, {
         "name" : "image_id",
         "in" : "path",
@@ -3592,7 +3592,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 21028
+        "example" : 23443
       } ]
     },
     "/car-magazines/{car_magazine_issue_id}/online-articles" : {
@@ -3628,7 +3628,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 27368
+        "example" : 23442
       } ]
     },
     "/car-magazines/{car_magazine_issue_id}/online-articles/{online_article_id}" : {
@@ -3674,15 +3674,14 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 27368
+        "example" : 23442
       }, {
         "name" : "online_article_id",
         "in" : "path",
         "required" : true,
         "schema" : {
           "type" : "integer"
-        },
-        "example" : 28194
+        }
       } ]
     },
     "/car-magazines/{car_magazine_issue_id}/videos" : {
@@ -3718,7 +3717,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 27368
+        "example" : 23442
       } ]
     },
     "/car-magazines/{car_magazine_issue_id}/videos/{video_id}" : {
