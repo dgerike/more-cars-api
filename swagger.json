@@ -4369,6 +4369,767 @@
         "example" : 4252
       } ]
     },
+    "/racing-games" : {
+      "get" : {
+        "tags" : [ "Racing Games" ],
+        "description" : "Returns a collection of all `Racing Games` that are stored in the More Cars database.",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "description" : "pagination parameter",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Racing_Game"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/racing-games/{racing_game_id}" : {
+      "get" : {
+        "tags" : [ "Racing Games" ],
+        "description" : "Returns a `Racing Game`, specified by its ID",
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Racing_Game"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Status 404"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      } ]
+    },
+    "/racing-games/{racing_game_id}/car-model-variants" : {
+      "get" : {
+        "tags" : [ "Racing Games" ],
+        "description" : "Returns all `Car Model Variants` that are represented in the specified `Racing Game`.",
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Car_Model_Variant"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Status 404"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      } ]
+    },
+    "/racing-games/{racing_game_id}/gaming-platforms" : {
+      "get" : {
+        "tags" : [ "Racing Games" ],
+        "description" : "Returns all `Gaming Platforms` the specified `Racing Game` is available for.",
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Gaming_Platform"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Status 404"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      } ]
+    },
+    "/racing-games/{racing_game_id}/images" : {
+      "get" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Get connected Images",
+        "description" : "Returns all `Images` that are attached to the specified `Racing Game`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Image"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21740
+      } ]
+    },
+    "/racing-games/{racing_game_id}/images/{image_id}" : {
+      "post" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Connect Image",
+        "description" : "Attaches an existing `Image` to the specified `Racing Game`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Disconnect Image",
+        "description" : "Disconnects an `Image` from the specified `Racing Game`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21740
+      }, {
+        "name" : "image_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14950
+      } ]
+    },
+    "/racing-games/{racing_game_id}/online-articles" : {
+      "get" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Get connected Online Articles",
+        "description" : "Returns all `Online Articles` that are attached to the specified `Racing Game`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Online_Article"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21740
+      } ]
+    },
+    "/racing-games/{racing_game_id}/online-articles/{online_article_id}" : {
+      "post" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Connect Online Article",
+        "description" : "Attaches an existing `Online Article` to the specified `Racing Game`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Disconnect Online Article",
+        "description" : "Disconnects an `Online Article` from the specified `Racing Game`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21740
+      }, {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25742
+      } ]
+    },
+    "/racing-games/{racing_game_id}/videos" : {
+      "get" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Get connected Videos",
+        "description" : "Returns all `Videos` that are attached to the specified `Racing Game`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Video"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21740
+      } ]
+    },
+    "/racing-games/{racing_game_id}/videos/{video_id}" : {
+      "post" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Connect Video",
+        "description" : "Attachs an existing `Video` to the specified `Racing Game`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Disconnect Video",
+        "description" : "Disconnects a `Video` from the specified `Racing Game`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21740
+      }, {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 23374
+      } ]
+    },
+    "/gaming-platforms" : {
+      "get" : {
+        "tags" : [ "Gaming Platforms" ],
+        "description" : "Returns a collection of all `Gaming Platforms` that are stored in the More Cars database.",
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Gaming_Platform"
+                  },
+                  "minItems" : 1,
+                  "maxItems" : 50
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gaming-platforms/{gaming_platform_id}" : {
+      "get" : {
+        "tags" : [ "Gaming Platforms" ],
+        "description" : "Returns a `Gaming Platform`, specified by its ID.",
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Gaming_Platform"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Status 404"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "gaming_platform_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      } ]
+    },
+    "/gaming-platforms/{gaming_platform_id}/racing-games" : {
+      "get" : {
+        "tags" : [ "Gaming Platforms" ],
+        "description" : "Returns all `Racing Games` that are available for the specified `Gaming Platform`.",
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Racing_Game"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Status 404"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "gaming_platform_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      } ]
+    },
+    "/gaming-platforms/{gaming_platform_id}/images" : {
+      "get" : {
+        "tags" : [ "Gaming Platforms" ],
+        "summary" : "Get connected Images",
+        "description" : "Returns all `Images` that are attached to the specified `Gaming Platform`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Image"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "gaming_platform_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14389
+      } ]
+    },
+    "/gaming-platforms/{gaming_platform_id}/images/{image_id}" : {
+      "post" : {
+        "tags" : [ "Gaming Platforms" ],
+        "summary" : "Connect Image",
+        "description" : "Attaches an existing `Image` to the specified `Gaming Platform`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Gaming Platforms" ],
+        "summary" : "Disconnect Image",
+        "description" : "Disconnects an `Image` from the specified `Gaming Platform`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "gaming_platform_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14389
+      }, {
+        "name" : "image_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25814
+      } ]
+    },
+    "/gaming-platforms/{gaming_platform_id}/online-articles" : {
+      "get" : {
+        "tags" : [ "Gaming Platforms" ],
+        "summary" : "Get connected Online Articles",
+        "description" : "Returns all `Online Articles` that are attached to the specified `Gaming Platform`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Online_Article"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "gaming_platform_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14389
+      } ]
+    },
+    "/gaming-platforms/{gaming_platform_id}/online-articles/{online_article_id}" : {
+      "post" : {
+        "tags" : [ "Gaming Platforms" ],
+        "summary" : "Connect Online Article",
+        "description" : "Attaches an existing `Online Article` to the specified `Gaming Platform`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Gaming Platforms" ],
+        "summary" : "Disconnect Online Article",
+        "description" : "Disconnects an `Online Article` from the specified `Gaming Platform`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "gaming_platform_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14389
+      }, {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25987
+      } ]
+    },
+    "/gaming-platforms/{gaming_platform_id}/videos" : {
+      "get" : {
+        "tags" : [ "Gaming Platforms" ],
+        "summary" : "Get connected Videos",
+        "description" : "Returns all `Videos` that are attached to the specified `Gaming Platform`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Video"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "gaming_platform_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14389
+      } ]
+    },
+    "/gaming-platforms/{gaming_platform_id}/videos/{video_id}" : {
+      "post" : {
+        "tags" : [ "Gaming Platforms" ],
+        "summary" : "Connect Video",
+        "description" : "Attachs an existing `Video` to the specified `Gaming Platform`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Gaming Platforms" ],
+        "summary" : "Disconnect Video",
+        "description" : "Disconnects a `Video` from the specified `Gaming Platform`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "gaming_platform_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14389
+      }, {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14465
+      } ]
+    },
     "/racing-series" : {
       "get" : {
         "tags" : [ "Racing Series" ],
@@ -4418,108 +5179,6 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
-      } ]
-    },
-    "/racing-series/{racing_series_id}/images" : {
-      "get" : {
-        "tags" : [ "Racing Series" ],
-        "description" : "Returns all `Images` that are attached to the specified `Racing Series`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Image"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "racing_series_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      } ]
-    },
-    "/racing-series/{racing_series_id}/online-articles" : {
-      "get" : {
-        "tags" : [ "Racing Series" ],
-        "description" : "Returns all `Online Articles` that are attached to the specified `Racing Series`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Online_Article"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "racing_series_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      } ]
-    },
-    "/racing-series/{racing_series_id}/videos" : {
-      "get" : {
-        "tags" : [ "Racing Series" ],
-        "description" : "Returns all `Videos` that are attached to the specified `Racing Series`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Video"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "racing_series_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "string"
         }
       } ]
     },
@@ -4582,6 +5241,282 @@
         "schema" : {
           "type" : "integer"
         }
+      } ]
+    },
+    "/racing-series/{racing_series_id}/images" : {
+      "get" : {
+        "tags" : [ "Racing Series" ],
+        "summary" : "Get connected Images",
+        "description" : "Returns all `Images` that are attached to the specified `Racing Series`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Image"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "racing_series_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 310
+      } ]
+    },
+    "/racing-series/{racing_series_id}/images/{image_id}" : {
+      "post" : {
+        "tags" : [ "Racing Series" ],
+        "summary" : "Connect Image",
+        "description" : "Attaches an existing `Image` to the specified `Racing Series`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Series" ],
+        "summary" : "Disconnect Image",
+        "description" : "Disconnects an `Image` from the specified `Racing Series`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_series_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 310
+      }, {
+        "name" : "image_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 19288
+      } ]
+    },
+    "/racing-series/{racing_series_id}/online-articles" : {
+      "get" : {
+        "tags" : [ "Racing Series" ],
+        "summary" : "Get connected Online Articles",
+        "description" : "Returns all `Online Articles` that are attached to the specified `Racing Series`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Online_Article"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "racing_series_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 310
+      } ]
+    },
+    "/racing-series/{racing_series_id}/online-articles/{online_article_id}" : {
+      "post" : {
+        "tags" : [ "Racing Series" ],
+        "summary" : "Connect Online Article",
+        "description" : "Attaches an existing `Online Article` to the specified `Racing Series`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Series" ],
+        "summary" : "Disconnect Online Article",
+        "description" : "Disconnects an `Online Article` from the specified `Racing Series`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_series_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 310
+      }, {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40728
+      } ]
+    },
+    "/racing-series/{racing_series_id}/videos" : {
+      "get" : {
+        "tags" : [ "Racing Series" ],
+        "summary" : "Get connected Videos",
+        "description" : "Returns all `Videos` that are attached to the specified `Racing Series`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Video"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "racing_series_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 310
+      } ]
+    },
+    "/racing-series/{racing_series_id}/videos/{video_id}" : {
+      "post" : {
+        "tags" : [ "Racing Series" ],
+        "summary" : "Connect Video",
+        "description" : "Attachs an existing `Video` to the specified `Racing Series`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Series" ],
+        "summary" : "Disconnect Video",
+        "description" : "Disconnects a `Video` from the specified `Racing Series`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_series_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 310
+      }, {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25988
       } ]
     },
     "/racing-events" : {
@@ -5699,767 +6634,6 @@
         "schema" : {
           "type" : "string"
         }
-      } ]
-    },
-    "/racing-games" : {
-      "get" : {
-        "tags" : [ "Racing Games" ],
-        "description" : "Returns a collection of all `Racing Games` that are stored in the More Cars database.",
-        "parameters" : [ {
-          "name" : "page",
-          "in" : "query",
-          "required" : false,
-          "description" : "pagination parameter",
-          "schema" : {
-            "type" : "integer"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Racing_Game"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/racing-games/{racing_game_id}" : {
-      "get" : {
-        "tags" : [ "Racing Games" ],
-        "description" : "Returns a `Racing Game`, specified by its ID",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Racing_Game"
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "racing_game_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/racing-games/{racing_game_id}/car-model-variants" : {
-      "get" : {
-        "tags" : [ "Racing Games" ],
-        "description" : "Returns all `Car Model Variants` that are represented in the specified `Racing Game`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Car_Model_Variant"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "racing_game_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/racing-games/{racing_game_id}/gaming-platforms" : {
-      "get" : {
-        "tags" : [ "Racing Games" ],
-        "description" : "Returns all `Gaming Platforms` the specified `Racing Game` is available for.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Gaming_Platform"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "racing_game_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/racing-games/{racing_game_id}/images" : {
-      "get" : {
-        "tags" : [ "Racing Games" ],
-        "summary" : "Get connected Images",
-        "description" : "Returns all `Images` that are attached to the specified `Racing Game`.",
-        "responses" : {
-          "200" : {
-            "description" : "Node collection was successfully loaded",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Image"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "racing_game_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 21740
-      } ]
-    },
-    "/racing-games/{racing_game_id}/images/{image_id}" : {
-      "post" : {
-        "tags" : [ "Racing Games" ],
-        "summary" : "Connect Image",
-        "description" : "Attaches an existing `Image` to the specified `Racing Game`.",
-        "responses" : {
-          "204" : {
-            "description" : "Node was successfully connected"
-          },
-          "401" : {
-            "$ref" : "#/components/responses/NotAuthorized"
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        },
-        "security" : [ {
-          "Access_Token" : [ ]
-        } ]
-      },
-      "delete" : {
-        "tags" : [ "Racing Games" ],
-        "summary" : "Disconnect Image",
-        "description" : "Disconnects an `Image` from the specified `Racing Game`. 🔒 Operation requires elevated permissions.",
-        "responses" : {
-          "204" : {
-            "description" : "Node was successfully disconnected"
-          },
-          "401" : {
-            "$ref" : "#/components/responses/NotAuthorized"
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        },
-        "security" : [ {
-          "Access_Token" : [ ]
-        } ]
-      },
-      "parameters" : [ {
-        "name" : "racing_game_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 21740
-      }, {
-        "name" : "image_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 14950
-      } ]
-    },
-    "/racing-games/{racing_game_id}/online-articles" : {
-      "get" : {
-        "tags" : [ "Racing Games" ],
-        "summary" : "Get connected Online Articles",
-        "description" : "Returns all `Online Articles` that are attached to the specified `Racing Game`.",
-        "responses" : {
-          "200" : {
-            "description" : "Node collection was successfully loaded",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Online_Article"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "racing_game_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 21740
-      } ]
-    },
-    "/racing-games/{racing_game_id}/online-articles/{online_article_id}" : {
-      "post" : {
-        "tags" : [ "Racing Games" ],
-        "summary" : "Connect Online Article",
-        "description" : "Attaches an existing `Online Article` to the specified `Racing Game`.",
-        "responses" : {
-          "204" : {
-            "description" : "Node was successfully connected"
-          },
-          "401" : {
-            "$ref" : "#/components/responses/NotAuthorized"
-          }
-        },
-        "security" : [ {
-          "Access_Token" : [ ]
-        } ]
-      },
-      "delete" : {
-        "tags" : [ "Racing Games" ],
-        "summary" : "Disconnect Online Article",
-        "description" : "Disconnects an `Online Article` from the specified `Racing Game`. 🔒 Operation requires elevated permissions.",
-        "responses" : {
-          "204" : {
-            "description" : "Node was successfully disconnected"
-          },
-          "401" : {
-            "$ref" : "#/components/responses/NotAuthorized"
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        },
-        "security" : [ {
-          "Access_Token" : [ ]
-        } ]
-      },
-      "parameters" : [ {
-        "name" : "racing_game_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 21740
-      }, {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 25742
-      } ]
-    },
-    "/racing-games/{racing_game_id}/videos" : {
-      "get" : {
-        "tags" : [ "Racing Games" ],
-        "summary" : "Get connected Videos",
-        "description" : "Returns all `Videos` that are attached to the specified `Racing Game`.",
-        "responses" : {
-          "200" : {
-            "description" : "Node collection was successfully loaded",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Video"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "racing_game_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 21740
-      } ]
-    },
-    "/racing-games/{racing_game_id}/videos/{video_id}" : {
-      "post" : {
-        "tags" : [ "Racing Games" ],
-        "summary" : "Connect Video",
-        "description" : "Attachs an existing `Video` to the specified `Racing Game`.",
-        "responses" : {
-          "204" : {
-            "description" : "Node was successfully connected"
-          },
-          "401" : {
-            "$ref" : "#/components/responses/NotAuthorized"
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        },
-        "security" : [ {
-          "Access_Token" : [ ]
-        } ]
-      },
-      "delete" : {
-        "tags" : [ "Racing Games" ],
-        "summary" : "Disconnect Video",
-        "description" : "Disconnects a `Video` from the specified `Racing Game`. 🔒 Operation requires elevated permissions.",
-        "responses" : {
-          "204" : {
-            "description" : "Node was successfully disconnected"
-          },
-          "401" : {
-            "$ref" : "#/components/responses/NotAuthorized"
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        },
-        "security" : [ {
-          "Access_Token" : [ ]
-        } ]
-      },
-      "parameters" : [ {
-        "name" : "racing_game_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 21740
-      }, {
-        "name" : "video_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 23374
-      } ]
-    },
-    "/gaming-platforms" : {
-      "get" : {
-        "tags" : [ "Gaming Platforms" ],
-        "description" : "Returns a collection of all `Gaming Platforms` that are stored in the More Cars database.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Gaming_Platform"
-                  },
-                  "minItems" : 1,
-                  "maxItems" : 50
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/gaming-platforms/{gaming_platform_id}" : {
-      "get" : {
-        "tags" : [ "Gaming Platforms" ],
-        "description" : "Returns a `Gaming Platform`, specified by its ID.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Gaming_Platform"
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "gaming_platform_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/gaming-platforms/{gaming_platform_id}/racing-games" : {
-      "get" : {
-        "tags" : [ "Gaming Platforms" ],
-        "description" : "Returns all `Racing Games` that are available for the specified `Gaming Platform`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Racing_Game"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "gaming_platform_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/gaming-platforms/{gaming_platform_id}/images" : {
-      "get" : {
-        "tags" : [ "Gaming Platforms" ],
-        "summary" : "Get connected Images",
-        "description" : "Returns all `Images` that are attached to the specified `Gaming Platform`.",
-        "responses" : {
-          "200" : {
-            "description" : "Node collection was successfully loaded",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Image"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "gaming_platform_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 14389
-      } ]
-    },
-    "/gaming-platforms/{gaming_platform_id}/images/{image_id}" : {
-      "post" : {
-        "tags" : [ "Gaming Platforms" ],
-        "summary" : "Connect Image",
-        "description" : "Attaches an existing `Image` to the specified `Gaming Platform`.",
-        "responses" : {
-          "204" : {
-            "description" : "Node was successfully connected"
-          },
-          "401" : {
-            "$ref" : "#/components/responses/NotAuthorized"
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        },
-        "security" : [ {
-          "Access_Token" : [ ]
-        } ]
-      },
-      "delete" : {
-        "tags" : [ "Gaming Platforms" ],
-        "summary" : "Disconnect Image",
-        "description" : "Disconnects an `Image` from the specified `Gaming Platform`. 🔒 Operation requires elevated permissions.",
-        "responses" : {
-          "204" : {
-            "description" : "Node was successfully disconnected"
-          },
-          "401" : {
-            "$ref" : "#/components/responses/NotAuthorized"
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        },
-        "security" : [ {
-          "Access_Token" : [ ]
-        } ]
-      },
-      "parameters" : [ {
-        "name" : "gaming_platform_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 14389
-      }, {
-        "name" : "image_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 25814
-      } ]
-    },
-    "/gaming-platforms/{gaming_platform_id}/online-articles" : {
-      "get" : {
-        "tags" : [ "Gaming Platforms" ],
-        "summary" : "Get connected Online Articles",
-        "description" : "Returns all `Online Articles` that are attached to the specified `Gaming Platform`.",
-        "responses" : {
-          "200" : {
-            "description" : "Node collection was successfully loaded",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Online_Article"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "gaming_platform_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 14389
-      } ]
-    },
-    "/gaming-platforms/{gaming_platform_id}/online-articles/{online_article_id}" : {
-      "post" : {
-        "tags" : [ "Gaming Platforms" ],
-        "summary" : "Connect Online Article",
-        "description" : "Attaches an existing `Online Article` to the specified `Gaming Platform`.",
-        "responses" : {
-          "204" : {
-            "description" : "Node was successfully connected"
-          },
-          "401" : {
-            "$ref" : "#/components/responses/NotAuthorized"
-          }
-        },
-        "security" : [ {
-          "Access_Token" : [ ]
-        } ]
-      },
-      "delete" : {
-        "tags" : [ "Gaming Platforms" ],
-        "summary" : "Disconnect Online Article",
-        "description" : "Disconnects an `Online Article` from the specified `Gaming Platform`. 🔒 Operation requires elevated permissions.",
-        "responses" : {
-          "204" : {
-            "description" : "Node was successfully disconnected"
-          },
-          "401" : {
-            "$ref" : "#/components/responses/NotAuthorized"
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        },
-        "security" : [ {
-          "Access_Token" : [ ]
-        } ]
-      },
-      "parameters" : [ {
-        "name" : "gaming_platform_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 14389
-      }, {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 25987
-      } ]
-    },
-    "/gaming-platforms/{gaming_platform_id}/videos" : {
-      "get" : {
-        "tags" : [ "Gaming Platforms" ],
-        "summary" : "Get connected Videos",
-        "description" : "Returns all `Videos` that are attached to the specified `Gaming Platform`.",
-        "responses" : {
-          "200" : {
-            "description" : "Node collection was successfully loaded",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Video"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "gaming_platform_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 14389
-      } ]
-    },
-    "/gaming-platforms/{gaming_platform_id}/videos/{video_id}" : {
-      "post" : {
-        "tags" : [ "Gaming Platforms" ],
-        "summary" : "Connect Video",
-        "description" : "Attachs an existing `Video` to the specified `Gaming Platform`.",
-        "responses" : {
-          "204" : {
-            "description" : "Node was successfully connected"
-          },
-          "401" : {
-            "$ref" : "#/components/responses/NotAuthorized"
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        },
-        "security" : [ {
-          "Access_Token" : [ ]
-        } ]
-      },
-      "delete" : {
-        "tags" : [ "Gaming Platforms" ],
-        "summary" : "Disconnect Video",
-        "description" : "Disconnects a `Video` from the specified `Gaming Platform`. 🔒 Operation requires elevated permissions.",
-        "responses" : {
-          "204" : {
-            "description" : "Node was successfully disconnected"
-          },
-          "401" : {
-            "$ref" : "#/components/responses/NotAuthorized"
-          },
-          "404" : {
-            "$ref" : "#/components/responses/NotFound"
-          }
-        },
-        "security" : [ {
-          "Access_Token" : [ ]
-        } ]
-      },
-      "parameters" : [ {
-        "name" : "gaming_platform_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 14389
-      }, {
-        "name" : "video_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 14465
       } ]
     },
     "/countries" : {
