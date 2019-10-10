@@ -1706,45 +1706,94 @@
     "/brands" : {
       "get" : {
         "tags" : [ "Brands" ],
-        "description" : "Returns a collection of all `Brands` that are stored in the More Cars database.",
+        "summary" : "Get all Brands",
+        "description" : "Returns a collection of all `Brands` that are stored in the *More Cars* database.  If the collection is larger than 24 items (default) then it will be chunked.  Use the \"page\" parameter to fetch the remaining nodes.",
         "parameters" : [ {
           "name" : "page",
           "in" : "query",
           "required" : false,
-          "example" : 1,
+          "description" : "pagination",
           "schema" : {
             "type" : "integer"
-          }
-        }, {
-          "name" : "per_page",
-          "in" : "query",
-          "required" : false,
-          "example" : 10,
-          "schema" : {
-            "type" : "integer"
-          }
-        }, {
-          "name" : "limit",
-          "in" : "query",
-          "required" : false,
-          "example" : 100,
-          "schema" : {
-            "type" : "integer"
-          }
+          },
+          "example" : 1
         } ],
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Brand"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Brands" ],
+        "summary" : "Create new Brand",
+        "description" : "Adds a new `Brand` to the More Cars database.",
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Brand"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Node was successfully created",
+            "headers" : {
+              "Location" : {
+                "description" : "The URL of the newly created Node",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "data", "links" ],
+                  "type" : "object",
+                  "properties" : {
+                    "data" : {
+                      "$ref" : "#/components/schemas/Brand"
+                    },
+                    "links" : {
+                      "required" : [ "self" ],
+                      "type" : "object",
+                      "properties" : {
+                        "self" : {
+                          "type" : "string",
+                          "description" : "The URL of the newly created Node",
+                          "example" : "https://more-cars.net/ferrari__3"
+                        }
+                      }
+                    }
                   }
                 }
               }
             }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/InvalidData"
           }
         }
       }
@@ -1752,10 +1801,11 @@
     "/brands/{brand_id}" : {
       "get" : {
         "tags" : [ "Brands" ],
+        "summary" : "Get specific Brand",
         "description" : "Returns a `Brand` specified by its ID.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1765,9 +1815,28 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
+      },
+      "delete" : {
+        "tags" : [ "Brands" ],
+        "summary" : "Delete Brand",
+        "description" : "Deletes a `Brand`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully deleted"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "brand_id",
@@ -1775,7 +1844,8 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 3
       } ]
     },
     "/brands/{brand_id}/car-models" : {
