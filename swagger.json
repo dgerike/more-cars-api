@@ -4264,10 +4264,21 @@
     "/car-programme-episodes" : {
       "get" : {
         "tags" : [ "Car Programme Episodes" ],
-        "description" : "Returns a collection of all `Car Programme Episodes` that are stored in the More Cars database.",
+        "summary" : "Get all Car Programme Episodes",
+        "description" : "Returns a collection of all `Car Programme Episodes` that are stored in the *More Cars* database.  If the collection is larger than 24 items (default) then it will be chunked.  Use the \"page\" parameter to fetch the remaining nodes.",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "description" : "pagination",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : 1
+        } ],
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -4282,15 +4293,77 @@
             }
           }
         }
+      },
+      "post" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Create new Car Programme Episode",
+        "description" : "Adds a new `Car Programme Episode` to the More Cars database.",
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Car_Programme_Episode"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Node was successfully created",
+            "headers" : {
+              "Location" : {
+                "description" : "The URL of the newly created Node",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "data", "links" ],
+                  "type" : "object",
+                  "properties" : {
+                    "data" : {
+                      "$ref" : "#/components/schemas/Car_Programme_Episode"
+                    },
+                    "links" : {
+                      "required" : [ "self" ],
+                      "type" : "object",
+                      "properties" : {
+                        "self" : {
+                          "type" : "string",
+                          "description" : "The URL of the newly created Node",
+                          "example" : "https://more-cars.net/uk-vs-usa-challenge__2086"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/InvalidData"
+          }
+        }
       }
     },
     "/car-programme-episodes/{car_programme_episode_id}" : {
       "get" : {
         "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Get specific Car Programme",
         "description" : "Returns a `Car Programme Episode` specified by its ID.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -4300,9 +4373,28 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
+      },
+      "delete" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Delete Car Programme Episode",
+        "description" : "Deletes a `Car Programme Episode`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully deleted"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "car_programme_episode_id",
@@ -4310,7 +4402,8 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 2086
       } ]
     },
     "/car-programme-episodes/{car_programme_episode_id}/car-programme" : {
