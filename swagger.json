@@ -3283,7 +3283,7 @@
                         "self" : {
                           "type" : "string",
                           "description" : "The URL of the newly created Node",
-                          "example" : "https://more-cars.net/auto-bild-sportscars-42019__27368"
+                          "example" : "https://more-cars.net/auto-bild-sportscars-52019__23442"
                         }
                       }
                     }
@@ -3348,7 +3348,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 27368
+        "example" : 23442
       } ]
     },
     "/car-magazine-issues/{car_magazine_issue_id}/car-magazine" : {
@@ -3535,7 +3535,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 27368
+        "example" : 23442
       } ]
     },
     "/car-magazines/{car_magazine_issue_id}/images/{image_id}" : {
