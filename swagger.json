@@ -6384,108 +6384,6 @@
         }
       } ]
     },
-    "/race-results/{race_result_id}/images" : {
-      "get" : {
-        "tags" : [ "Race Results" ],
-        "description" : "Returns all `Images` that are attached to the specified `Race Result`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Image"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "race_result_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/race-results/{race_result_id}/online-articles" : {
-      "get" : {
-        "tags" : [ "Race Results" ],
-        "description" : "Returns all `Online Articles` that are attached to the specified `Race Result`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Online_Article"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "race_result_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/race-results/{race_result_id}/videos" : {
-      "get" : {
-        "tags" : [ "Race Results" ],
-        "description" : "Returns all `Videos` that are attached to the specified `Race Result`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Video"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "race_result_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
     "/race-results/{race_result_id}/racing-event-session" : {
       "get" : {
         "tags" : [ "Race Results" ],
@@ -6537,6 +6435,279 @@
       },
       "parameters" : [ {
         "name" : "race_result_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      } ]
+    },
+    "/race-results/{race_result_id}/images" : {
+      "get" : {
+        "tags" : [ "Race Results" ],
+        "summary" : "Get connected Images",
+        "description" : "Returns all `Images` that are attached to the specified `Race Results`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Image"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "race_result_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 27376
+      } ]
+    },
+    "/race-results/{race_result_id}/images/{image_id}" : {
+      "post" : {
+        "tags" : [ "Race Results" ],
+        "summary" : "Connect Image",
+        "description" : "Attaches an existing `Image` to the specified `Race Results`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Race Results" ],
+        "summary" : "Disconnect Image",
+        "description" : "Disconnects an `Image` from the specified `Race Results`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "race_result_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 27376
+      }, {
+        "name" : "image_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      } ]
+    },
+    "/race-results/{race_result_id}/online-articles" : {
+      "get" : {
+        "tags" : [ "Race Results" ],
+        "summary" : "Get connected Online Articles",
+        "description" : "Returns all `Online Articles` that are attached to the specified `Race Results`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Online_Article"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "race_result_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 27376
+      } ]
+    },
+    "/race-results/{race_result_id}/online-articles/{online_article_id}" : {
+      "post" : {
+        "tags" : [ "Race Results" ],
+        "summary" : "Connect Online Article",
+        "description" : "Attaches an existing `Online Article` to the specified `Race Results`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Race Results" ],
+        "summary" : "Disconnect Online Article",
+        "description" : "Disconnects an `Online Article` from the specified `Race Results`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "race_result_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 27376
+      }, {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      } ]
+    },
+    "/race-results/{race_result_id}/videos" : {
+      "get" : {
+        "tags" : [ "Race Results" ],
+        "summary" : "Get connected Videos",
+        "description" : "Returns all `Videos` that are attached to the specified `Race Results`.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Video"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "race_result_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 27376
+      } ]
+    },
+    "/race-results/{race_result_id}/videos/{video_id}" : {
+      "post" : {
+        "tags" : [ "Race Results" ],
+        "summary" : "Connect Video",
+        "description" : "Attachs an existing `Video` to the specified `Race Results`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Race Results" ],
+        "summary" : "Disconnect Video",
+        "description" : "Disconnects a `Video` from the specified `Race Results`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "race_result_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 27376
+      }, {
+        "name" : "video_id",
         "in" : "path",
         "required" : true,
         "schema" : {
