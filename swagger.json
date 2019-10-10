@@ -2217,45 +2217,94 @@
     "/companies" : {
       "get" : {
         "tags" : [ "Companies" ],
-        "description" : "Returns a collection of all `Companies` that are stored in the More Cars database.",
+        "summary" : "Get all Companies",
+        "description" : "Returns a collection of all `Companies` that are stored in the *More Cars* database.  If the collection is larger than 24 items (default) then it will be chunked.  Use the \"page\" parameter to fetch the remaining nodes.",
         "parameters" : [ {
           "name" : "page",
           "in" : "query",
           "required" : false,
-          "example" : 1,
+          "description" : "pagination",
           "schema" : {
             "type" : "integer"
-          }
-        }, {
-          "name" : "per_page",
-          "in" : "query",
-          "required" : false,
-          "example" : 10,
-          "schema" : {
-            "type" : "integer"
-          }
-        }, {
-          "name" : "limit",
-          "in" : "query",
-          "required" : false,
-          "example" : 100,
-          "schema" : {
-            "type" : "integer"
-          }
+          },
+          "example" : 1
         } ],
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Company"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Companies" ],
+        "summary" : "Create new Company",
+        "description" : "Adds a new `Company` to the More Cars database.",
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Company"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Node was successfully created",
+            "headers" : {
+              "Location" : {
+                "description" : "The URL of the newly created Node",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "data", "links" ],
+                  "type" : "object",
+                  "properties" : {
+                    "data" : {
+                      "$ref" : "#/components/schemas/Company"
+                    },
+                    "links" : {
+                      "required" : [ "self" ],
+                      "type" : "object",
+                      "properties" : {
+                        "self" : {
+                          "type" : "string",
+                          "description" : "The URL of the newly created Node",
+                          "example" : "https://more-cars.net/ferrari-nv__53"
+                        }
+                      }
+                    }
                   }
                 }
               }
             }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/InvalidData"
           }
         }
       }
@@ -2263,10 +2312,11 @@
     "/companies/{company_id}" : {
       "get" : {
         "tags" : [ "Companies" ],
-        "description" : "Returns a `Company`, specified by its ID.",
+        "summary" : "Get specific Company",
+        "description" : "Returns a `Company` specified by its ID.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2276,9 +2326,28 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
+      },
+      "delete" : {
+        "tags" : [ "Companies" ],
+        "summary" : "Delete Company",
+        "description" : "Deletes a `Company`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully deleted"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "company_id",
@@ -2286,7 +2355,8 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 53
       } ]
     },
     "/companies/{company_id}/brands" : {
