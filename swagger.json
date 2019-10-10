@@ -5826,7 +5826,7 @@
         }
       } ]
     },
-    "/car-programme-episodes/{racing_game_id}/images" : {
+    "/racing-games/{racing_game_id}/images" : {
       "get" : {
         "tags" : [ "Racing Games" ],
         "summary" : "Get connected Images",
@@ -5862,7 +5862,7 @@
         "example" : 21740
       } ]
     },
-    "/car-programme-episodes/{racing_game_id}/images/{image_id}" : {
+    "/racing-games/{racing_game_id}/images/{image_id}" : {
       "post" : {
         "tags" : [ "Racing Games" ],
         "summary" : "Connect Image",
@@ -5919,7 +5919,7 @@
         "example" : 14950
       } ]
     },
-    "/car-programme-episodes/{racing_game_id}/online-articles" : {
+    "/racing-games/{racing_game_id}/online-articles" : {
       "get" : {
         "tags" : [ "Racing Games" ],
         "summary" : "Get connected Online Articles",
@@ -5955,7 +5955,7 @@
         "example" : 21740
       } ]
     },
-    "/car-programme-episodes/{racing_game_id}/online-articles/{online_article_id}" : {
+    "/racing-games/{racing_game_id}/online-articles/{online_article_id}" : {
       "post" : {
         "tags" : [ "Racing Games" ],
         "summary" : "Connect Online Article",
@@ -6009,7 +6009,7 @@
         "example" : 25742
       } ]
     },
-    "/car-programme-episodes/{racing_game_id}/videos" : {
+    "/racing-games/{racing_game_id}/videos" : {
       "get" : {
         "tags" : [ "Racing Games" ],
         "summary" : "Get connected Videos",
@@ -6045,7 +6045,7 @@
         "example" : 21740
       } ]
     },
-    "/car-programme-episodes/{racing_game_id}/videos/{video_id}" : {
+    "/racing-games/{racing_game_id}/videos/{video_id}" : {
       "post" : {
         "tags" : [ "Racing Games" ],
         "summary" : "Connect Video",
@@ -6151,108 +6151,6 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
-      } ]
-    },
-    "/gaming-platforms/{gaming_platform_id}/images" : {
-      "get" : {
-        "tags" : [ "Gaming Platforms" ],
-        "description" : "Returns all `Images` that are attached to the specified `Gaming Platform`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Image"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "gaming_platform_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      } ]
-    },
-    "/gaming-platforms/{gaming_platform_id}/online-articles" : {
-      "get" : {
-        "tags" : [ "Gaming Platforms" ],
-        "description" : "Returns all `Online Articles` that are attached to the specified `Gaming Platform`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Online_Article"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "gaming_platform_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      } ]
-    },
-    "/gaming-platforms/{gaming_platform_id}/videos" : {
-      "get" : {
-        "tags" : [ "Gaming Platforms" ],
-        "description" : "Returns all `Videos` that are attached to the specified `Gaming Platform`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Video"
-                  },
-                  "minItems" : 0,
-                  "maxItems" : 24
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "gaming_platform_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "string"
         }
       } ]
     },
