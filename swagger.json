@@ -6793,7 +6793,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/Racing_Event"
+                    "$ref" : "#/components/schemas/Racing_Event_Session"
                   },
                   "minItems" : 0,
                   "maxItems" : 24
@@ -6814,7 +6814,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Racing_Event"
+                "$ref" : "#/components/schemas/Racing_Event_Session"
               }
             }
           },
@@ -6838,7 +6838,7 @@
                   "type" : "object",
                   "properties" : {
                     "data" : {
-                      "$ref" : "#/components/schemas/Racing_Event"
+                      "$ref" : "#/components/schemas/Racing_Event_Session"
                     },
                     "links" : {
                       "required" : [ "self" ],
@@ -6876,7 +6876,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Racing_Event"
+                  "$ref" : "#/components/schemas/Racing_Event_Session"
                 }
               }
             }
@@ -7275,7 +7275,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/Racing_Event"
+                    "$ref" : "#/components/schemas/Race_Result"
                   },
                   "minItems" : 0,
                   "maxItems" : 24
@@ -7296,7 +7296,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Racing_Event"
+                "$ref" : "#/components/schemas/Race_Result"
               }
             }
           },
@@ -7320,7 +7320,7 @@
                   "type" : "object",
                   "properties" : {
                     "data" : {
-                      "$ref" : "#/components/schemas/Racing_Event"
+                      "$ref" : "#/components/schemas/Race_Result"
                     },
                     "links" : {
                       "required" : [ "self" ],
@@ -7358,7 +7358,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Racing_Event"
+                  "$ref" : "#/components/schemas/Race_Result"
                 }
               }
             }
