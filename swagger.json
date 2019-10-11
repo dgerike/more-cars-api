@@ -1103,7 +1103,7 @@
         "description" : "Returns all `Car Magazine Issues` where the specified `Car Model Variant` has been presented.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1135,6 +1135,7 @@
     "/car-model-variants/{car_model_variant_id}/car-magazine-issues/{car_magazine_issue_id}" : {
       "post" : {
         "tags" : [ "Car Model Variants" ],
+        "summary" : "Connect Car Magazine Issue",
         "description" : "Connects an existing `Car Magazine Issue` to the specified `Car Model Variant`.",
         "responses" : {
           "204" : {
@@ -1153,6 +1154,7 @@
       },
       "delete" : {
         "tags" : [ "Car Model Variants" ],
+        "summary" : "Disconnect Car Magazine Issue",
         "description" : "Disconnects a `Car Magazine Issue` from the specified `Car Model Variant`. 🔒 Operation requires elevated permissions.",
         "responses" : {
           "204" : {
@@ -1190,10 +1192,11 @@
     "/car-model-variants/{car_model_variant_id}/car-programme-episodes" : {
       "get" : {
         "tags" : [ "Car Model Variants" ],
+        "summary" : "Get connected Car Programme Episodes",
         "description" : "Returns all `Car Programme Episodes` where the specified `Car Model Variant` has been presented.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1208,7 +1211,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -1225,6 +1228,7 @@
     "/car-model-variants/{car_model_variant_id}/car-programme-episodes/{car_programme_episode_id}" : {
       "post" : {
         "tags" : [ "Car Model Variants" ],
+        "summary" : "Connect Car Programme Episode",
         "description" : "Connects an existing `Car Programme Episode` to the specified `Car Model Variant`.",
         "responses" : {
           "204" : {
@@ -1243,6 +1247,7 @@
       },
       "delete" : {
         "tags" : [ "Car Model Variants" ],
+        "summary" : "Disconnect Car Programme Episode",
         "description" : "Disconnects a `Car Programme Episode` from the specified `Car Model Variant`. 🔒 Operation requires elevated permissions.",
         "responses" : {
           "204" : {
