@@ -222,7 +222,7 @@
         "example" : 390
       } ]
     },
-    "/car-models/{car_model_id}/brand" : {
+    "/car-models/{car_model_id}/brands" : {
       "get" : {
         "tags" : [ "Car Models" ],
         "summary" : "Get connected Brand",
@@ -1008,13 +1008,14 @@
         "example" : 405
       } ]
     },
-    "/car-model-variants/{car_model_variant_id}/car-model" : {
+    "/car-model-variants/{car_model_variant_id}/car-models" : {
       "get" : {
         "tags" : [ "Car Model Variants" ],
+        "summary" : "Get connected Car Model",
         "description" : "Returns the `Car Model` that this `Car Model Variant` is derived from.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1024,7 +1025,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
