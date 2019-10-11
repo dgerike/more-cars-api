@@ -5774,10 +5774,21 @@
     "/racing-series" : {
       "get" : {
         "tags" : [ "Racing Series" ],
-        "description" : "Returns a collection of all `Racing Series` that are stored in the More Cars database.",
+        "summary" : "Get all Racing Series",
+        "description" : "Returns a collection of all `Racing Series` that are stored in the *More Cars* database.  If the collection is larger than 24 items (default) then it will be chunked.  Use the \"page\" parameter to fetch the remaining nodes.",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "description" : "pagination",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : 1
+        } ],
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -5785,11 +5796,72 @@
                   "items" : {
                     "$ref" : "#/components/schemas/Racing_Series"
                   },
-                  "minItems" : 1,
-                  "maxItems" : 50
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Racing Series" ],
+        "summary" : "Create new Racing Series",
+        "description" : "Adds a new `Racing Series` to the More Cars database.",
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Racing_Series"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Node was successfully created",
+            "headers" : {
+              "Location" : {
+                "description" : "The URL of the newly created Node",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "data", "links" ],
+                  "type" : "object",
+                  "properties" : {
+                    "data" : {
+                      "$ref" : "#/components/schemas/Racing_Series"
+                    },
+                    "links" : {
+                      "required" : [ "self" ],
+                      "type" : "object",
+                      "properties" : {
+                        "self" : {
+                          "type" : "string",
+                          "description" : "The URL of the newly created Node",
+                          "example" : "https://more-cars.net/formula-1__310"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/InvalidData"
           }
         }
       }
@@ -5797,10 +5869,11 @@
     "/racing-series/{racing_series_id}" : {
       "get" : {
         "tags" : [ "Racing Series" ],
-        "description" : "Returns a `Racing Series`, specified by its ID.",
+        "summary" : "Get specific Racing Series",
+        "description" : "Returns a `Racing Series` specified by its ID.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -5810,9 +5883,28 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
+      },
+      "delete" : {
+        "tags" : [ "Racing Series" ],
+        "summary" : "Delete Racing Series",
+        "description" : "Deletes a `Racing Series`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully deleted"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "racing_series_id",
@@ -5820,7 +5912,8 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 310
       } ]
     },
     "/racing-series/{racing_series_id}/racing-events" : {
