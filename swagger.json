@@ -1099,6 +1099,7 @@
     "/car-model-variants/{car_model_variant_id}/car-magazine-issues" : {
       "get" : {
         "tags" : [ "Car Model Variants" ],
+        "summary" : "Get connected Car Magazine Issues",
         "description" : "Returns all `Car Magazine Issues` where the specified `Car Model Variant` has been presented.",
         "responses" : {
           "200" : {
@@ -1117,7 +1118,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -1140,24 +1141,10 @@
             "description" : "Node was successfully connected"
           },
           "401" : {
-            "description" : "Status 401",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/401_Error"
-                }
-              }
-            }
+            "$ref" : "#/components/responses/NotAuthorized"
           },
           "404" : {
-            "description" : "Node not found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/404_Error"
-                }
-              }
-            }
+            "$ref" : "#/components/responses/NotFound"
           }
         },
         "security" : [ {
@@ -1172,24 +1159,10 @@
             "description" : "Node was successfully disconnected"
           },
           "401" : {
-            "description" : "Status 401",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/401_Error"
-                }
-              }
-            }
+            "$ref" : "#/components/responses/NotAuthorized"
           },
           "404" : {
-            "description" : "Node not found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/404_Error"
-                }
-              }
-            }
+            "$ref" : "#/components/responses/NotFound"
           }
         },
         "security" : [ {
