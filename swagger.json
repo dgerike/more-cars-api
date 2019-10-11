@@ -6256,22 +6256,94 @@
     "/racing-events" : {
       "get" : {
         "tags" : [ "Racing Events" ],
-        "description" : "Returns a collection of all `Racing Series` that are stored in the More Cars database.",
+        "summary" : "Get all Racing Events",
+        "description" : "Returns a collection of all `Racing Events` that are stored in the *More Cars* database.  If the collection is larger than 24 items (default) then it will be chunked.  Use the \"page\" parameter to fetch the remaining nodes.",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "description" : "pagination",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : 1
+        } ],
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/Racing_Series"
+                    "$ref" : "#/components/schemas/Racing_Event"
                   },
-                  "minItems" : 1,
-                  "maxItems" : 50
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Racing Events" ],
+        "summary" : "Create new Racing Event",
+        "description" : "Adds a new `Racing Event` to the More Cars database.",
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Racing_Event"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Node was successfully created",
+            "headers" : {
+              "Location" : {
+                "description" : "The URL of the newly created Node",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "data", "links" ],
+                  "type" : "object",
+                  "properties" : {
+                    "data" : {
+                      "$ref" : "#/components/schemas/Racing_Event"
+                    },
+                    "links" : {
+                      "required" : [ "self" ],
+                      "type" : "object",
+                      "properties" : {
+                        "self" : {
+                          "type" : "string",
+                          "description" : "The URL of the newly created Node",
+                          "example" : "https://more-cars.net/formula-1-rolex-australian-grand-prix-2019__21914"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/InvalidData"
           }
         }
       }
@@ -6279,22 +6351,42 @@
     "/racing-events/{racing_event_id}" : {
       "get" : {
         "tags" : [ "Racing Events" ],
-        "description" : "Returns a `Racing Series`, specified by its ID.",
+        "summary" : "Get specific Racing Event",
+        "description" : "Returns a `Racing Event` specified by its ID.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Racing_Series"
+                  "$ref" : "#/components/schemas/Racing_Event"
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
+      },
+      "delete" : {
+        "tags" : [ "Racing Events" ],
+        "summary" : "Delete Racing Event",
+        "description" : "Deletes a `Racing Event`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully deleted"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "racing_event_id",
@@ -6302,7 +6394,8 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 21914
       } ]
     },
     "/racing-events/{racing_event_id}/racing-series" : {
