@@ -1039,9 +1039,10 @@
         "example" : 405
       } ]
     },
-    "/car-model-variants/{car_model_variant_id}/car-model/{car_model_id}" : {
+    "/car-model-variants/{car_model_variant_id}/car-models/{car_model_id}" : {
       "post" : {
         "tags" : [ "Car Model Variants" ],
+        "summary" : "Connect Car Model",
         "description" : "Connects an existing `Car Model` to the specified `Car Model Variant`.",
         "responses" : {
           "204" : {
@@ -1051,14 +1052,7 @@
             "$ref" : "#/components/responses/NotAuthorized"
           },
           "404" : {
-            "description" : "Node not found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/404_Error"
-                }
-              }
-            }
+            "$ref" : "#/components/responses/NotFound"
           }
         },
         "security" : [ {
@@ -1067,30 +1061,17 @@
       },
       "delete" : {
         "tags" : [ "Car Model Variants" ],
+        "summary" : "Disconnect Car Model",
         "description" : "Disconnects a `Car Model` from the specified `Car Model Variant`. 🔒 Operation requires elevated permissions.",
         "responses" : {
           "204" : {
             "description" : "Node was successfully disconnected"
           },
           "401" : {
-            "description" : "Status 401",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/401_Error"
-                }
-              }
-            }
+            "$ref" : "#/components/responses/NotAuthorized"
           },
           "404" : {
-            "description" : "Node not found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/404_Error"
-                }
-              }
-            }
+            "$ref" : "#/components/responses/NotFound"
           }
         },
         "security" : [ {
