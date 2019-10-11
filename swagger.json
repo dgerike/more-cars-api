@@ -7255,22 +7255,94 @@
     "/race-results" : {
       "get" : {
         "tags" : [ "Race Results" ],
-        "description" : "Returns a collection of all `Race Results` that are stored in the More Cars database.",
+        "summary" : "Get all Race Results",
+        "description" : "Returns a collection of all `Race Results` that are stored in the *More Cars* database.  If the collection is larger than 24 items (default) then it will be chunked.  Use the \"page\" parameter to fetch the remaining nodes.",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "description" : "pagination",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : 1
+        } ],
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/Race_Result"
+                    "$ref" : "#/components/schemas/Racing_Event"
                   },
-                  "minItems" : 1,
-                  "maxItems" : 50
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Race Results" ],
+        "summary" : "Create new Race Result",
+        "description" : "Adds a new `Race Result` to the More Cars database.",
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Racing_Event"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Node was successfully created",
+            "headers" : {
+              "Location" : {
+                "description" : "The URL of the newly created Node",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "data", "links" ],
+                  "type" : "object",
+                  "properties" : {
+                    "data" : {
+                      "$ref" : "#/components/schemas/Racing_Event"
+                    },
+                    "links" : {
+                      "required" : [ "self" ],
+                      "type" : "object",
+                      "properties" : {
+                        "self" : {
+                          "type" : "string",
+                          "description" : "The URL of the newly created Node",
+                          "example" : "https://more-cars.net/a__27376"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/InvalidData"
           }
         }
       }
@@ -7278,22 +7350,42 @@
     "/race-results/{race_result_id}" : {
       "get" : {
         "tags" : [ "Race Results" ],
-        "description" : "Returns a `Race Result`, specified by its ID.",
+        "summary" : "Get specific Race Result",
+        "description" : "Returns a `Race Result` specified by its ID.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Race_Result"
+                  "$ref" : "#/components/schemas/Racing_Event"
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
+      },
+      "delete" : {
+        "tags" : [ "Race Results" ],
+        "summary" : "Delete Race Result",
+        "description" : "Deletes a `Race Result`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully deleted"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "race_result_id",
@@ -7301,7 +7393,8 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 27376
       } ]
     },
     "/race-results/{race_result_id}/racing-event-session" : {
