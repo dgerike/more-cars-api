@@ -1231,24 +1231,10 @@
             "description" : "Node was successfully connected"
           },
           "401" : {
-            "description" : "Status 401",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/401_Error"
-                }
-              }
-            }
+            "$ref" : "#/components/responses/NotAuthorized"
           },
           "404" : {
-            "description" : "Node not found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/404_Error"
-                }
-              }
-            }
+            "$ref" : "#/components/responses/NotFound"
           }
         },
         "security" : [ {
@@ -1263,24 +1249,10 @@
             "description" : "Node was successfully disconnected"
           },
           "401" : {
-            "description" : "Status 401",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/401_Error"
-                }
-              }
-            }
+            "$ref" : "#/components/responses/NotAuthorized"
           },
           "404" : {
-            "description" : "Node not found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/404_Error"
-                }
-              }
-            }
+            "$ref" : "#/components/responses/NotFound"
           }
         },
         "security" : [ {
