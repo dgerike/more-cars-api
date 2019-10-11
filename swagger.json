@@ -1956,13 +1956,14 @@
         "example" : 52
       } ]
     },
-    "/brands/{brand_id}/country" : {
+    "/brands/{brand_id}/countries" : {
       "get" : {
         "tags" : [ "Brands" ],
-        "description" : "Returns the `Country` from which the `Brand` originates.",
+        "summary" : "Get connected Country",
+        "description" : "Returns the `Country` from which the specified `Brand` originates.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1972,7 +1973,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -1981,8 +1982,66 @@
         "in" : "path",
         "required" : true,
         "schema" : {
-          "type" : "string"
+          "type" : "integer"
+        },
+        "example" : 319
+      } ]
+    },
+    "/brands/{brand_id}/countries/{country_id}" : {
+      "post" : {
+        "tags" : [ "Brands" ],
+        "summary" : "Connect Country",
+        "description" : "Connects an existing `Country` to the specified `Brand`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Brands" ],
+        "summary" : "Disconnect Country",
+        "description" : "Disconnects a `Country` from the specified `Brand`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "brand_id",
+        "in" : "path",
+        "required" : true,
+        "example" : 319,
+        "schema" : {
+          "type" : "integer"
         }
+      }, {
+        "name" : "country_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 165
       } ]
     },
     "/brands/{brand_id}/images" : {
