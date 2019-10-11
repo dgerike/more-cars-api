@@ -1868,13 +1868,14 @@
         "example" : 390
       } ]
     },
-    "/brands/{brand_id}/company" : {
+    "/brands/{brand_id}/companies" : {
       "get" : {
         "tags" : [ "Brands" ],
-        "description" : "Returns the `Company` that owns the specified `Brand`.",
+        "summary" : "Get connected Company",
+        "description" : "Returns the `Company` which is the owner of the specified `Brand`.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1884,7 +1885,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -1893,8 +1894,66 @@
         "in" : "path",
         "required" : true,
         "schema" : {
-          "type" : "string"
+          "type" : "integer"
+        },
+        "example" : 319
+      } ]
+    },
+    "/brands/{brand_id}/companies/{company_id}" : {
+      "post" : {
+        "tags" : [ "Brands" ],
+        "summary" : "Connect Company",
+        "description" : "Connects an existing `Company` to the specified `Brand`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Brands" ],
+        "summary" : "Disconnect Company",
+        "description" : "Disconnects a `Company` from the specified `Brand`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "brand_id",
+        "in" : "path",
+        "required" : true,
+        "example" : 319,
+        "schema" : {
+          "type" : "integer"
         }
+      }, {
+        "name" : "company_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 52
       } ]
     },
     "/brands/{brand_id}/country" : {
