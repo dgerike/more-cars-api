@@ -7731,19 +7731,21 @@
     "/race-tracks" : {
       "get" : {
         "tags" : [ "Race Tracks" ],
-        "description" : "Returns a collection of all `Race Tracks` that are stored in the More Cars database.",
+        "summary" : "Get all Race Tracks",
+        "description" : "Returns a collection of all `Race Tracks` that are stored in the *More Cars* database.  If the collection is larger than 24 items (default) then it will be chunked.  Use the \"page\" parameter to fetch the remaining nodes.",
         "parameters" : [ {
           "name" : "page",
           "in" : "query",
           "required" : false,
-          "description" : "pagination parameter",
+          "description" : "pagination",
           "schema" : {
             "type" : "integer"
-          }
+          },
+          "example" : 1
         } ],
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -7758,15 +7760,77 @@
             }
           }
         }
+      },
+      "post" : {
+        "tags" : [ "Race Tracks" ],
+        "summary" : "Create new Race Track",
+        "description" : "Adds a new `Race Track` to the More Cars database.",
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Race_Track"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Node was successfully created",
+            "headers" : {
+              "Location" : {
+                "description" : "The URL of the newly created Node",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "data", "links" ],
+                  "type" : "object",
+                  "properties" : {
+                    "data" : {
+                      "$ref" : "#/components/schemas/Race_Track"
+                    },
+                    "links" : {
+                      "required" : [ "self" ],
+                      "type" : "object",
+                      "properties" : {
+                        "self" : {
+                          "type" : "string",
+                          "description" : "The URL of the newly created Node",
+                          "example" : "https://more-cars.net/motorsport-arena-oschersleben__28106"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/InvalidData"
+          }
+        }
       }
     },
     "/race-tracks/{race_track_id}" : {
       "get" : {
         "tags" : [ "Race Tracks" ],
-        "description" : "Returns a `Race  Track`, specified by its ID.",
+        "summary" : "Get specific Race Track",
+        "description" : "Returns a `Race Track` specified by its ID.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -7776,9 +7840,28 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
+      },
+      "delete" : {
+        "tags" : [ "Race Tracks" ],
+        "summary" : "Delete Race Track",
+        "description" : "Deletes a `Race Track`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully deleted"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "race_track_id",
@@ -7786,7 +7869,8 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 28106
       } ]
     },
     "/race-tracks/{race_track_id}/race-track-variants" : {
@@ -8129,19 +8213,21 @@
     "/race-track-variants" : {
       "get" : {
         "tags" : [ "Race Track Variants" ],
-        "description" : "Returns a collection of all `Race Track Variants` that are stored in the More Cars database.",
+        "summary" : "Get all Race Track Variants",
+        "description" : "Returns a collection of all `Race Track Variants` that are stored in the *More Cars* database.  If the collection is larger than 24 items (default) then it will be chunked.  Use the \"page\" parameter to fetch the remaining nodes.",
         "parameters" : [ {
           "name" : "page",
           "in" : "query",
           "required" : false,
-          "description" : "pagination parameter",
+          "description" : "pagination",
           "schema" : {
             "type" : "integer"
-          }
+          },
+          "example" : 1
         } ],
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -8156,15 +8242,77 @@
             }
           }
         }
+      },
+      "post" : {
+        "tags" : [ "Race Track Variants" ],
+        "summary" : "Create new Race Track Variant",
+        "description" : "Adds a new `Race Track Variant` to the More Cars database.",
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Race_Track_Variant"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Node was successfully created",
+            "headers" : {
+              "Location" : {
+                "description" : "The URL of the newly created Node",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "data", "links" ],
+                  "type" : "object",
+                  "properties" : {
+                    "data" : {
+                      "$ref" : "#/components/schemas/Race_Track_Variant"
+                    },
+                    "links" : {
+                      "required" : [ "self" ],
+                      "type" : "object",
+                      "properties" : {
+                        "self" : {
+                          "type" : "string",
+                          "description" : "The URL of the newly created Node",
+                          "example" : "https://more-cars.net/a-course__23961"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/InvalidData"
+          }
+        }
       }
     },
     "/race-track-variants/{race_track_variant_id}" : {
       "get" : {
         "tags" : [ "Race Track Variants" ],
-        "description" : "Returns a `Race  Track Variant`, specified by its ID.",
+        "summary" : "Get specific Race Track Variant",
+        "description" : "Returns a `Race Track Variant` specified by its ID.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -8174,9 +8322,28 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
+      },
+      "delete" : {
+        "tags" : [ "Race Track Variants" ],
+        "summary" : "Delete Race Track Variant",
+        "description" : "Deletes a `Race Track Variant`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully deleted"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "race_track_variant_id",
@@ -8184,7 +8351,8 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 23961
       } ]
     },
     "/race-track-variants/{race_track_variant_id}/race-track" : {
