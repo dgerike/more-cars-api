@@ -3856,10 +3856,11 @@
     "/car-magazine-issues/{car_magazine_issue_id}/car-magazine" : {
       "get" : {
         "tags" : [ "Car Magazine Issues" ],
-        "description" : "Returns the `Car Magazine` this `Car Magazine Issue` belongs to.",
+        "summary" : "Get connected Car Magazine",
+        "description" : "Returns the `Car Magazine` to which the specified `Car Magazine Issue` belongs.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -3869,7 +3870,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -3879,7 +3880,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
+        },
+        "example" : 23442
+      } ]
+    },
+    "/car-magazine-issues/{car_magazine_issue_id}/car-magazine/{car_magazine_id}" : {
+      "post" : {
+        "tags" : [ "Car Magazine Issues" ],
+        "summary" : "Connect Car Magazine",
+        "description" : "Connects an existing `Car Magazine` to the specified `Car Magazine Issue`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Car Magazine Issues" ],
+        "summary" : "Disconnect Car Magazine",
+        "description" : "Disconnects a `Car Magazine` from the specified `Car Magazine Issue`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "car_magazine_issue_id",
+        "in" : "path",
+        "required" : true,
+        "example" : 23442,
+        "schema" : {
+          "type" : "integer"
         }
+      }, {
+        "name" : "car_magazine_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 910
       } ]
     },
     "/car-magazine-issues/{car_magazine_issue_id}/car-model-variants" : {
@@ -3928,64 +3987,6 @@
                   "items" : {
                     "$ref" : "#/components/schemas/Car_Model"
                   }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "car_magazine_issue_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/car-magazine-issues/{car_magazine_issue_id}/successor" : {
-      "get" : {
-        "tags" : [ "Car Magazine Issues" ],
-        "description" : "Returns the next issue of this `Car Magazine Issue`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Car_Magazine_Issue"
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "car_magazine_issue_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/car-magazine-issues/{car_magazine_issue_id}/predecessor" : {
-      "get" : {
-        "tags" : [ "Car Magazine Issues" ],
-        "description" : "Returns the previous issue of this `Car Magazine Issue`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Car_Magazine_Issue"
                 }
               }
             }
