@@ -2468,23 +2468,24 @@
     "/companies/{company_id}/brands" : {
       "get" : {
         "tags" : [ "Companies" ],
+        "summary" : "Get connected Brands",
         "description" : "Returns all `Brands` that belong to the specified `Company`.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/Car_Model"
+                    "$ref" : "#/components/schemas/Brand"
                   }
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -2493,17 +2494,76 @@
         "in" : "path",
         "required" : true,
         "schema" : {
-          "type" : "string"
-        }
+          "type" : "integer"
+        },
+        "example" : 52
       } ]
     },
-    "/companies/{company_id}/country" : {
+    "/companies/{company_id}/brands/{brand_id}" : {
+      "post" : {
+        "tags" : [ "Companies" ],
+        "summary" : "Connect Brand",
+        "description" : "Connects an existing `Brand` to the specified `Company`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Companies" ],
+        "summary" : "Disconnect Brand",
+        "description" : "Disconnects a `Brand` from the specified `Company`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "company_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 52
+      }, {
+        "name" : "brand_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 319
+      } ]
+    },
+    "/companies/{company_id}/countries" : {
       "get" : {
         "tags" : [ "Companies" ],
-        "description" : "Returns the `Country` from which the `Company` originates.",
+        "summary" : "Get connected Country",
+        "description" : "Returns the `Country` from which the specified `Company` originates.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2513,7 +2573,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -2522,37 +2582,66 @@
         "in" : "path",
         "required" : true,
         "schema" : {
-          "type" : "string"
-        }
+          "type" : "integer"
+        },
+        "example" : 52
       } ]
     },
-    "/companies/{company_id}/country-hq" : {
-      "get" : {
+    "/companies/{company_id}/countries/{country_id}'" : {
+      "post" : {
         "tags" : [ "Companies" ],
-        "description" : "Returns the `Country` where the `Company` has it's legal headquarter.",
+        "summary" : "Connect Country",
+        "description" : "Connects an existing `Country` to the specified `Company`.",
         "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Country"
-                }
-              }
-            }
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
-        }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Companies" ],
+        "summary" : "Disconnect Country",
+        "description" : "Disconnects a `Country` from the specified `Company`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "company_id",
         "in" : "path",
         "required" : true,
+        "example" : 319,
         "schema" : {
-          "type" : "string"
+          "type" : "integer"
         }
+      }, {
+        "name" : "country_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 112
       } ]
     },
     "/companies/{company_id}/images" : {
