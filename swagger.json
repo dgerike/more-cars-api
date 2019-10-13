@@ -1282,6 +1282,192 @@
         "example" : 17798
       } ]
     },
+    "/car-model-variants/{car_model_variant_id}/racing-games" : {
+      "get" : {
+        "tags" : [ "Car Model Variants" ],
+        "summary" : "Get connected Racing Games",
+        "description" : "Returns all `Racing Games` in which the specified `Car Model Variant` can be played.",
+        "responses" : {
+          "200" : {
+            "description" : "Node was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Racing_Game"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "car_model_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 405
+      } ]
+    },
+    "/car-model-variants/{car_model_variant_id}/racing-games/{racing_game_id}" : {
+      "post" : {
+        "tags" : [ "Car Model Variants" ],
+        "summary" : "Connect Racing Game",
+        "description" : "Connects an existing `Racing Game` to the specified `Car Model Variant`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Car Model Variants" ],
+        "summary" : "Disconnect Racing Game",
+        "description" : "Disconnects a `Racing Game` from the specified `Car Model Variant`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "car_model_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 405
+      }, {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 7407
+      } ]
+    },
+    "/car-model-variants/{car_model_variant_id}/race-results" : {
+      "get" : {
+        "tags" : [ "Car Model Variants" ],
+        "summary" : "Get connected Race Results",
+        "description" : "Returns all `Race Results` which the specified `Car Model Variant` has achieved.",
+        "responses" : {
+          "200" : {
+            "description" : "Node was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Race_Result"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "car_model_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 38589
+      } ]
+    },
+    "/car-model-variants/{car_model_variant_id}/race-results/{race_result_id}" : {
+      "post" : {
+        "tags" : [ "Car Model Variants" ],
+        "summary" : "Connect Race Result",
+        "description" : "Connects an existing `Race Result` to the specified `Car Model Variant`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Car Model Variants" ],
+        "summary" : "Disconnect Race Result",
+        "description" : "Disconnects a `Race Result` from the specified `Car Model Variant`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "car_model_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 38589
+      }, {
+        "name" : "race_result_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 27376
+      } ]
+    },
     "/car-model-variants/{car_model_variant_id}/images" : {
       "get" : {
         "tags" : [ "Car Model Variants" ],
