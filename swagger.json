@@ -5234,10 +5234,11 @@
     "/car-programme-episodes/{car_programme_episode_id}/car-models" : {
       "get" : {
         "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Get connected Car Models",
         "description" : "Returns all `Car Models` that were presented in the specified `Car Programme Episode`.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -5250,7 +5251,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -5260,7 +5261,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 2086
+      } ]
+    },
+    "/car-programme-episodes/{car_programme_episode_id}/car-models/{car_model_id}" : {
+      "post" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Connect Car Model",
+        "description" : "Connects an existing `Car Model` to the specified `Car Programme Episode`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Disconnect Car Model",
+        "description" : "Disconnects a `Car Model` from the specified `Car Programme Episode`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "car_programme_episode_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 2086
+      }, {
+        "name" : "car_model_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 935
       } ]
     },
     "/car-programme-episodes/{car_programme_episode_id}/car-model-variants" : {
