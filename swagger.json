@@ -4546,7 +4546,7 @@
     "/car-programmes/{car_programme_id}/car-programme-episodes" : {
       "get" : {
         "tags" : [ "Car Programmes" ],
-        "summary" : "Get connected Car Programme",
+        "summary" : "Get connected Car Programme Episode",
         "description" : "Returns all `Car Programme Episodes` that were produced by the specified `Car Programme`.",
         "responses" : {
           "200" : {
@@ -5146,10 +5146,11 @@
     "/car-programme-episodes/{car_programme_episode_id}/car-programme" : {
       "get" : {
         "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Get connected Car Programme",
         "description" : "Returns the `Car Programme` the specified `Car Programme Episode` belongs to.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -5159,7 +5160,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -5169,7 +5170,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 2086
+      } ]
+    },
+    "/car-programme-episodes/{car_programme_episode_id}/car-programme/{car_programme_id}" : {
+      "post" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Connect Car Programme",
+        "description" : "Connects an existing `Car Programme` to the specified `Car Programme Episode`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Car Programme Episodes" ],
+        "summary" : "Disconnect Car Programme",
+        "description" : "Disconnects a `Car Programme` from the specified `Car Programme Episode`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "car_programme_episode_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 2086
+      }, {
+        "name" : "car_programme_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40
       } ]
     },
     "/car-programme-episodes/{car_programme_episode_id}/car-models" : {
