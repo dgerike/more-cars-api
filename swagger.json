@@ -4634,13 +4634,14 @@
         "example" : 2086
       } ]
     },
-    "/car-programmes/{car_programme_id}/country" : {
+    "/car-programmes/{car_programme_id}/countries" : {
       "get" : {
         "tags" : [ "Car Programmes" ],
+        "summary" : "Get connected Country",
         "description" : "Returns the `Country` from which the `Car Programme` originates.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -4650,7 +4651,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -4660,7 +4661,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
+        },
+        "example" : 40
+      } ]
+    },
+    "/car-programmes/{car_programme_id}/countries/{country_id}" : {
+      "post" : {
+        "tags" : [ "Car Programmes" ],
+        "summary" : "Connect Country",
+        "description" : "Connects an existing `Country` to the specified `Car Programme`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Car Programmes" ],
+        "summary" : "Disconnect Country",
+        "description" : "Disconnects a `Country` from the specified `Car Programme`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "car_programme_id",
+        "in" : "path",
+        "required" : true,
+        "example" : 40,
+        "schema" : {
+          "type" : "integer"
         }
+      }, {
+        "name" : "country_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 132
       } ]
     },
     "/car-programmes/{car_programme_id}/images" : {
