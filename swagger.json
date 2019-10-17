@@ -6685,13 +6685,14 @@
         }
       } ]
     },
-    "/racing-series/{racing_series_id}/country" : {
+    "/racing-series/{racing_series_id}/countries" : {
       "get" : {
         "tags" : [ "Racing Series" ],
-        "description" : "Returns the `Country` (market) the specified `Racing Series` is made for.",
+        "summary" : "Get connected Country",
+        "description" : "Returns the `Country` (resp. market) the specified `Racing Series` is made for.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -6701,7 +6702,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -6711,7 +6712,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
+        },
+        "example" : 310
+      } ]
+    },
+    "/racing-series/{racing_series_id}/countries/{country_id}" : {
+      "post" : {
+        "tags" : [ "Racing Series" ],
+        "summary" : "Connect Country",
+        "description" : "Connects an existing `Country` to the specified `Racing Series`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Series" ],
+        "summary" : "Disconnect Country",
+        "description" : "Disconnects a `Country` from the specified `Racing Series`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_series_id",
+        "in" : "path",
+        "required" : true,
+        "example" : 310,
+        "schema" : {
+          "type" : "integer"
         }
+      }, {
+        "name" : "country_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 652
       } ]
     },
     "/racing-series/{racing_series_id}/images" : {
