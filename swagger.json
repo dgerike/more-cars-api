@@ -4123,7 +4123,7 @@
         "example" : 1884
       } ]
     },
-    "/car-magazines/{car_magazine_issue_id}/images" : {
+    "/car-magazine-issues/{car_magazine_issue_id}/images" : {
       "get" : {
         "tags" : [ "Car Magazine Issues" ],
         "summary" : "Get connected Images",
@@ -4159,7 +4159,7 @@
         "example" : 23442
       } ]
     },
-    "/car-magazines/{car_magazine_issue_id}/images/{image_id}" : {
+    "/car-magazine-issues/{car_magazine_issue_id}/images/{image_id}" : {
       "post" : {
         "tags" : [ "Car Magazine Issues" ],
         "summary" : "Connect Image",
@@ -4216,7 +4216,7 @@
         "example" : 23443
       } ]
     },
-    "/car-magazines/{car_magazine_issue_id}/online-articles" : {
+    "/car-magazine-issues/{car_magazine_issue_id}/online-articles" : {
       "get" : {
         "tags" : [ "Car Magazine Issues" ],
         "summary" : "Get connected Online Articles",
@@ -4252,7 +4252,7 @@
         "example" : 23442
       } ]
     },
-    "/car-magazines/{car_magazine_issue_id}/online-articles/{online_article_id}" : {
+    "/car-magazine-issues/{car_magazine_issue_id}/online-articles/{online_article_id}" : {
       "post" : {
         "tags" : [ "Car Magazine Issues" ],
         "summary" : "Connect Online Article",
@@ -4305,7 +4305,7 @@
         }
       } ]
     },
-    "/car-magazines/{car_magazine_issue_id}/videos" : {
+    "/car-magazine-issues/{car_magazine_issue_id}/videos" : {
       "get" : {
         "tags" : [ "Car Magazine Issues" ],
         "summary" : "Get connected Videos",
@@ -4341,7 +4341,7 @@
         "example" : 23442
       } ]
     },
-    "/car-magazines/{car_magazine_issue_id}/videos/{video_id}" : {
+    "/car-magazine-issues/{car_magazine_issue_id}/videos/{video_id}" : {
       "post" : {
         "tags" : [ "Car Magazine Issues" ],
         "summary" : "Connect Video",
@@ -5154,64 +5154,6 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Car_Programme"
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "car_programme_episode_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/car-programme-episodes/{car_programme_episode_id}/successor" : {
-      "get" : {
-        "tags" : [ "Car Programme Episodes" ],
-        "description" : "Returns the successor of the specified `Car Programme Episode`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Car_Programme_Episode"
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "car_programme_episode_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/car-programme-episodes/{car_programme_episode_id}/predecessor" : {
-      "get" : {
-        "tags" : [ "Car Programme Episodes" ],
-        "description" : "Returns the predecessor of the specified `Car Programme Episode`.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Car_Programme_Episode"
                 }
               }
             }
