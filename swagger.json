@@ -11118,23 +11118,26 @@
     "/countries/{country_id}/race-tracks" : {
       "get" : {
         "tags" : [ "Countries" ],
+        "summary" : "Get connected Race Tracks",
         "description" : "Returns all `Race Tracks` that are located in the specified `Country`.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Race_Track"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -11144,7 +11147,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 112
+      } ]
+    },
+    "/countries/{country_id}/race-tracks/{race_track_id}" : {
+      "post" : {
+        "tags" : [ "Countries" ],
+        "summary" : "Connect Race Track",
+        "description" : "Connects an existing `Race Track` to the specified `Country`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Countries" ],
+        "summary" : "Disconnect Race Track",
+        "description" : "Disconnects a `Race Track` from the specified `Country`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "country_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 112
+      }, {
+        "name" : "race_track_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28106
       } ]
     },
     "/countries/{country_id}/images" : {
