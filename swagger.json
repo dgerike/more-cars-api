@@ -9506,13 +9506,14 @@
         "example" : 23961
       } ]
     },
-    "/race-track-variants/{race_track_variant_id}/race-track" : {
+    "/race-track-variants/{race_track_variant_id}/race-tracks'" : {
       "get" : {
         "tags" : [ "Race Track Variants" ],
-        "description" : "Returns the `Race Track` the specified `Race Track Variant` belongs to.",
+        "summary" : "Get connected Race Track",
+        "description" : "Returns the `Race Track` to which the specified `Race Track Variant` belongs to.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -9522,7 +9523,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -9532,7 +9533,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 23961
+      } ]
+    },
+    "/race-track-variants/{race_track_variant_id}/race-tracks/{race_track_id}" : {
+      "post" : {
+        "tags" : [ "Race Track Variants" ],
+        "summary" : "Connect Race Track",
+        "description" : "Connects an existing `Race Track` to the specified `Race Track Variant`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Race Track Variants" ],
+        "summary" : "Disconnect Race Track",
+        "description" : "Disconnects a `Race Track` from the specified `Race Track Variant`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "race_track_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 23961
+      }, {
+        "name" : "race_track_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28106
       } ]
     },
     "/race-track-variants/{race_track_variant_id}/racing-events" : {
