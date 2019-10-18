@@ -12110,23 +12110,26 @@
     "/images/{image_id}/car-magazine-issues" : {
       "get" : {
         "tags" : [ "Images" ],
+        "summary" : "Get connected Car Magazine Issues",
         "description" : "Returns all `Car Magazine Issues` that have the specified `Image` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Car_Magazine_Issue"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -12136,7 +12139,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 24811
+      } ]
+    },
+    "/images/{image_id}/car-magazine-issues/{car_magazine_issue_id}" : {
+      "post" : {
+        "tags" : [ "Images" ],
+        "summary" : "Connect Car Magazine Issue",
+        "description" : "Connects an existing `Car Magazine Issue` to the specified `Image`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Images" ],
+        "summary" : "Disconnect Car Magazine Issue",
+        "description" : "Disconnects a `Car Magazine Issue` from the specified `Image`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "image_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 24811
+      }, {
+        "name" : "car_magazine_issue_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40873
       } ]
     },
     "/images/{image_id}/car-programmes" : {
