@@ -6442,23 +6442,26 @@
     "/gaming-platforms/{gaming_platform_id}/racing-games" : {
       "get" : {
         "tags" : [ "Gaming Platforms" ],
+        "summary" : "Get connected Racing Games",
         "description" : "Returns all `Racing Games` that are available for the specified `Gaming Platform`.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Racing_Game"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -6468,7 +6471,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 14377
+      } ]
+    },
+    "/gaming-platforms/{gaming_platform_id}/racing-games/{racing_game_id}" : {
+      "post" : {
+        "tags" : [ "Gaming Platforms" ],
+        "summary" : "Connect Racing Game",
+        "description" : "Connects an existing `Racing Game` to the specified `Gaming Platform`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Gaming Platforms" ],
+        "summary" : "Disconnect Racing Game",
+        "description" : "Disconnects a `Racing Game` from the specified `Gaming Platform`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "gaming_platform_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14377
+      }, {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21740
       } ]
     },
     "/gaming-platforms/{gaming_platform_id}/images" : {
