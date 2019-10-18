@@ -7558,23 +7558,26 @@
     "/racing-events/{racing_event_id}/racing-series" : {
       "get" : {
         "tags" : [ "Racing Events" ],
-        "description" : "Returns the `Racing Series` to which the specified `Racing Event` belongs.",
+        "summary" : "Get connected Racing Series",
+        "description" : "Returns the `Racing Series` to which the specified `Racing Event` belongs to.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Racing_Series"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -7584,7 +7587,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 21914
+      } ]
+    },
+    "/racing-events/{racing_event_id}/racing-series/{racing_series_id}" : {
+      "post" : {
+        "tags" : [ "Racing Events" ],
+        "summary" : "Connect Racing Series",
+        "description" : "Connects an existing `Racing Series` to the specified `Racing Event`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Events" ],
+        "summary" : "Disconnect Racing Series",
+        "description" : "Disconnects a `Racing Series` from the specified `Racing Event`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_event_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21914
+      }, {
+        "name" : "racing_series_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 310
       } ]
     },
     "/racing-events/{racing_event_id}/race-track-variant" : {
