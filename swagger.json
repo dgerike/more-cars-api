@@ -8400,13 +8400,14 @@
         }
       } ]
     },
-    "/race-results/{race_result_id}/car-model-variant" : {
+    "/race-results/{race_result_id}/car-model-variants" : {
       "get" : {
         "tags" : [ "Race Results" ],
-        "description" : "Returns the `Car Model Variation` in which this `Race Result` has been achieved.",
+        "summary" : "Get connected Car Model Variant",
+        "description" : "Returns the `Car Model Variation` that achieved the specified `Race Result`.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -8416,7 +8417,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -8426,7 +8427,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 27376
+      } ]
+    },
+    "/race-results/{race_result_id}/car-model-variants/{car_model_variant_id}" : {
+      "post" : {
+        "tags" : [ "Race Results" ],
+        "summary" : "Connect Car Model Variant",
+        "description" : "Connects an existing `Car Model Variant` to the specified `Race Result`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Race Results" ],
+        "summary" : "Disconnect Car Model Variant",
+        "description" : "Disconnects a `Car Model Variant` from the specified `Race Result`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "race_result_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 27376
+      }, {
+        "name" : "car_model_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 38589
       } ]
     },
     "/race-results/{race_result_id}/images" : {
