@@ -7892,10 +7892,11 @@
     "/racing-event-sessions/{racing_event_session_id}/racing-event" : {
       "get" : {
         "tags" : [ "Racing Event Sessions" ],
+        "summary" : "Get connected Racing Event",
         "description" : "Returns the `Racing Event` to which the specified `Racing Event Session` belongs to.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -7905,7 +7906,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -7915,7 +7916,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 22404
+      } ]
+    },
+    "/racing-event-sessions/{racing_event_session_id}/racing-event/{racing_event_id}" : {
+      "post" : {
+        "tags" : [ "Racing Event Sessions" ],
+        "summary" : "Connect Racing Event",
+        "description" : "Connects an existing `Racing Event` to the specified `Racing Event Session`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Event Sessions" ],
+        "summary" : "Disconnect Racing Event",
+        "description" : "Disconnects a `Racing Event` from the specified `Racing Event Session`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_event_session_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 22404
+      }, {
+        "name" : "racing_event_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 20238
       } ]
     },
     "/racing-event-sessions/{racing_event_session_id}/race-results" : {
