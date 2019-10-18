@@ -5928,23 +5928,26 @@
     "/racing-games/{racing_game_id}/gaming-platforms" : {
       "get" : {
         "tags" : [ "Racing Games" ],
-        "description" : "Returns all `Gaming Platforms` the specified `Racing Game` is available for.",
+        "summary" : "Get connected Gaming Platforms",
+        "description" : "Returns all `Gaming Platforms` for which the specified `Racing Game` is/was available.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Gaming_Platform"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -5954,7 +5957,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 21740
+      } ]
+    },
+    "/racing-games/{racing_game_id}/gaming-platforms/{gaming_platform_id}" : {
+      "post" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Connect Gaming Platform",
+        "description" : "Connects an existing `Gaming Platform` to the specified `Racing Game`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Disconnect Gaming Platform",
+        "description" : "Disconnects a `Gaming Platform` from the specified `Racing Game`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21740
+      }, {
+        "name" : "gaming_platform_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14377
       } ]
     },
     "/racing-games/{racing_game_id}/images" : {
@@ -7889,7 +7950,7 @@
         "example" : 22404
       } ]
     },
-    "/racing-event-sessions/{racing_event_session_id}/racing-event" : {
+    "/racing-event-sessions/{racing_event_session_id}/racing-events" : {
       "get" : {
         "tags" : [ "Racing Event Sessions" ],
         "summary" : "Get connected Racing Event",
@@ -7920,7 +7981,7 @@
         "example" : 22404
       } ]
     },
-    "/racing-event-sessions/{racing_event_session_id}/racing-event/{racing_event_id}" : {
+    "/racing-event-sessions/{racing_event_session_id}/racing-events/{racing_event_id}" : {
       "post" : {
         "tags" : [ "Racing Event Sessions" ],
         "summary" : "Connect Racing Event",
