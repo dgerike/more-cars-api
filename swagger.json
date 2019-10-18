@@ -12203,23 +12203,26 @@
     "/images/{image_id}/car-programmes" : {
       "get" : {
         "tags" : [ "Images" ],
+        "summary" : "Get connected Car Programmes",
         "description" : "Returns all `Car Programmes` that have the specified `Image` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Car_Programme"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -12229,7 +12232,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 5981
+      } ]
+    },
+    "/images/{image_id}/car-programmes/{car_programme_id}" : {
+      "post" : {
+        "tags" : [ "Images" ],
+        "summary" : "Connect Car Programme",
+        "description" : "Connects an existing `Car Programme` to the specified `Image`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Images" ],
+        "summary" : "Disconnect Car Programme",
+        "description" : "Disconnects a `Car Programme` from the specified `Image`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "image_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 5981
+      }, {
+        "name" : "car_programme_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 689
       } ]
     },
     "/images/{image_id}/car-programme-episodes" : {
