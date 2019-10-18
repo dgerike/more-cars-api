@@ -9271,23 +9271,26 @@
     "/race-tracks/{race_track_id}/race-track-variants" : {
       "get" : {
         "tags" : [ "Race Tracks" ],
+        "summary" : "Get connected Race Track Variants",
         "description" : "Returns all `Race Track Variants` that exist of the specified `Race Track`.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Race_Track_Variant"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -9297,7 +9300,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 28106
+      } ]
+    },
+    "/race-tracks/{race_track_id}/race-track-variants/{race_track_variant_id}" : {
+      "post" : {
+        "tags" : [ "Race Tracks" ],
+        "summary" : "Connect Race Track Variant",
+        "description" : "Connects an existing `Race Track Variant` to the specified `Race Track`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Race Tracks" ],
+        "summary" : "Disconnect Race Track Variant",
+        "description" : "Disconnects a `Race Track Variant` from the specified `Race Track`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "race_track_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28106
+      }, {
+        "name" : "race_track_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 23961
       } ]
     },
     "/race-tracks/{race_track_id}/countries" : {
