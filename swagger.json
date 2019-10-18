@@ -10839,7 +10839,7 @@
     "/countries/{country_id}/car-magazines" : {
       "get" : {
         "tags" : [ "Countries" ],
-        "summary" : "Get connected Companies",
+        "summary" : "Get connected Car Magazines",
         "description" : "Returns all `Car Magazines` that are from the specified `Country`.",
         "responses" : {
           "200" : {
@@ -10932,23 +10932,26 @@
     "/countries/{country_id}/car-programmes" : {
       "get" : {
         "tags" : [ "Countries" ],
+        "summary" : "Get connected Car Programmes",
         "description" : "Returns all `Car Programmes` that are from the specified `Country`.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Car_Programme"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -10958,7 +10961,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 112
+      } ]
+    },
+    "/countries/{country_id}/car-programmes/{car_programme_id}" : {
+      "post" : {
+        "tags" : [ "Countries" ],
+        "summary" : "Connect Car Programme",
+        "description" : "Connects an existing `Car Programme` to the specified `Country`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Countries" ],
+        "summary" : "Disconnect Car Programme",
+        "description" : "Disconnects a `Car Programme` from the specified `Country`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "country_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 112
+      }, {
+        "name" : "car_programme_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 43
       } ]
     },
     "/countries/{country_id}/racing-series" : {
