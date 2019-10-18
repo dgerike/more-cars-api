@@ -12575,23 +12575,26 @@
     "/images/{image_id}/racing-series" : {
       "get" : {
         "tags" : [ "Images" ],
+        "summary" : "Get connected Racing Series",
         "description" : "Returns all `Racing Series` that have the specified `Image` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Racing_Series"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -12601,7 +12604,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 15330
+      } ]
+    },
+    "/images/{image_id}/racing-series/{racing_series_id}" : {
+      "post" : {
+        "tags" : [ "Images" ],
+        "summary" : "Connect Racing Series",
+        "description" : "Connects an existing `Racing Series` to the specified `Image`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Images" ],
+        "summary" : "Disconnect Racing Series",
+        "description" : "Disconnects a `Racing Series` from the specified `Image`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "image_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 15330
+      }, {
+        "name" : "racing_series_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 671
       } ]
     },
     "/images/{image_id}/racing-events" : {
