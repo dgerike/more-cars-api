@@ -5837,10 +5837,11 @@
     "/racing-games/{racing_game_id}/car-model-variants" : {
       "get" : {
         "tags" : [ "Racing Games" ],
-        "description" : "Returns all `Car Model Variants` that are represented in the specified `Racing Game`.",
+        "summary" : "Get connected Car Model Variants",
+        "description" : "Returns all `Car Model Variants` that can be driven in the specified `Racing Game`.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -5853,7 +5854,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -5863,7 +5864,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 21740
+      } ]
+    },
+    "/racing-games/{racing_game_id}/car-model-variants/{car_model_variant_id}" : {
+      "post" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Connect Car Model Variant",
+        "description" : "Connects an existing `Car Model Variant` to the specified `Racing Game`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Racing Games" ],
+        "summary" : "Disconnect Car Model Variant",
+        "description" : "Disconnects a `Car Model Variant` from the specified `Racing Game`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21740
+      }, {
+        "name" : "car_model_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 7499
       } ]
     },
     "/racing-games/{racing_game_id}/gaming-platforms" : {
