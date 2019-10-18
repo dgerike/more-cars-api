@@ -10683,7 +10683,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 20238
+        "example" : 112
       } ]
     },
     "/countries/{country_id}/brands/{brand_id}" : {
@@ -10776,7 +10776,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 20238
+        "example" : 112
       } ]
     },
     "/countries/{country_id}/companies/{company_id}" : {
@@ -10839,23 +10839,26 @@
     "/countries/{country_id}/car-magazines" : {
       "get" : {
         "tags" : [ "Countries" ],
-        "description" : "vReturns all `Car Magazines` that are from the specified `Country`.",
+        "summary" : "Get connected Companies",
+        "description" : "Returns all `Car Magazines` that are from the specified `Country`.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Car_Magazine"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -10865,7 +10868,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 112
+      } ]
+    },
+    "/countries/{country_id}/car-magazines/{car_magazine_id}" : {
+      "post" : {
+        "tags" : [ "Countries" ],
+        "summary" : "Connect Car Magazine",
+        "description" : "Connects an existing `Car Magazine` to the specified `Country`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Countries" ],
+        "summary" : "Disconnect Car Magazine",
+        "description" : "Disconnects a `Car Magazine` from the specified `Country`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "country_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 112
+      }, {
+        "name" : "car_magazine_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14
       } ]
     },
     "/countries/{country_id}/car-programmes" : {
