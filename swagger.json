@@ -12386,10 +12386,10 @@
         "example" : 1441
       } ]
     },
-    "/images/{image_id}/countries" : {
+    "/images/{image_id}/racing-games" : {
       "get" : {
         "tags" : [ "Images" ],
-        "description" : "Returns all `Countries` that have the specified `Image` attached to it.",
+        "description" : "Returns all `Racing Games` that have the specified `Image` attached to it.",
         "responses" : {
           "200" : {
             "description" : "Status 200",
@@ -12398,7 +12398,39 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/Country"
+                    "$ref" : "#/components/schemas/Racing_Game"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Status 404"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "image_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      } ]
+    },
+    "/images/{image_id}/gaming-platforms" : {
+      "get" : {
+        "tags" : [ "Images" ],
+        "description" : "Returns all `Gaming Platforms` that have the specified `Image` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Gaming_Platform"
                   }
                 }
               }
@@ -12610,10 +12642,10 @@
         }
       } ]
     },
-    "/images/{image_id}/racing-games" : {
+    "/images/{image_id}/countries" : {
       "get" : {
         "tags" : [ "Images" ],
-        "description" : "Returns all `Racing Games` that have the specified `Image` attached to it.",
+        "description" : "Returns all `Countries` that have the specified `Image` attached to it.",
         "responses" : {
           "200" : {
             "description" : "Status 200",
@@ -12622,39 +12654,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/Racing_Game"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "image_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/images/{image_id}/gaming-platforms" : {
-      "get" : {
-        "tags" : [ "Images" ],
-        "description" : "Returns all `Gaming Platforms` that have the specified `Image` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Gaming_Platform"
+                    "$ref" : "#/components/schemas/Country"
                   }
                 }
               }
