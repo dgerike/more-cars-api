@@ -9961,23 +9961,26 @@
     "/race-track-variants/{race_track_variant_id}/racing-events" : {
       "get" : {
         "tags" : [ "Race Track Variants" ],
-        "description" : "Returns all `Racing Events` that took place at the specified `Race Track Variant`.",
+        "summary" : "Get connected Racing Events",
+        "description" : "Returns all `Racing Events` that were held on the specified `Race Track Variant`.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Racing_Event"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -9986,8 +9989,66 @@
         "in" : "path",
         "required" : true,
         "schema" : {
-          "type" : "string"
-        }
+          "type" : "integer"
+        },
+        "example" : 28106
+      } ]
+    },
+    "/race-track-variants/{race_track_variant_id}/racing-events/{racing_event_id}" : {
+      "post" : {
+        "tags" : [ "Race Track Variants" ],
+        "summary" : "Connect Racing Event",
+        "description" : "Connects an existing `Racing Event` to the specified `Race Track Variant`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Race Track Variants" ],
+        "summary" : "Disconnect Racing Event",
+        "description" : "Disconnects a `Racing Event` from the specified `Race Track Variant`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "race_track_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 23961
+      }, {
+        "name" : "racing_event_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 20238
       } ]
     },
     "/race-track-variants/{race_track_variant_id}/images" : {
