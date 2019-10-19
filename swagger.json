@@ -2,7 +2,7 @@
   "openapi" : "3.0.0",
   "info" : {
     "title" : "More Cars API",
-    "version" : "0.7.1",
+    "version" : "0.7.2-alpha",
     "description" : "**ATTENTION: This documentation as well as the API itself are currently under construction. Any part of it can change anytime.**\nMore Cars is designed as an **open car database**. \nAll the information is contributed by the community and can be used by everyone, for any purpose, for free.\nThis API is the counterpart of the More Cars website https://more-cars.net/. \nAll the information found there can be accessed via this REST API here and vice versa. \n**Access**\nDepending on the route and the operation you want to execute you might need \n* no permissions at all\n* an access token \n* or privileged permissions.\n**Technical Background**\nAll routes follow the rules and best practices of **RESTful APIs**. \nMeaning, the correct HTTP verbs are used and proper HTTP status codes are returned. \nSee https://restfulapi.net/ or https://en.wikipedia.org/wiki/Representational_state_transfer.\n\nThe data structures follow the **JSON API** specification. \nSee https://jsonapi.org/.\n\nWhen you stumble upon a **required** flag it means that the field needs to be present in the database, not necessarily in every request.\nE.g. in a POST request this required field is needed. When retrieving, updating or deleting it is optional (in most cases).",
     "termsOfService" : "",
     "contact" : {
@@ -2503,7 +2503,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 40520
+        "example" : 19753
       } ]
     },
     "/companies" : {
@@ -14246,23 +14246,26 @@
     "/videos/{video_id}/car-models" : {
       "get" : {
         "tags" : [ "Videos" ],
+        "summary" : "Get connected Car Models",
         "description" : "Returns all `Car Models` that have the specified `Video` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Car_Model"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -14272,29 +14275,90 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 40520
+      } ]
+    },
+    "/videos/{video_id}/car-models/{car_model_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Car Model",
+        "description" : "Connects an existing `Car Model` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Car Model",
+        "description" : "Disconnects a `Car Model` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40520
+      }, {
+        "name" : "car_model_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 390
       } ]
     },
     "/videos/{video_id}/car-model-variants" : {
       "get" : {
         "tags" : [ "Videos" ],
+        "summary" : "Get connected Car Model Variants",
         "description" : "Returns all `Car Model Variants` that have the specified `Video` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Car_Model_Variant"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -14304,29 +14368,90 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 2762
+      } ]
+    },
+    "/videos/{video_id}/car-model-variants/{car_model_variant_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Car Model Variant",
+        "description" : "Connects an existing `Car Model Variant` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Car Model Variant",
+        "description" : "Disconnects a `Car Model Variant` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 2762
+      }, {
+        "name" : "car_model_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 405
       } ]
     },
     "/videos/{video_id}/brands" : {
       "get" : {
         "tags" : [ "Videos" ],
+        "summary" : "Get connected Brands",
         "description" : "Returns all `Brands` that have the specified `Video` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Brand"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -14336,29 +14461,90 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 19753
+      } ]
+    },
+    "/videos/{video_id}/brands/{brand_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Brand",
+        "description" : "Connects an existing `Brand` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Brand",
+        "description" : "Disconnects a `Brand` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 19753
+      }, {
+        "name" : "brand_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 319
       } ]
     },
     "/videos/{video_id}/companies" : {
       "get" : {
         "tags" : [ "Videos" ],
+        "summary" : "Get connected Companies",
         "description" : "Returns all `Companies` that have the specified `Video` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Company"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -14368,29 +14554,90 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 28193
+      } ]
+    },
+    "/videos/{video_id}/companies/{company_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Company",
+        "description" : "Connects an existing `Company` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Company",
+        "description" : "Disconnects a `Company` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28193
+      }, {
+        "name" : "company_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 52
       } ]
     },
     "/videos/{video_id}/car-magazines" : {
       "get" : {
         "tags" : [ "Videos" ],
+        "summary" : "Get connected Car Magazines",
         "description" : "Returns all `Car Magazines` that have the specified `Video` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Car_Magazine"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -14400,29 +14647,90 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 28210
+      } ]
+    },
+    "/videos/{video_id}/car-magazines/{car_magazine_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Car Magazine",
+        "description" : "Connects an existing `Car Magazine` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Car Magazine",
+        "description" : "Disconnects a `Car Magazine` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28210
+      }, {
+        "name" : "car_magazine_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 910
       } ]
     },
     "/videos/{video_id}/car-magazine-issues" : {
       "get" : {
         "tags" : [ "Videos" ],
+        "summary" : "Get connected Car Magazine Issues",
         "description" : "Returns all `Car Magazine Issues` that have the specified `Video` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Car_Magazine_Issue"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -14432,29 +14740,90 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 20581
+      } ]
+    },
+    "/videos/{video_id}/car-magazine-issues/{car_magazine_issue_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Car Magazine Issue",
+        "description" : "Connects an existing `Car Magazine Issue` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Car Magazine Issue",
+        "description" : "Disconnects a `Car Magazine Issue` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 20581
+      }, {
+        "name" : "car_magazine_issue_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 23442
       } ]
     },
     "/videos/{video_id}/car-programmes" : {
       "get" : {
         "tags" : [ "Videos" ],
+        "summary" : "Get connected Car Programmes",
         "description" : "Returns all `Car Programmes` that have the specified `Video` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Car_Programme"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -14464,29 +14833,90 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 9117
+      } ]
+    },
+    "/videos/{video_id}/car-programmes/{car_programme_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Car Programme",
+        "description" : "Connects an existing `Car Programme` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Car Programme",
+        "description" : "Disconnects a `Car Programme` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 9117
+      }, {
+        "name" : "car_programme_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40
       } ]
     },
     "/videos/{video_id}/car-programme-episodes" : {
       "get" : {
         "tags" : [ "Videos" ],
+        "summary" : "Get connected Car Programme Episodes",
         "description" : "Returns all `Car Programme Episodes` that have the specified `Video` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Car_Programme_Episode"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -14496,31 +14926,48 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 4252
       } ]
     },
-    "/videos/{video_id}/countries" : {
-      "get" : {
+    "/videos/{video_id}/car-programme-episodes/{car_programme_episode_id}" : {
+      "post" : {
         "tags" : [ "Videos" ],
-        "description" : "Returns all `Countries` that have the specified `Video` attached to it.",
+        "summary" : "Connect Car Programme Episode",
+        "description" : "Connects an existing `Car Programme Episode` to the specified `Video`.",
         "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Country"
-                  }
-                }
-              }
-            }
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
-        }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Car Programme Episode",
+        "description" : "Disconnects a `Car Programme Episode` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "video_id",
@@ -14528,221 +14975,41 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
-      } ]
-    },
-    "/videos/{video_id}/racing-series" : {
-      "get" : {
-        "tags" : [ "Videos" ],
-        "description" : "Returns all `Racing Series` that have the specified `Video` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Racing_Series"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "video_id",
+        },
+        "example" : 4252
+      }, {
+        "name" : "car_programme_episode_id",
         "in" : "path",
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
-      } ]
-    },
-    "/videos/{video_id}/racing-events" : {
-      "get" : {
-        "tags" : [ "Videos" ],
-        "description" : "Returns all `Racing Events` that have the specified `Video` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Racing_Event"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "video_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/videos/{video_id}/racing-event-sessions" : {
-      "get" : {
-        "tags" : [ "Videos" ],
-        "description" : "Returns all `Racing Event Sessions` that have the specified `Video` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Racing_Event_Session"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "video_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/videos/{video_id}/race-results" : {
-      "get" : {
-        "tags" : [ "Videos" ],
-        "description" : "Returns all `Race Results` that have the specified `Video` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Race_Result"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "video_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/videos/{video_id}/race-tracks" : {
-      "get" : {
-        "tags" : [ "Videos" ],
-        "description" : "Returns all `Race Tracks` that have the specified `Video` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Race_Track"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "video_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/videos/{video_id}/race-track-variants" : {
-      "get" : {
-        "tags" : [ "Videos" ],
-        "description" : "Returns all `Race Track Variants` that have the specified `Video` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Race_Track_Variant"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "video_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
+        },
+        "example" : 2086
       } ]
     },
     "/videos/{video_id}/racing-games" : {
       "get" : {
         "tags" : [ "Videos" ],
+        "summary" : "Get connected Racing Games",
         "description" : "Returns all `Racing Games` that have the specified `Video` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Racing_Game"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -14752,29 +15019,462 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 23374
+      } ]
+    },
+    "/videos/{video_id}/racing-games/{racing_game_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Racing Game",
+        "description" : "Connects an existing `Racing Game` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Racing Game",
+        "description" : "Disconnects a `Racing Game` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 23374
+      }, {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21740
       } ]
     },
     "/videos/{video_id}/gaming-platforms" : {
       "get" : {
         "tags" : [ "Videos" ],
+        "summary" : "Get connected Gaming Platforms",
         "description" : "Returns all `Gaming Platforms` that have the specified `Video` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/Gaming_Platform"
-                  }
+                    "$ref" : "#/components/schemas/Racing_Game"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14465
+      } ]
+    },
+    "/videos/{video_id}/gaming-platforms/{gaming_platform_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Gaming Platform",
+        "description" : "Connects an existing `Gaming Platform` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Gaming Platform",
+        "description" : "Disconnects a `Gaming Platform` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14465
+      }, {
+        "name" : "gaming_platform_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14389
+      } ]
+    },
+    "/videos/{video_id}/racing-series" : {
+      "get" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Get connected Racing Series",
+        "description" : "Returns all `Racing Series` that have the specified `Video` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Racing_Series"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25988
+      } ]
+    },
+    "/videos/{video_id}/racing-series/{racing_series_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Racing Series",
+        "description" : "Connects an existing `Racing Series` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Racing Series",
+        "description" : "Disconnects a `Racing Series` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25988
+      }, {
+        "name" : "racing_series_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 310
+      } ]
+    },
+    "/videos/{video_id}/racing-events" : {
+      "get" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Get connected Racing Events",
+        "description" : "Returns all `Racing Events` that have the specified `Video` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Racing_Event"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 23647
+      } ]
+    },
+    "/videos/{video_id}/racing-events/{racing_event_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Racing Event",
+        "description" : "Connects an existing `Racing Event` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Racing Event",
+        "description" : "Disconnects a `Racing Event` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 23647
+      }, {
+        "name" : "racing_event_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21914
+      } ]
+    },
+    "/videos/{video_id}/racing-event-sessions" : {
+      "get" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Get connected Racing Event Sessions",
+        "description" : "Returns all `Racing Event Sessions` that have the specified `Video` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Racing_Event_Session"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28091
+      } ]
+    },
+    "/videos/{video_id}/racing-event-sessions/{racing_event_session_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Racing Event Session",
+        "description" : "Connects an existing `Racing Event Session` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Racing Event Session",
+        "description" : "Disconnects a `Racing Event Session` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28091
+      }, {
+        "name" : "racing_event_session_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 22404
+      } ]
+    },
+    "/videos/{video_id}/race-results" : {
+      "get" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Get connected Race Results",
+        "description" : "Returns all `Race Results` that have the specified `Video` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Race_Result"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -14787,13 +15487,347 @@
         }
       } ]
     },
+    "/videos/{video_id}/race-results/{race_result_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Race Result",
+        "description" : "Connects an existing `Race Result` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Race Result",
+        "description" : "Disconnects a `Race Result` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      }, {
+        "name" : "race_result_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 27376
+      } ]
+    },
+    "/videos/{video_id}/race-tracks" : {
+      "get" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Get connected Race Tracks",
+        "description" : "Returns all `Race Tracks` that have the specified `Video` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Race_Track"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 37568
+      } ]
+    },
+    "/videos/{video_id}/race-tracks/{race_track_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Race Track",
+        "description" : "Connects an existing `Race Track` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Race Track",
+        "description" : "Disconnects a `Race Track` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 37568
+      }, {
+        "name" : "race_track_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28106
+      } ]
+    },
+    "/videos/{video_id}/race-track-variants" : {
+      "get" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Get connected Race Track Variants",
+        "description" : "Returns all `Race Track Variants` that have the specified `Video` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Race_Track_Variant"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 37568
+      } ]
+    },
+    "/videos/{video_id}/race-track-variants/{race_track_variant_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Race Track Variant",
+        "description" : "Connects an existing `Race Track Variant` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Race Track Variant",
+        "description" : "Disconnects a `Race Track Variant` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 37568
+      }, {
+        "name" : "race_track_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 23961
+      } ]
+    },
+    "/videos/{video_id}/countries" : {
+      "get" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Get connected Countries",
+        "description" : "Returns all `Countries` that have the specified `Video` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Country"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      } ]
+    },
+    "/videos/{video_id}/countries/{country_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Country",
+        "description" : "Connects an existing `Country` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Country",
+        "description" : "Disconnects a `Country` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      }, {
+        "name" : "country_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 67
+      } ]
+    },
     "/videos/{video_id}/online-articles" : {
       "get" : {
         "tags" : [ "Videos" ],
-        "description" : "Returns all `Online Articles` that are attached to the specified `Video`.",
+        "summary" : "Get connected Online Articles",
+        "description" : "Returns all `Online Articles` that have the specified `Video` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -14808,7 +15842,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -14818,7 +15852,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 24730
+      } ]
+    },
+    "/videos/{video_id}/online-articles/{online_article_id}" : {
+      "post" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Connect Online Article",
+        "description" : "Connects an existing `Online Article` to the specified `Video`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Videos" ],
+        "summary" : "Disconnect Online Article",
+        "description" : "Disconnects a `Online Article` from the specified `Video`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "video_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 24730
+      }, {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 27470
       } ]
     }
   },
