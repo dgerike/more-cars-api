@@ -5540,7 +5540,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 2086
+        "example" : 7167
       } ]
     },
     "/car-programme-episodes/{car_programme_episode_id}/online-articles/{online_article_id}" : {
@@ -5586,7 +5586,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 2086
+        "example" : 7167
       }, {
         "name" : "online_article_id",
         "in" : "path",
@@ -5594,7 +5594,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 25957
+        "example" : 40241
       } ]
     },
     "/car-programme-episodes/{car_programme_episode_id}/videos" : {
