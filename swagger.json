@@ -13224,10 +13224,11 @@
     "/images/{image_id}/online-articles" : {
       "get" : {
         "tags" : [ "Images" ],
-        "description" : "Returns all `Online Articles` that are attached to the specified `Image`.",
+        "summary" : "Get connected Online Articles",
+        "description" : "Returns all `Online Articles` that have the specified `Image` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -13242,7 +13243,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -13252,7 +13253,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 36942
+      } ]
+    },
+    "/images/{image_id}/online-articles/{online_article_id}" : {
+      "post" : {
+        "tags" : [ "Images" ],
+        "summary" : "Connect Online Article",
+        "description" : "Connects an existing `Online Article` to the specified `Image`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Images" ],
+        "summary" : "Disconnect Online Article",
+        "description" : "Disconnects a `Online Article` from the specified `Image`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "image_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 36942
+      }, {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 10026
       } ]
     },
     "/online-articles" : {
