@@ -13472,13 +13472,1591 @@
         }
       } ]
     },
+    "/online-articles/{online_article_id}/car-models" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Car Models",
+        "description" : "Returns all `Car Models` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Car_Model"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40557
+      } ]
+    },
+    "/online-articles/{online_article_id}/car-models/{car_model_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Car Model",
+        "description" : "Connects an existing `Car Model` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Car Model",
+        "description" : "Disconnects a `Car Model` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40557
+      }, {
+        "name" : "car_model_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 390
+      } ]
+    },
+    "/online-articles/{online_article_id}/car-model-variants" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Car Model Variants",
+        "description" : "Returns all `Car Model Variants` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Car_Model_Variant"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40556
+      } ]
+    },
+    "/online-articles/{online_article_id}/car-model-variants/{car_model_variant_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Car Model Variant",
+        "description" : "Connects an existing `Car Model Variant` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Car Model Variant",
+        "description" : "Disconnects a `Car Model Variant` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40556
+      }, {
+        "name" : "car_model_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 405
+      } ]
+    },
+    "/online-articles/{online_article_id}/brands" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Brands",
+        "description" : "Returns all `Brands` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Brand"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40557
+      } ]
+    },
+    "/online-articles/{online_article_id}/brands/{brand_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Brand",
+        "description" : "Connects an existing `Brand` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Brand",
+        "description" : "Disconnects a `Brand` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40557
+      }, {
+        "name" : "brand_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 319
+      } ]
+    },
+    "/online-articles/{online_article_id}/companies" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Companies",
+        "description" : "Returns all `Companies` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Company"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28209
+      } ]
+    },
+    "/online-articles/{online_article_id}/companies/{company_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Company",
+        "description" : "Connects an existing `Company` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Company",
+        "description" : "Disconnects a `Company` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28209
+      }, {
+        "name" : "company_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 52
+      } ]
+    },
+    "/online-articles/{online_article_id}/car-magazines" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Car Magazines",
+        "description" : "Returns all `Car Magazines` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Car_Magazine"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28194
+      } ]
+    },
+    "/online-articles/{online_article_id}/car-magazines/{car_magazine_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Car Magazine",
+        "description" : "Connects an existing `Car Magazine` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Car Magazine",
+        "description" : "Disconnects a `Car Magazine` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28194
+      }, {
+        "name" : "car_magazine_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 910
+      } ]
+    },
+    "/online-articles/{online_article_id}/car-magazine-issues" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Car Magazine Issues",
+        "description" : "Returns all `Car Magazine Issues` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Car_Magazine_Issue"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 38874
+      } ]
+    },
+    "/online-articles/{online_article_id}/car-magazine-issues/{car_magazine_issue_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Car Magazine Issue",
+        "description" : "Connects an existing `Car Magazine Issue` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Car Magazine Issue",
+        "description" : "Disconnects a `Car Magazine Issue` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 38874
+      }, {
+        "name" : "car_magazine_issue_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40654
+      } ]
+    },
+    "/online-articles/{online_article_id}/car-programmes" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Car Programmes",
+        "description" : "Returns all `Car Programmes` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Car_Programme"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25957
+      } ]
+    },
+    "/online-articles/{online_article_id}/car-programmes/{car_programme_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Car Programme",
+        "description" : "Connects an existing `Car Programme` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Car Programme",
+        "description" : "Disconnects a `Car Programme` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25957
+      }, {
+        "name" : "car_programme_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40
+      } ]
+    },
+    "/online-articles/{online_article_id}/car-programme-episodes" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Car Programme Episodes",
+        "description" : "Returns all `Car Programme Episodes` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Car_Programme_Episode"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 7167
+      } ]
+    },
+    "/online-articles/{online_article_id}/car-programme-episodes/{car_programme_episode_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Car Programme Episode",
+        "description" : "Connects an existing `Car Programme Episode` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Car Programme Episode",
+        "description" : "Disconnects a `Car Programme Episode` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 7167
+      }, {
+        "name" : "car_programme_episode_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40241
+      } ]
+    },
+    "/online-articles/{online_article_id}/racing-games" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Racing Games",
+        "description" : "Returns all `Racing Games` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Racing_Game"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25742
+      } ]
+    },
+    "/online-articles/{online_article_id}/racing-games/{racing_game_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Racing Game",
+        "description" : "Connects an existing `Racing Game` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Racing Game",
+        "description" : "Disconnects a `Racing Game` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25742
+      }, {
+        "name" : "racing_game_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21740
+      } ]
+    },
+    "/online-articles/{online_article_id}/gaming-platforms" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Gaming Platforms",
+        "description" : "Returns all `Gaming Platforms` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Racing_Game"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25987
+      } ]
+    },
+    "/online-articles/{online_article_id}/gaming-platforms/{gaming_platform_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Gaming Platform",
+        "description" : "Connects an existing `Gaming Platform` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Gaming Platform",
+        "description" : "Disconnects a `Gaming Platform` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25987
+      }, {
+        "name" : "gaming_platform_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 14389
+      } ]
+    },
+    "/online-articles/{online_article_id}/racing-series" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Racing Series",
+        "description" : "Returns all `Racing Series` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Racing_Series"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40728
+      } ]
+    },
+    "/online-articles/{online_article_id}/racing-series/{racing_series_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Racing Series",
+        "description" : "Connects an existing `Racing Series` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Racing Series",
+        "description" : "Disconnects a `Racing Series` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40728
+      }, {
+        "name" : "racing_series_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 310
+      } ]
+    },
+    "/online-articles/{online_article_id}/racing-events" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Racing Events",
+        "description" : "Returns all `Racing Events` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Racing_Event"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25989
+      } ]
+    },
+    "/online-articles/{online_article_id}/racing-events/{racing_event_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Racing Event",
+        "description" : "Connects an existing `Racing Event` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Racing Event",
+        "description" : "Disconnects a `Racing Event` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 25989
+      }, {
+        "name" : "racing_event_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 21914
+      } ]
+    },
+    "/online-articles/{online_article_id}/racing-event-sessions" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Racing Event Sessions",
+        "description" : "Returns all `Racing Event Sessions` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Racing_Event_Session"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40748
+      } ]
+    },
+    "/online-articles/{online_article_id}/racing-event-sessions/{racing_event_session_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Racing Event Session",
+        "description" : "Connects an existing `Racing Event Session` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Racing Event Session",
+        "description" : "Disconnects a `Racing Event Session` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 40748
+      }, {
+        "name" : "racing_event_session_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 22404
+      } ]
+    },
+    "/online-articles/{online_article_id}/race-results" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Race Results",
+        "description" : "Returns all `Race Results` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Race_Result"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      } ]
+    },
+    "/online-articles/{online_article_id}/race-results/{race_result_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Race Result",
+        "description" : "Connects an existing `Race Result` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Race Result",
+        "description" : "Disconnects a `Race Result` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      }, {
+        "name" : "race_result_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 27376
+      } ]
+    },
+    "/online-articles/{online_article_id}/race-tracks" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Race Tracks",
+        "description" : "Returns all `Race Tracks` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Race_Track"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 34829
+      } ]
+    },
+    "/online-articles/{online_article_id}/race-tracks/{race_track_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Race Track",
+        "description" : "Connects an existing `Race Track` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Race Track",
+        "description" : "Disconnects a `Race Track` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 34829
+      }, {
+        "name" : "race_track_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 28106
+      } ]
+    },
+    "/online-articles/{online_article_id}/race-track-variants" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Race Track Variants",
+        "description" : "Returns all `Race Track Variants` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Race_Track_Variant"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 34829
+      } ]
+    },
+    "/online-articles/{online_article_id}/race-track-variants/{race_track_variant_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Race Track Variant",
+        "description" : "Connects an existing `Race Track Variant` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Race Track Variant",
+        "description" : "Disconnects a `Race Track Variant` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 34829
+      }, {
+        "name" : "race_track_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 23961
+      } ]
+    },
+    "/online-articles/{online_article_id}/countries" : {
+      "get" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Get connected Countries",
+        "description" : "Returns all `Countries` that have the specified `Online Article` attached to it.",
+        "responses" : {
+          "200" : {
+            "description" : "Node collection was successfully loaded",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Country"
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
+                }
+              }
+            }
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      } ]
+    },
+    "/online-articles/{online_article_id}/countries/{country_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Country",
+        "description" : "Connects an existing `Country` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Country",
+        "description" : "Disconnects a `Country` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        }
+      }, {
+        "name" : "country_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 67
+      } ]
+    },
     "/online-articles/{online_article_id}/images" : {
       "get" : {
         "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Images` that are attached to the specified `Online Article`.",
+        "summary" : "Get connected Images",
+        "description" : "Returns all `Images` that have the specified `Online Article` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -13493,7 +15071,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -13503,16 +15081,75 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 10026
+      } ]
+    },
+    "/online-articles/{online_article_id}/images/{image_id}" : {
+      "post" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Connect Image",
+        "description" : "Connects an existing `Image` to the specified `Online Article`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Image",
+        "description" : "Disconnects a `Image` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "online_article_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 10026
+      }, {
+        "name" : "image_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 36942
       } ]
     },
     "/online-articles/{online_article_id}/videos" : {
       "get" : {
         "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Videos` that are attached to the specified `Online Article`.",
+        "summary" : "Get connected Videos",
+        "description" : "Returns all `Videos` that have the specified `Online Article` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -13527,7 +15164,7 @@
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -13537,31 +15174,48 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 27470
       } ]
     },
-    "/online-articles/{online_article_id}/car-models" : {
-      "get" : {
+    "/online-articles/{online_article_id}/videos/{video_id}" : {
+      "post" : {
         "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Car Models` that have the specified `Online Article` attached to it.",
+        "summary" : "Connect Video",
+        "description" : "Connects an existing `Video` to the specified `Online Article`.",
         "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Car_Model"
-                  }
-                }
-              }
-            }
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
-        }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Online Articles" ],
+        "summary" : "Disconnect Video",
+        "description" : "Disconnects a `Video` from the specified `Online Article`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "online_article_id",
@@ -13569,519 +15223,16 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/car-model-variants" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Car Model Variants` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Car_Model_Variant"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
+        },
+        "example" : 27470
+      }, {
+        "name" : "video_id",
         "in" : "path",
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/brands" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Brands` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Brand"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/companies" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Companies` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Company"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/car-magazines" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Car Magazines` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Car_Magazine"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/car-magazine-issues" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Car Magazine Issues` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Car_Magazine_Issue"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/car-programmes" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Car Programmes` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Car_Programme"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/car-programme-episodes" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Car Programme Episodes` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Car_Programme_Episode"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/countries" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Countries` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Country"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/racing-series" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Racing Series` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Racing_Series"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/racing-events" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Racing Events` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Racing_Event"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/racing-event-sessions" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Racing Event Sessions` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Racing_Event_Session"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/race-results" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Race Results` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Race_Result"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/race-tracks" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Race Tracks` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Race_Track"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/race-track-variants" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Race Track Variants` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Race_Track_Variant"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/racing-games" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Racing Games` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Racing_Game"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
-      } ]
-    },
-    "/online-articles/{online_article_id}/gaming-platforms" : {
-      "get" : {
-        "tags" : [ "Online Articles" ],
-        "description" : "Returns all `Gaming Platforms` that have the specified `Online Article` attached to it.",
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Gaming_Platform"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Status 404"
-          }
-        }
-      },
-      "parameters" : [ {
-        "name" : "online_article_id",
-        "in" : "path",
-        "required" : true,
-        "schema" : {
-          "type" : "integer"
-        }
+        },
+        "example" : 24730
       } ]
     },
     "/videos" : {
