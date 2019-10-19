@@ -4249,7 +4249,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 38874
+        "example" : 40654
       } ]
     },
     "/car-magazine-issues/{car_magazine_issue_id}/online-articles/{online_article_id}" : {
@@ -4295,7 +4295,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 38874
+        "example" : 40654
       }, {
         "name" : "online_article_id",
         "in" : "path",
@@ -4303,7 +4303,7 @@
         "schema" : {
           "type" : "integer"
         },
-        "example" : 40654
+        "example" : 38874
       } ]
     },
     "/car-magazine-issues/{car_magazine_issue_id}/videos" : {
