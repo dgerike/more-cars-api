@@ -13038,23 +13038,26 @@
     "/images/{image_id}/race-track-variants" : {
       "get" : {
         "tags" : [ "Images" ],
+        "summary" : "Get connected Race Track Variants",
         "description" : "Returns all `Race Track Variants` that have the specified `Image` attached to it.",
         "responses" : {
           "200" : {
-            "description" : "Status 200",
+            "description" : "Node collection was successfully loaded",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
                     "$ref" : "#/components/schemas/Race_Track_Variant"
-                  }
+                  },
+                  "minItems" : 0,
+                  "maxItems" : 24
                 }
               }
             }
           },
           "404" : {
-            "description" : "Status 404"
+            "$ref" : "#/components/responses/NotFound"
           }
         }
       },
@@ -13064,7 +13067,65 @@
         "required" : true,
         "schema" : {
           "type" : "integer"
-        }
+        },
+        "example" : 32856
+      } ]
+    },
+    "/images/{image_id}/race-track-variants/{race_track_variant_id}" : {
+      "post" : {
+        "tags" : [ "Images" ],
+        "summary" : "Connect Race Track Variant",
+        "description" : "Connects an existing `Race Track Variant` to the specified `Image`.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully connected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Images" ],
+        "summary" : "Disconnect Race Track Variant",
+        "description" : "Disconnects a `Race Track Variant` from the specified `Image`. 🔒 Operation requires elevated permissions.",
+        "responses" : {
+          "204" : {
+            "description" : "Node was successfully disconnected"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/NotAuthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "Access_Token" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "image_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 32856
+      }, {
+        "name" : "race_track_variant_id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : 23961
       } ]
     },
     "/images/{image_id}/countries" : {
