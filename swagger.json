@@ -17675,6 +17675,10 @@
             "description" : "The official name of this event. \nIn general a combination of the year, the racing series and the the location. \nMight also contain the main sponsor's name.",
             "example" : "2016 WTCC Race of Morocco"
           },
+          "round" : {
+            "type" : "integer",
+            "description" : "Which round in the season calendar?"
+          },
           "start_date" : {
             "type" : "string",
             "description" : "The first (official) day of the event."
