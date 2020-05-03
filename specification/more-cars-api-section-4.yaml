@@ -1,0 +1,846 @@
+openapi: 3.0.0
+info:
+  version: '0.8.0'
+  title: 'More Cars API » Section 4: Gaming'
+  description: >-
+    The More Cars API is divided into five sections. 
+    <ul>
+    <li> [Section 1 - Core](/apis-docs/more-cars.net/more-cars-api-section-1)<br>
+    <li> [Section 2 - Multimedia](/apis-docs/more-cars.net/more-cars-api-section-2)<br>
+    <li> [Section 3 - Presentation](/apis-docs/more-cars.net/more-cars-api-section-3)<br>
+    <li> [Section 4 - Gaming](/apis-docs/more-cars.net/more-cars-api-section-4)<br>
+    <li> [Section 5 - Motorsport](/apis-docs/more-cars.net/more-cars-api-section-5)<br>
+    </ul>
+    
+    <p>
+      This section covers the gaming part. Right now this includes racing games and their gaming platforms. In the future this might also include miniature models or car related card games.
+    </p>
+
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/more-cars.net/more-cars-api-section-4/0.8.0
+  - description: Production API
+    url: https://more-cars.net/api/v1
+    
+components:
+  securitySchemes:
+    Access_Token:
+      type: apiKey
+      name: access-token
+      in: header
+
+tags:
+- name: "Racing Games"
+  description: >-
+    Racing games include all video games where the main activity is to race or have some kind of competition with cars. There is only one restriction. The featured vehicles `MUST` all be `officially licensed` ones.
+
+- name: "Gaming Platforms"
+  description: >-
+    `Gaming Platforms` include all hardware that allows to play video games. 
+    This can be a next-gen console, a handheld or an old arcade. 
+    Also included are platforms that are not purely meant for gaming, like a PC or a Mac.
+
+paths:
+  /racing-games:
+    get:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Get all Racing Games"
+      description: >-
+        Returns a collection of all `Racing Games` that are stored in the *More Cars* database.
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+      responses:
+       '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Game_COLLECTION'
+
+    post:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Create new Racing Game"
+      description: >-
+        Adds a new `Racing Game` to the More Cars database.
+      security:
+        - Access_Token: []
+      requestBody:
+        $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/requestBodies/Racing_Game'
+      responses:
+        '201':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Game_CREATED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '422':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/InvalidData'
+
+  '/racing-games/{racing_game_id}':
+    get:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Get specific Racing Game"
+      description: >-
+        Returns a `Racing Game` specified by its ID.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Game_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+          
+    delete:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Delete Racing Game"
+      description: >-
+        Deletes a `Racing Game`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Game_DELETED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+
+  '/racing-games/{racing_game_id}/car-model-variants':
+    get:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Get connected Car Model Variants"
+      description: >-
+        Returns all `Car Model Variants` that can be driven in the specified
+        `Racing Game`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Model_Variant_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+
+  '/racing-games/{racing_game_id}/car-model-variants/{car_model_variant_id}':
+    post:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Connect Car Model Variant"
+      description: >-
+        Connects an existing `Car Model Variant` to the specified `Racing Game`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Model_Variant_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Disconnect Car Model Variant"
+      description: >-
+        Disconnects a `Car Model Variant` from the specified `Racing Game`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Model_Variant_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+      - name: car_model_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 7499
+
+  '/racing-games/{racing_game_id}/gaming-platforms':
+    get:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Get connected Gaming Platforms"
+      description: >-
+        Returns all `Gaming Platforms` for which the specified `Racing Game` is/was available.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Gaming_Platform_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+
+  '/racing-games/{racing_game_id}/gaming-platforms/{gaming_platform_id}':
+    post:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Connect Gaming Platform"
+      description: >-
+        Connects an existing `Gaming Platform` to the specified `Racing Game`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Gaming_Platform_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Disconnect Gaming Platform"
+      description: >-
+        Disconnects a `Gaming Platform` from the specified `Racing Game`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Gaming_Platform_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+      - name: gaming_platform_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 14377
+
+  '/racing-games/{racing_game_id}/images':
+    get:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Get connected Images"
+      description: >-
+        Returns all `Images` that are attached to the specified `Racing Game`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+
+  '/racing-games/{racing_game_id}/images/{image_id}':
+    post:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Connect Image"
+      description: >-
+        Attaches an existing `Image` to the specified `Racing Game`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Disconnect Image"
+      description: >-
+        Disconnects an `Image` from the specified `Racing Game`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 14950
+
+  '/racing-games/{racing_game_id}/online-articles':
+    get:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Get connected Online Articles"
+      description: >-
+        Returns all `Online Articles` that are attached to the specified `Racing Game`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+
+  '/racing-games/{racing_game_id}/online-articles/{online_article_id}':
+    post:
+      tags:
+      - "Racing Games"
+      summary:  
+        "Connect Online Article"
+      description: >-
+        Attaches an existing `Online Article` to the specified `Racing Game`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Disconnect Online Article"
+      description: >-
+        Disconnects an `Online Article` from the specified `Racing Game`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 25742
+
+  '/racing-games/{racing_game_id}/videos':
+    get:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Get connected Videos"
+      description: >-
+        Returns all `Videos` that are attached to the specified `Racing Game`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+
+  '/racing-games/{racing_game_id}/videos/{video_id}':
+    post:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Connect Video"
+      description: >-
+        Attachs an existing `Video` to the specified `Racing Game`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Games"
+      summary: 
+        "Disconnect Video"
+      description: >-
+        Disconnects a `Video` from the specified `Racing Game`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23374
+          
+  /gaming-platforms:
+    get:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Get all Gaming Platforms"
+      description: >-
+        Returns a collection of all `Gaming Platforms` that are stored in the *More Cars* database.
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+      responses:
+       '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Gaming_Platform_COLLECTION'
+
+    post:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Create new Gaming Platform"
+      description: >-
+        Adds a new `Gaming Platform` to the More Cars database.
+      security:
+        - Access_Token: []
+      requestBody:
+        $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/requestBodies/Gaming_Platform'
+      responses:
+        '201':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Gaming_Platform_CREATED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '422':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/InvalidData'
+
+  '/gaming-platforms/{gaming_platform_id}':
+    get:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Get specific Gaming Platform"
+      description: >-
+        Returns a `Gaming Platform` specified by its ID.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Gaming_Platform_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+          
+    delete:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Delete Gaming Platform"
+      description: >-
+        Deletes a `Gaming Platform`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Gaming_Platform_DELETED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: gaming_platform_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 14389
+
+  '/gaming-platforms/{gaming_platform_id}/racing-games':
+    get:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Get connected Racing Games"
+      description: >-
+        Returns all `Racing Games` that are available for the specified `Gaming Platform`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Game_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+    parameters:
+      - name: gaming_platform_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 14377
+
+  '/gaming-platforms/{gaming_platform_id}/racing-games/{racing_game_id}':
+    post:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Connect Racing Game"
+      description: >-
+        Connects an existing `Racing Game` to the specified `Gaming Platform`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Game_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Disconnect Racing Game"
+      description: >-
+        Disconnects a `Racing Game` from the specified `Gaming Platform`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Game_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: gaming_platform_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 14377
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+
+  '/gaming-platforms/{gaming_platform_id}/images':
+    get:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Get connected Images"
+      description: >-
+        Returns all `Images` that are attached to the specified `Gaming Platform`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+    parameters:
+      - name: gaming_platform_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 14389
+
+  '/gaming-platforms/{gaming_platform_id}/images/{image_id}':
+    post:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Connect Image"
+      description: >-
+        Attaches an existing `Image` to the specified `Gaming Platform`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Disconnect Image"
+      description: >-
+        Disconnects an `Image` from the specified `Gaming Platform`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: gaming_platform_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 14389
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 25814
+
+  '/gaming-platforms/{gaming_platform_id}/online-articles':
+    get:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Get connected Online Articles"
+      description: >-
+        Returns all `Online Articles` that are attached to the specified `Gaming Platform`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: gaming_platform_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 14389
+
+  '/gaming-platforms/{gaming_platform_id}/online-articles/{online_article_id}':
+    post:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Connect Online Article"
+      description: >-
+        Attaches an existing `Online Article` to the specified `Gaming Platform`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Disconnect Online Article"
+      description: >-
+        Disconnects an `Online Article` from the specified `Gaming Platform`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: gaming_platform_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 14389
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 25987
+
+  '/gaming-platforms/{gaming_platform_id}/videos':
+    get:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Get connected Videos"
+      description: >-
+        Returns all `Videos` that are attached to the specified `Gaming Platform`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: gaming_platform_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 14389
+
+  '/gaming-platforms/{gaming_platform_id}/videos/{video_id}':
+    post:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Connect Video"
+      description: >-
+        Attachs an existing `Video` to the specified `Gaming Platform`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Gaming Platforms"
+      summary: 
+        "Disconnect Video"
+      description: >-
+        Disconnects a `Video` from the specified `Gaming Platform`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: gaming_platform_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 14389
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 14465
