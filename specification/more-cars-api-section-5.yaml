@@ -1,0 +1,2915 @@
+openapi: 3.0.0
+info:
+  version: '0.8.0'
+  title: 'More Cars API » Section 5: Motorsport'
+  description: >-
+    The More Cars API is divided into five sections. 
+    <ul>
+    <li> [Section 1 - Core](/apis-docs/more-cars.net/more-cars-api-section-1)<br>
+    <li> [Section 2 - Multimedia](/apis-docs/more-cars.net/more-cars-api-section-2)<br>
+    <li> [Section 3 - Presentation](/apis-docs/more-cars.net/more-cars-api-section-3)<br>
+    <li> [Section 4 - Gaming](/apis-docs/more-cars.net/more-cars-api-section-4)<br>
+    <li> [Section 5 - Motorsport](/apis-docs/more-cars.net/more-cars-api-section-5)<br>
+    </ul>
+    
+    <p>
+      This section covers the motorsport part. The datastructure allows to store whole racing events, including the sessions (training, qualifying, race) and the race results.
+    </p>
+
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/more-cars.net/more-cars-api-section-5/0.8.0
+  - description: Production API
+    url: https://more-cars.net/api/v1
+    
+components:
+  securitySchemes:
+    Access_Token:
+      type: apiKey
+      name: access-token
+      in: header
+
+tags:
+- name: "Racing Series"
+  description: ...
+
+- name: "Racing Events"
+  description: ...
+
+- name: "Racing Event Sessions"
+  description: >-
+    Usually, each `Racing Event` consists of multiple sessions.
+    The number and the format of these `Racing Event Sessions` depends on the `Racing Series`.
+    In *Formula 1* for example, there are multiple training sessions, a 3-part qualifying session and one racing session.
+    The *British Touring Car Championship* has three racing sessions.
+    In Rallycross there are even more racing sessions, but in a shootout format.
+
+- name: "Race Results"
+  description: >-
+    A `Race Result` describes the outcome of one car in one particular session within one race event.
+
+- name: "Race Tracks"
+  description: >-
+    `Race Tracks` are primarily made for motorsport races, but may also be used for car testing or driver trainings.
+    They come in different forms and flavours.
+    It can be a closed racing circuit like Silverstone, a temporary city race track like Monaco, a mountain trail like Pikes Peak or an open track like a Rallye Dakar route.
+    More Cars allows all race tracks to be added that exist in the real world.
+    So, fantasy tracks from racing games are not permitted.
+
+- name: "Race Track Variants"
+  description: >-
+    Most `Race Tracks` have multiple layouts, so they can host different motorsport classes and events.
+    E.g. there might be a longer layout for Formula 1 races, a short version for touring cars and a very short one that is used for car tests or driver trainings.
+
+paths:
+  /racing-series:
+    get:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Get all Racing Series"
+      description: >-
+        Returns a collection of all `Racing Series` that are stored in the *More Cars* database.
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+      responses:
+       '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Series_COLLECTION'
+
+    post:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Create new Racing Series"
+      description: >-
+        Adds a new `Racing Series` to the More Cars database.
+      security:
+        - Access_Token: []
+      requestBody:
+        $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/requestBodies/Racing_Series'
+      responses:
+        '201':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Series_CREATED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '422':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/InvalidData'
+
+  '/racing-series/{racing_series_id}':
+    get:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Get specific Racing Series"
+      description: >-
+        Returns a `Racing Series` specified by its ID.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Series_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    delete:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Delete Racing Series"
+      description: >-
+        Deletes a `Racing Series`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Series_DELETED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_series_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 310
+
+  '/racing-series/{racing_series_id}/racing-events':
+    get:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Get connected Racing Events"
+      description: >-
+        Returns all `Racing Events` that were part of the specified `Racing Series`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_series_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 310
+
+  '/racing-series/{racing_series_id}/racing-events/{racing_event_id}':
+    post:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Connect Racing Event"
+      description: >-
+        Connects an existing `Racing Event` to the specified `Racing Series`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Disconnect Racing Event"
+      description: >-
+        Disconnects a `Racing Event` from the specified `Racing Series`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_series_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 310
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 25568
+
+  '/racing-series/{racing_series_id}/countries':
+    get:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Get connected Country"
+      description: >-
+        Returns the `Country` (resp. market) the specified `Racing Series` is made
+        for.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Country_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_series_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 310
+
+  '/racing-series/{racing_series_id}/countries/{country_id}':
+    post:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Connect Country"
+      description: >-
+        Connects an existing `Country` to the specified `Racing Series`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Country_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Disconnect Country"
+      description: >-
+        Disconnects a `Country` from the specified `Racing Series`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Country_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_series_id
+        in: path
+        required: true
+        example: 310
+        schema:
+          type: integer
+      - name: country_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 652
+
+  '/racing-series/{racing_series_id}/images':
+    get:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Get connected Images"
+      description: >-
+        Returns all `Images` that are attached to the specified `Racing Series`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_series_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 310
+
+  '/racing-series/{racing_series_id}/images/{image_id}':
+    post:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Connect Image"
+      description: >-
+        Attaches an existing `Image` to the specified `Racing Series`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Disconnect Image"
+      description: >-
+        Disconnects an `Image` from the specified `Racing Series`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_series_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 310
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 19288
+
+  '/racing-series/{racing_series_id}/online-articles':
+    get:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Get connected Online Articles"
+      description: >-
+        Returns all `Online Articles` that are attached to the specified `Racing Series`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Articles_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_series_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 310
+
+  '/racing-series/{racing_series_id}/online-articles/{online_article_id}':
+    post:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Connect Online Article"
+      description: >-
+        Attaches an existing `Online Article` to the specified `Racing Series`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Disconnect Online Article"
+      description: >-
+        Disconnects an `Online Article` from the specified `Racing Series`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_series_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 310
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 40728
+
+  '/racing-series/{racing_series_id}/videos':
+    get:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Get connected Videos"
+      description: >-
+        Returns all `Videos` that are attached to the specified `Racing Series`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_series_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 310
+
+  '/racing-series/{racing_series_id}/videos/{video_id}':
+    post:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Connect Video"
+      description: >-
+        Attachs an existing `Video` to the specified `Racing Series`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Series"
+      summary: 
+        "Disconnect Video"
+      description: >-
+        Disconnects a `Video` from the specified `Racing Series`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_series_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 310
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 25988
+          
+  /racing-events:
+    get:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Get all Racing Events"
+      description: >-
+        Returns a collection of all `Racing Events` that are stored in the *More Cars* database.
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_COLLECTION'
+
+    post:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Create new Racing Event"
+      description: >-
+        Adds a new `Racing Event` to the More Cars database.
+      security:
+        - Access_Token: []
+      requestBody:
+        $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/requestBodies/Racing_Event'
+      responses:
+        '201':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_CREATED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '422':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/InvalidData'
+
+  '/racing-events/{racing_event_id}':
+    get:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Get specific Racing Event"
+      description: >-
+        Returns a `Racing Event` specified by its ID.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+          
+    delete:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Delete Racing Event"
+      description: >-
+        Deletes a `Racing Event`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_DELETED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21914
+
+  '/racing-events/{racing_event_id}/racing-series':
+    get:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Get connected Racing Series"
+      description: >-
+        Returns the `Racing Series` to which the specified `Racing Event` belongs to.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Series_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21914
+
+  '/racing-events/{racing_event_id}/racing-series/{racing_series_id}':
+    post:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Connect Racing Series"
+      description: >-
+        Connects an existing `Racing Series` to the specified `Racing Event`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Series_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Disconnect Racing Series"
+      description: >-
+        Disconnects a `Racing Series` from the specified `Racing Event`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Series_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21914
+      - name: racing_series_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 310
+
+  '/racing-events/{racing_event_id}/race-track-variants':
+    get:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Get connected Race Track Variant"
+      description: >-
+        Returns the `Racing Track Variant` at which the specified `Racing Event` was held.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 20238
+
+  '/racing-events/{racing_event_id}/race-track-variants/{race_track_variant_id}':
+    post:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Connect Race Track Variant"
+      description: >-
+        Connects an existing `Race Track Variant` to the specified `Racing Event`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Disconnect Race Track Variant"
+      description: >-
+        Disconnects a `Race Track Variant` from the specified `Racing Event`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 20238
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+
+  '/racing-events/{racing_event_id}/racing-event-sessions':
+    get:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Get connected Racing Event Sessions"
+      description: >-
+        Returns all `Racing Event Sessions` that were held in the specified `Racing Event`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_Session_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 20238
+
+  '/racing-events/{racing_event_id}/racing-event-sessions/{racing_event_session_id}':
+    post:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Connect Racing Event Session"
+      description: >-
+        Connects an existing `Racing Event Session` to the specified `Racing Event`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_Session_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Disconnect Racing Event Session"
+      description: >-
+        Disconnects a `Racing Event Session` from the specified `Racing Event`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_Session_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 20238
+      - name: racing_event_session_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 22404
+
+  '/racing-events/{racing_event_id}/successor':
+    get:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Get connected Racing Event successor"
+      description: >-
+        Returns the successor of this `Racing Event`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 20238
+
+  '/racing-events/{racing_event_id}/racing-events/{succeeding_racing_event_id}/succeeded-by':
+    post:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Connect succeeding Racing Event"
+      description: >-
+        Connects a `Racing Event` to be the successor of the specified `Racing Event`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Disconnect succeeding Racing Event"
+      description: >-
+        Disconnects a `Racing Event` from being the successor of the specified `Racing Event`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 20238
+      - name: succeeding_racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 20239
+    
+  '/racing-events/{racing_event_id}/predecessor':
+    get:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Get connected Racing Event predecessor"
+      description: >-
+        Returns the predecessor of this `Racing Event`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 20239
+
+  '/racing-events/{racing_event_id}/racing-events/{preceding_racing_event_id}/preceded-by':
+    post:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Connect preceding Racing Event"
+      description: >-
+        Connects a `Racing Event` to be the predecessor of the specified `Racing Event`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Disconnect preceding Racing Event"
+      description: >-
+        Disconnects a `Racing Event` from being the predecessor of the specified `Racing Event`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 20239
+      - name: preceding_racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 20238
+
+  '/racing-events/{racing_event_id}/images':
+    get:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Get connected Images"
+      description: >-
+        Returns all `Images` that are attached to the specified `Racing Events`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21914
+
+  '/racing-events/{racing_event_id}/images/{image_id}':
+    post:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Connect Image"
+      description: >-
+        Attaches an existing `Image` to the specified `Racing Events`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Disconnect Image"
+      description: >-
+        Disconnects an `Image` from the specified `Racing Events`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21914
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 19288
+
+  '/racing-events/{racing_event_id}/online-articles':
+    get:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Get connected Online Articles"
+      description: >-
+        Returns all `Online Articles` that are attached to the specified `Racing Events`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21914
+
+  '/racing-events/{racing_event_id}/online-articles/{online_article_id}':
+    post:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Connect Online Article"
+      description: >-
+        Attaches an existing `Online Article` to the specified `Racing Events`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Disconnect Online Article"
+      description: >-
+        Disconnects an `Online Article` from the specified `Racing Events`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21914
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 25989
+
+  '/racing-events/{racing_event_id}/videos':
+    get:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Get connected Videos"
+      description: >-
+        Returns all `Videos` that are attached to the specified `Racing Events`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21914
+
+  '/racing-events/{racing_event_id}/videos/{video_id}':
+    post:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Connect Video"
+      description: >-
+        Attachs an existing `Video` to the specified `Racing Events`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Events"
+      summary: 
+        "Disconnect Video"
+      description: >-
+        Disconnects a `Video` from the specified `Racing Events`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21914
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23647
+          
+  /racing-event-sessions:
+    get:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Get all Racing Event Sessions"
+      description: >-
+        Returns a collection of all `Racing Event Sessions` that are stored in the *More Cars* database.
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_Session_COLLECTION'
+
+    post:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Create new Racing Event Session"
+      description: >-
+        Adds a new `Racing Event Session` to the More Cars database.
+      security:
+        - Access_Token: []
+      requestBody:
+        $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/requestBodies/Racing_Event_Session'
+      responses:
+        '201':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_Session_CREATED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '422':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/InvalidData'
+
+  '/racing-event-sessions/{racing_event_session_id}':
+    get:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Get specific Racing Event Session"
+      description: >-
+        Returns a `Racing Event Session` specified by its ID.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_Session_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+          
+    delete:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Delete Racing Event Session"
+      description: >-
+        Deletes a `Racing Event Session`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_Session_DELETED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_session_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 22404
+
+  '/racing-event-sessions/{racing_event_session_id}/racing-events':
+    get:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Get connected Racing Event"
+      description: >-
+        Returns the `Racing Event` to which the specified `Racing Event Session` belongs to.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_event_session_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 22404
+
+  '/racing-event-sessions/{racing_event_session_id}/racing-events/{racing_event_id}':
+    post:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Connect Racing Event"
+      description: >-
+        Connects an existing `Racing Event` to the specified `Racing Event Session`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_Session_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Disconnect Racing Event"
+      description: >-
+        Disconnects a `Racing Event` from the specified `Racing Event Session`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_Session_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_session_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 22404
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 20238
+
+  '/racing-event-sessions/{racing_event_session_id}/race-results':
+    get:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Get connected Race Result"
+      description: >-
+        Returns all `Race Results` of the specified `Racing Event Session`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Result_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_event_session_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 22404
+
+  '/racing-event-sessions/{racing_event_session_id}/race-results/{race_result_id}':
+    post:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Connect Race Result"
+      description: >-
+        Connects an existing `Race Result` to the specified `Racing Event Session`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Result_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Disconnect Race Result"
+      description: >-
+        Disconnects a `Race Result` from the specified `Racing Event Session`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Result_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_session_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 22404
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+
+  '/racing-event-sessions/{racing_event_session_id}/images':
+    get:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Get connected Images"
+      description: >-
+        Returns all `Images` that are attached to the specified `Racing Event Sessions`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_event_session_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 22404
+
+  '/racing-event-sessions/{racing_event_session_id}/images/{image_id}':
+    post:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Connect Image"
+      description: >-
+        Attaches an existing `Image` to the specified `Racing Event Sessions`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Disconnect Image"
+      description: >-
+        Disconnects an `Image` from the specified `Racing Event Sessions`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_session_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 22404
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 15330
+
+  '/racing-event-sessions/{racing_event_session_id}/online-articles':
+    get:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Get connected Online Articles"
+      description: >-
+        Returns all `Online Articles` that are attached to the specified `Racing Event Sessions`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_event_session_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 22404
+
+  '/racing-event-sessions/{racing_event_session_id}/online-articles/{online_article_id}':
+    post:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Connect Online Article"
+      description: >-
+        Attaches an existing `Online Article` to the specified `Racing Event Sessions`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Disconnect Online Article"
+      description: >-
+        Disconnects an `Online Article` from the specified `Racing Event Sessions`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_session_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 22404
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 40748
+
+  '/racing-event-sessions/{racing_event_session_id}/videos':
+    get:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Get connected Videos"
+      description: >-
+        Returns all `Videos` that are attached to the specified `Racing Event Sessions`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: racing_event_session_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 22404
+
+  '/racing-event-sessions/{racing_event_session_id}/videos/{video_id}':
+    post:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Connect Video"
+      description: >-
+        Attachs an existing `Video` to the specified `Racing Event Sessions`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Racing Event Sessions"
+      summary: 
+        "Disconnect Video"
+      description: >-
+        Disconnects a `Video` from the specified `Racing Event Sessions`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: racing_event_session_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 22404
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28091
+          
+  /race-results:
+    get:
+      tags:
+      - "Race Results"
+      summary: 
+        "Get all Race Results"
+      description: >-
+        Returns a collection of all `Race Results` that are stored in the *More Cars* database.
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Result_COLLECTION'
+
+    post:
+      tags:
+      - "Race Results"
+      summary: 
+        "Create new Race Result"
+      description: >-
+        Adds a new `Race Result` to the More Cars database.
+      security:
+        - Access_Token: []
+      requestBody:
+        $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/requestBodies/Race_Result'
+      responses:
+        '201':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Result_CREATED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '422':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/InvalidData'
+
+  '/race-results/{race_result_id}':
+    get:
+      tags:
+      - "Race Results"
+      summary: 
+        "Get specific Race Result"
+      description: >-
+        Returns a `Race Result` specified by its ID.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Result_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    delete:
+      tags:
+      - "Race Results"
+      summary: 
+        "Delete Race Result"
+      description: >-
+        Deletes a `Race Result`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Result_DELETED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+
+  '/race-results/{race_result_id}/racing-event-sessions':
+    get:
+      tags:
+      - "Race Results"
+      summary: 
+        "Get connected Racing Event Session"
+      description: >-
+        Returns the `Racing Event Session` to which the specified `Race Result`
+        belongs to.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_Session_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+
+  '/race-results/{race_result_id}/racing-event-sessions/{racing_event_session_id}':
+    post:
+      tags:
+      - "Race Results"
+      summary: 
+        "Connect Racing Event Session"
+      description: >-
+        Connects an existing `Racing Event Session` to the specified `Race Result`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_Session_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Results"
+      summary: 
+        "Disconnect Racing Event Session"
+      description: >-
+        Disconnects a `Racing Event Session` from the specified `Race Result`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_Session_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+      - name: racing_event_session_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 22404
+
+  '/race-results/{race_result_id}/car-model-variants':
+    get:
+      tags:
+      - "Race Results"
+      summary: 
+        "Get connected Car Model Variant"
+      description: >-
+        Returns the `Car Model Variant` that achieved the specified `Race Result`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Model_Variant_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+
+  '/race-results/{race_result_id}/car-model-variants/{car_model_variant_id}':
+    post:
+      tags:
+      - "Race Results"
+      summary: 
+        "Connect Car Model Variant"
+      description: >-
+        Connects an existing `Car Model Variant` to the specified `Race Result`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Model_Variant_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Results"
+      summary: 
+        "Disconnect Car Model Variant"
+      description: >-
+        Disconnects a `Car Model Variant` from the specified `Race Result`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Model_Variant_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+      - name: car_model_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 38589
+
+  '/race-results/{race_result_id}/images':
+    get:
+      tags:
+      - "Race Results"
+      summary: 
+        "Get connected Images"
+      description: >-
+        Returns all `Images` that are attached to the specified `Race Results`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+
+  '/race-results/{race_result_id}/images/{image_id}':
+    post:
+      tags:
+      - "Race Results"
+      summary: 
+        "Connect Image"
+      description: >-
+        Attaches an existing `Image` to the specified `Race Results`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Results"
+      summary: 
+        "Disconnect Image"
+      description: >-
+        Disconnects an `Image` from the specified `Race Results`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+
+  '/race-results/{race_result_id}/online-articles':
+    get:
+      tags:
+      - "Race Results"
+      summary: 
+        "Get connected Online Articles"
+      description: >-
+        Returns all `Online Articles` that are attached to the specified `Race Results`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+
+  '/race-results/{race_result_id}/online-articles/{online_article_id}':
+    post:
+      tags:
+      - "Race Results"
+      summary: 
+        "Connect Online Article"
+      description: >-
+        Attaches an existing `Online Article` to the specified `Race Results`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Results"
+      summary: 
+        "Disconnect Online Article"
+      description: >-
+        Disconnects an `Online Article` from the specified `Race Results`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+
+  '/race-results/{race_result_id}/videos':
+    get:
+      tags:
+      - "Race Results"
+      summary: 
+        "Get connected Videos"
+      description: >-
+        Returns all `Videos` that are attached to the specified `Race Results`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+
+  '/race-results/{race_result_id}/videos/{video_id}':
+    post:
+      tags:
+      - "Race Results"
+      summary: 
+        "Connect Video"
+      description: >-
+        Attachs an existing `Video` to the specified `Race Results`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Results"
+      summary: 
+        "Disconnect Video"
+      description: >-
+        Disconnects a `Video` from the specified `Race Results`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          
+  /race-tracks:
+    get:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Get all Race Tracks"
+      description: >-
+        Returns a collection of all `Race Tracks` that are stored in the *More Cars* database.
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_COLLECTION'
+
+    post:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Create new Race Track"
+      description: >-
+        Adds a new `Race Track` to the More Cars database.
+      security:
+        - Access_Token: []
+      requestBody:
+        $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/requestBodies/Race_Track'
+      responses:
+        '201':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_CREATED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '422':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/InvalidData'
+
+  '/race-tracks/{race_track_id}':
+    get:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Get specific Race Track"
+      description: >-
+        Returns a `Race Track` specified by its ID.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    delete:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Delete Race Track"
+      description: >-
+        Deletes a `Race Track`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_DELETED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_track_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28106
+
+  '/race-tracks/{race_track_id}/race-track-variants':
+    get:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Get connected Race Track Variants"
+      description: >-
+        Returns all `Race Track Variants` that exist of the specified `Race Track`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_track_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28106
+
+  '/race-tracks/{race_track_id}/race-track-variants/{race_track_variant_id}':
+    post:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Connect Race Track Variant"
+      description: >-
+        Connects an existing `Race Track Variant` to the specified `Race Track`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Disconnect Race Track Variant"
+      description: >-
+        Disconnects a `Race Track Variant` from the specified `Race Track`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_track_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28106
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+
+  '/race-tracks/{race_track_id}/countries':
+    get:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Get connected Country"
+      description: >-
+        Returns the `Country` in which the specified `Race Track` is located.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Country_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_track_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28106
+
+  '/race-tracks/{race_track_id}/countries/{country_id}':
+    post:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Connect Country"
+      description: >-
+        Connects an existing `Country` to the specified `Race Track`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Country_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Disconnect Country"
+      description: >-
+        Disconnects a `Country` from the specified `Race Track`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Country_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_track_id
+        in: path
+        required: true
+        example: 28106
+        schema:
+          type: integer
+      - name: country_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 112
+
+  '/race-tracks/{race_track_id}/images':
+    get:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Get connected Images"
+      description: >-
+        Returns all `Images` that are attached to the specified `Race Track`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_track_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28106
+
+  '/race-tracks/{race_track_id}/images/{image_id}':
+    post:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Connect Image"
+      description: >-
+        Attaches an existing `Image` to the specified `Race Track`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Disconnect Image"
+      description: >-
+        Disconnects an `Image` from the specified `Race Track`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_track_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28106
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 37567
+
+  '/race-tracks/{race_track_id}/online-articles':
+    get:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Get connected Online Articles"
+      description: >-
+        Returns all `Online Articles` that are attached to the specified `Race Track`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_track_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28106
+
+  '/race-tracks/{race_track_id}/online-articles/{online_article_id}':
+    post:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Connect Online Article"
+      description: >-
+        Attaches an existing `Online Article` to the specified `Race Track`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Disconnect Online Article"
+      description: >-
+        Disconnects an `Online Article` from the specified `Race Track`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_track_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28106
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 34829
+
+  '/race-tracks/{race_track_id}/videos':
+    get:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Get connected Videos"
+      description: >-
+        Returns all `Videos` that are attached to the specified `Race Track`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_track_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28106
+
+  '/race-tracks/{race_track_id}/videos/{video_id}':
+    post:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Connect Video"
+      description: >-
+        Attachs an existing `Video` to the specified `Race Track`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Tracks"
+      summary: 
+        "Disconnect Video"
+      description: >-
+        Disconnects a `Video` from the specified `Race Track`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_track_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28106
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 37568
+          
+  /race-track-variants:
+    get:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Get all Race Track Variants"
+      description: >-
+        Returns a collection of all `Race Track Variants` that are stored in the *More Cars* database.
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_COLLECTION'
+
+    post:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Create new Race Track Variant"
+      description: >-
+        Adds a new `Race Track Variant` to the More Cars database.
+      security:
+        - Access_Token: []
+      requestBody:
+        $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/requestBodies/Race_Track_Variant'
+      responses:
+        '201':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_CREATED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '422':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/InvalidData'
+
+  '/race-track-variants/{race_track_variant_id}':
+    get:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Get specific Race Track Variant"
+      description: >-
+        Returns a `Race Track Variant` specified by its ID.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    delete:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Delete Race Track Variant"
+      description: >-
+        Deletes a `Race Track Variant`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_DELETED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+
+  '/race-track-variants/{race_track_variant_id}/race-tracks':
+    get:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Get connected Race Track"
+      description: >-
+        Returns the `Race Track` to which the specified `Race Track Variant` belongs to.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+
+  '/race-track-variants/{race_track_variant_id}/race-tracks/{race_track_id}':
+    post:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Connect Race Track"
+      description: >-
+        Connects an existing `Race Track` to the specified `Race Track Variant`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Disconnect Race Track"
+      description: >-
+        Disconnects a `Race Track` from the specified `Race Track Variant`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+      - name: race_track_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28106
+
+  '/race-track-variants/{race_track_variant_id}/racing-events':
+    get:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Get connected Racing Events"
+      description: >-
+        Returns all `Racing Events` that were held on the specified `Race Track Variant`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28106
+
+  '/race-track-variants/{race_track_variant_id}/racing-events/{racing_event_id}':
+    post:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Connect Racing Event"
+      description: >-
+        Connects an existing `Racing Event` to the specified `Race Track Variant`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Disconnect Racing Event"
+      description: >-
+        Disconnects a `Racing Event` from the specified `Race Track Variant`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+      - name: racing_event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 20238
+
+  '/race-track-variants/{race_track_variant_id}/images':
+    get:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Get connected Images"
+      description: >-
+        Returns all `Images` that are attached to the specified `Race Track Variant`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+
+  '/race-track-variants/{race_track_variant_id}/images/{image_id}':
+    post:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Connect Image"
+      description: >-
+        Attaches an existing `Image` to the specified `Race Track Variant`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Disconnect Image"
+      description: >-
+        Disconnects an `Image` from the specified `Race Track Variant`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Image_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 32856
+
+  '/race-track-variants/{race_track_variant_id}/online-articles':
+    get:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Get connected Online Articles"
+      description: >-
+        Returns all `Online Articles` that are attached to the specified `Race Track Variant`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+
+  '/race-track-variants/{race_track_variant_id}/online-articles/{online_article_id}':
+    post:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Connect Online Article"
+      description: >-
+        Attaches an existing `Online Article` to the specified `Race Track Variant`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Disconnect Online Article"
+      description: >-
+        Disconnects an `Online Article` from the specified `Race Track Variant`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 34829
+
+  '/race-track-variants/{race_track_variant_id}/videos':
+    get:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Get connected Videos"
+      description: >-
+        Returns all `Videos` that are attached to the specified `Race Track Variant`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+
+  '/race-track-variants/{race_track_variant_id}/videos/{video_id}':
+    post:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Connect Video"
+      description: >-
+        Attachs an existing `Video` to the specified `Race Track Variant`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Disconnect Video"
+      description: >-
+        Disconnects a `Video` from the specified `Race Track Variant`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 37568
