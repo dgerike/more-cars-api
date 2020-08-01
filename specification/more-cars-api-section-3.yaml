@@ -66,6 +66,8 @@ paths:
         Returns a collection of all `Car Magazines` that are stored in the *More Cars* database.
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortDirectionParam'
       responses:
         '200':
           $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Magazine_COLLECTION'
@@ -1018,6 +1020,8 @@ paths:
         Returns a collection of all `Car Programmes` that are stored in the *More Cars* database.
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortDirectionParam'
       responses:
         '200':
           $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Programme_COLLECTION'
@@ -1457,6 +1461,8 @@ paths:
         Returns a collection of all `Car Programme Episodes` that are stored in the *More Cars* database.
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortDirectionParam'
       responses:
         '200':
           $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Programme_Episode_COLLECTION'
@@ -1973,6 +1979,8 @@ paths:
         Returns a collection of all `Motor Shows` that are stored in the *More Cars* database.
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortDirectionParam'
       responses:
         '200': 
           $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Motor_Show_COLLECTION'
