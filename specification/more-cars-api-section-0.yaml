@@ -1135,6 +1135,36 @@ components:
   # Common parameters
   ####################
   parameters:
+    searchParam:
+      name: q
+      in: query
+      required: false
+      description: search term
+      schema:
+        type: string
+        default: ""
+      example: "Ferrari"
+      
+    sortParam:
+      name: order
+      in: query
+      required: false
+      description: order by property
+      schema:
+        type: string
+        default: "name"
+      example: "built_from"
+      
+    sortDirectionParam:
+      name: order_direction
+      in: query
+      required: false
+      description: order direction (ASC or DESC)
+      schema:
+        type: string
+        default: "ASC"
+      example: "DESC"
+      
     pageParam:
       name: page
       in: query
@@ -1145,6 +1175,41 @@ components:
         minimum: 1
         default: 1
       example: 1
+      
+    filterParam:
+      name: filter
+      in: query
+      description: filter by property
+      required: false
+      schema:
+        type: object
+        properties:
+          property:
+            type: string
+          value: 
+            type: string
+      examples:
+        multipleFilters:
+          summary: Multiple filters
+          value: 
+            - doors: 
+                operator: gt
+                value: 4
+            - cylinders:
+                value: 8
+        simpleFilter:
+          summary: Simple filter
+          value: 
+            doors: 
+              value: 3
+        advancedFilter:
+          summary: Advanced filter
+          value: 
+            doors: 
+              operator: gt
+              value: 4
+        
+
 
   #######################
   # Common request bodies
