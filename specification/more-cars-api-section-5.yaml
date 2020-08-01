@@ -514,6 +514,8 @@ paths:
         Returns a collection of all `Racing Events` that are stored in the *More Cars* database.
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortDirectionParam'
       responses:
         '200':
           $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_COLLECTION'
@@ -1172,6 +1174,8 @@ paths:
         Returns a collection of all `Racing Event Sessions` that are stored in the *More Cars* database.
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortDirectionParam'
       responses:
         '200':
           $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Racing_Event_Session_COLLECTION'
@@ -1611,6 +1615,8 @@ paths:
         Returns a collection of all `Race Results` that are stored in the *More Cars* database.
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortDirectionParam'
       responses:
         '200':
           $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Result_COLLECTION'
@@ -2048,6 +2054,8 @@ paths:
         Returns a collection of all `Race Tracks` that are stored in the *More Cars* database.
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortDirectionParam'
       responses:
         '200':
           $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_COLLECTION'
@@ -2487,6 +2495,8 @@ paths:
         Returns a collection of all `Race Track Variants` that are stored in the *More Cars* database.
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortDirectionParam'
       responses:
         '200':
           $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_COLLECTION'
