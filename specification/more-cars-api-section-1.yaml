@@ -1088,6 +1088,80 @@ paths:
         schema:
           type: integer
         example: 17798
+        
+  '/car-model-variants/{car_model_variant_id}/motor-shows':
+    get:
+      tags:
+      - "Car Model Variants"
+      summary: 
+        "Get connected Motor Shows"
+      description: >-
+        Returns all `Motor Shows` at which the specified `Car Model
+        Variant` was presented.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Motor_Show_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: car_model_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 405
+
+  '/car-model-variants/{car_model_variant_id}/motor-shows/{motor_show_id}':
+    post:
+      tags:
+      - "Car Model Variants"
+      summary: 
+        "Connect Motor Show"
+      description: >-
+        Connects an existing `Motor Show` to the specified `Car Model Variant`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Motor_Show_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Car Model Variants"
+      summary: 
+        "Disconnect Motor Show"
+      description: >-
+        Disconnects a `Motor Show` from the specified `Car Model Variant`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Motor_Show_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: car_model_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 405
+      - name: motor_show_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 218739
 
   '/car-model-variants/{car_model_variant_id}/racing-games':
     get:
