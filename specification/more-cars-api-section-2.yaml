@@ -703,6 +703,79 @@ paths:
           type: integer
         example: 1441
 
+  '/images/{image_id}/motor-shows':
+    get:
+      tags:
+      - "Images"
+      summary: 
+        "Get connected Motor Shows"
+      description: >-
+        Returns all `Motor Shows` that have the specified `Image` attached to it.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Motor_Show_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 5737
+
+  '/images/{image_id}/motor-show/{motor_show_id}':
+    post:
+      tags:
+      - "Images"
+      summary:
+        "Connect Motor Show"
+      description: >-
+        Connects an existing `Motor Show` to the specified `Image`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Motor_Show_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Images"
+      summary: 
+        "Disconnect Motor Show"
+      description: >-
+        Disconnects a `Motor Show` from the specified `Image`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Motor_Show_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 5737
+      - name: motor_show_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 218739
+
   '/images/{image_id}/racing-games':
     get:
       tags:
@@ -2087,6 +2160,79 @@ paths:
         schema:
           type: integer
         example: 40241
+
+  '/online-articles/{online_article_id}/motor-shows':
+    get:
+      tags:
+      - "Online Articles"
+      summary: 
+        "Get connected Motor Shows"
+      description: >-
+        Returns all `Motor Shows` that have the specified `Online Article` attached to it.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Motor_Show_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28209
+
+  '/online-articles/{online_article_id}/motor-shows/{motor_show_id}':
+    post:
+      tags:
+      - "Online Articles"
+      summary: 
+        "Connect Motor Show"
+      description: >-
+        Connects an existing `Motor Show` to the specified `Online Article`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Motor_Show_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Online Articles"
+      summary: 
+        "Disconnect Motor Show"
+      description: >-
+        Disconnects a `Motor Show` from the specified `Online Article`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Motor_Show_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28209
+      - name: motor_show_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 218739
 
   '/online-articles/{online_article_id}/racing-games':
     get:
@@ -3546,6 +3692,79 @@ paths:
         schema:
           type: integer
         example: 2086
+
+  '/videos/{video_id}/motor-shows':
+    get:
+      tags:
+      - "Videos"
+      summary: 
+        "Get connected Motor Shows"
+      description: >-
+        Returns all `Motor Shows` that have the specified `Video` attached to it.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Motor_Show_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 9117
+
+  '/videos/{video_id}/motor-shows/{motor_show_id}':
+    post:
+      tags:
+      - "Videos"
+      summary: 
+        "Connect Motor Show"
+      description: >-
+        Connects an existing `Motor Show` to the specified `Video`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Motor_Show_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Videos"
+      summary: 
+        "Disconnect Motor Show"
+      description: >-
+        Disconnects a `Motor Show` from the specified `Video`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Motor_Show_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 9117
+      - name: motor_show_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 218739
 
   '/videos/{video_id}/racing-games':
     get:
