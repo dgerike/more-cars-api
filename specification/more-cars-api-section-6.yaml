@@ -14,9 +14,9 @@ info:
     </ul>
     
     <p>
-      This section covers the performance aspects, like top speed, fuel consumption, lap times, ratings, ...
+      This section covers the performance aspects, like top speed, fuel consumption, lap times, ratings and so on.
     </p>
-paths: {}
+
 servers:
   # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
@@ -33,10 +33,87 @@ components:
 
 tags:
 - name: "Lap Times"
-  description: ...
+  description: A `Lap Time` is the time a driver needed to complete one full lap (or stage) of a race track. Not limited to motorsport, can also be the lap times of car magazines or private drives.
   
 - name: "Measurements"
   description: ...
   
 - name: "Ratings"
   description: ...
+  
+paths:
+  /lap-times:
+    get:
+      tags:
+      - "Lap Times"
+      summary: 
+        "Get all Lap Times"
+      description: >-
+        Returns a collection of all `Lap Times` that are stored in the *More Cars* database.
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortDirectionParam'
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_COLLECTION'
+
+    post:
+      tags:
+      - "Lap Times"
+      summary: 
+        "Create new Lap Time"
+      description: >-
+        Adds a new `Lap Time` to the More Cars database.
+      security:
+        - Access_Token: []
+      requestBody:
+        $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/requestBodies/Lap_Time'
+      responses:
+        '201':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_CREATED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '422':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/InvalidData'
+
+  '/lap-times/{lap_time_id}':
+    get:
+      tags:
+      - "Lap Times"
+      summary: 
+        "Get specific Lap Time"
+      description: >-
+        Returns a `Lap Time` specified by its ID.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    delete:
+      tags:
+      - "Lap Times"
+      summary: 
+        "Delete Lap Time"
+      description: >-
+        Deletes a `Lap Time`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_DELETED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: lap_time_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 390
