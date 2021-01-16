@@ -1079,6 +1079,12 @@ components:
           description: >-
             The name of the driver who accomplished this lap time.
           example: "Michael Schumacher"
+        date:
+          type: string
+          format: date
+          description: >-
+            When was this lap time achieved?
+          example: "1998-08-17"
       description: A `Lap Time` is the time a driver needed to complete one full lap (or stage) of a race track. Not limited to motorsport, can also be the lap times of car magazines or private drives.
     
     # Misc
