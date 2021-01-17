@@ -1311,6 +1311,79 @@ paths:
           type: integer
         example: 27376
 
+  '/car-model-variants/{car_model_variant_id}/lap-times':
+    get:
+      tags:
+      - "Car Model Variants"
+      summary: 
+        "Get connected Lap Times"
+      description: >-
+        Returns all `Lap Times` that have been achieved with the specified `Car Model Variant`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: car_model_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 38589
+
+  '/car-model-variants/{car_model_variant_id}/lap-times/{lap_time_id}':
+    post:
+      tags:
+      - "Car Model Variants"
+      summary: 
+        "Connect Lap Time"
+      description: >-
+        Connects an existing `Lap Time` to the specified `Car Model Variant`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Car Model Variants"
+      summary: 
+        "Disconnect Lap Time"
+      description: >-
+        Disconnects a `Lap Time` from the specified `Car Model Variant`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: car_model_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 38589
+      - name: lap_time_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: ???
+
   '/car-model-variants/{car_model_variant_id}/images':
     get:
       tags:
