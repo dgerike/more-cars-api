@@ -1828,6 +1828,79 @@ paths:
           type: integer
         example: 38589
 
+  '/race-results/{race_result_id}/lap-times':
+    get:
+      tags:
+      - "Race Results"
+      summary: 
+        "Get connected Lap Time"
+      description: >-
+        Returns the `Lap Time` that is attached to the specified `Race Result`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+
+  '/race-results/{race_result_id}/lap-times/{lap_time_id}':
+    post:
+      tags:
+      - "Race Results"
+      summary: 
+        "Connect Lap Time"
+      description: >-
+        Attaches an existing `Lap Time` to the specified `Race Result`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Results"
+      summary: 
+        "Disconnect Lap Time"
+      description: >-
+        Disconnects an `Lap Time` from the specified `Race Result`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_result_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 27376
+      - name: lap_time_id
+        in: path
+        required: true
+        schema:
+          type: integer
+
+
   '/race-results/{race_result_id}/images':
     get:
       tags:
@@ -2706,6 +2779,79 @@ paths:
         schema:
           type: integer
         example: 20238
+
+  '/race-track-variants/{race_track_variant_id}/lap-times':
+    get:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Get connected Lap Times"
+      description: >-
+        Returns all `Lap Times` that are attached to the specified `Race Track Variant`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+
+  '/race-track-variants/{race_track_variant_id}/lap-times/{lap_time_id}':
+    post:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Connect Lap Time"
+      description: >-
+        Attaches an existing `Lap Time` to the specified `Race Track Variant`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Race Track Variants"
+      summary: 
+        "Disconnect Lap Time"
+      description: >-
+        Disconnects an `Lap Time` from the specified `Race Track Variant`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23961
+      - name: lap_time_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: ???
 
   '/race-track-variants/{race_track_variant_id}/images':
     get:
