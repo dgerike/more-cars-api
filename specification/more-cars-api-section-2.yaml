@@ -1357,6 +1357,80 @@ paths:
           type: integer
         example: 23961
 
+  '/images/{image_id}/lap-times':
+    get:
+      tags:
+      - "Images"
+      summary: 
+        "Get connected Lap Times"
+      description: >-
+        Returns all `Lap Times` that have the specified `Image` attached to it.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 32856
+
+  '/images/{image_id}/lap-times/{lap_time_id}':
+    post:
+      tags:
+      - "Images"
+      summary: 
+        "Connect Lap Time"
+      description: >-
+        Connects an existing `Lap Time to the specified `Image`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Images"
+      summary: 
+        "Disconnect Lap Time"
+      description: >-
+        Disconnects a `Lap Time` from the specified `Image`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 32856
+      - name: lap_time_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: ???
+
+
   '/images/{image_id}/countries':
     get:
       tags:
@@ -2815,6 +2889,80 @@ paths:
         schema:
           type: integer
         example: 23961
+
+  '/online-articles/{online_article_id}/lap-times':
+    get:
+      tags:
+      - "Online Articles"
+      summary: 
+        "Get connected Lap Times"
+      description: >-
+        Returns all `Lap Times` that have the specified `Online Article` attached to it.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 34829
+
+  '/online-articles/{online_article_id}/lap-times/{lap_time_id}':
+    post:
+      tags:
+      - "Online Articles"
+      summary: 
+        "Connect Lap Time"
+      description: >-
+        Connects an existing `Lap Time` to the specified `Online Article`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Online Articles"
+      summary: 
+        "Disconnect Lap Time"
+      description: >-
+        Disconnects a `Lap Time` from the specified `Online Article`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 34829
+      - name: lap_time_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: ???
+
 
   '/online-articles/{online_article_id}/countries':
     get:
@@ -4347,6 +4495,80 @@ paths:
         schema:
           type: integer
         example: 23961
+
+  '/videos/{video_id}/lap-times':
+    get:
+      tags:
+      - "Videos"
+      summary: 
+        "Get connected Lap Times"
+      description: >-
+        Returns all `Lap Times` that have the specified `Video` attached to it.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 37568
+
+  '/videos/{video_id}/lap-times/{lap_time_id}':
+    post:
+      tags:
+      - "Videos"
+      summary: 
+        "Connect Lap Time"
+      description: >-
+        Connects an existing `Lap Time` to the specified `Video`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Videos"
+      summary: 
+        "Disconnect Lap Time"
+      description: >-
+        Disconnects a `Lap Time` from the specified `Video`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 37568
+      - name: lap_time_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: ???
+
 
   '/videos/{video_id}/countries':
     get:
