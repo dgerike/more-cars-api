@@ -790,6 +790,80 @@ paths:
           type: integer
         example: 1884
 
+  '/car-magazine-issues/{car_magazine_issue_id}/lap-times':
+    get:
+      tags:
+      - "Car Magazine Issues"
+      summary: 
+        "Get connected Lap Times"
+      description: >-
+        Returns all `Lap Times` that are presented in the specified `Car Magazine Issue`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: car_magazine_issue_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23442
+
+  '/car-magazine-issues/{car_magazine_issue_id}/lap-times/{lap_time_id}':
+    post:
+      tags:
+      - "Car Magazine Issues"
+      summary: 
+        "Connect Lap Time"
+      description: >-
+        Connects an existing `Lap Time` to the specified `Car Magazine Issue`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Car Magazine Issues"
+      summary: 
+        "Disconnect Lap Time"
+      description: >-
+        Disconnects a `Lap Time` from the specified `Car Magazine Issue`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: car_magazine_issue_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23442
+      - name: lap_time_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: ???
+
+
   '/car-magazine-issues/{car_magazine_issue_id}/images':
     get:
       tags:
@@ -1748,6 +1822,80 @@ paths:
         schema:
           type: integer
         example: 935
+
+  '/car-programme-episodes/{car_programme_episode_id}/lap-times':
+    get:
+      tags:
+      - "Car Programme Episodes"
+      summary: 
+        "Get connected Lap Times"
+      description: >-
+        Returns all `Lap Times` that are attached to the specified `Car Programme Episode`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: car_programme_episode_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 2086
+
+  '/car-programme-episodes/{car_programme_episode_id}/lap-times/{lap_time_id}':
+    post:
+      tags:
+      - "Car Programme Episodes"
+      summary: 
+        "Connect Lap Time"
+      description: >-
+        Attaches an existing `Lap Time` to the specified `Car Programme Episode`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Car Programme Episodes"
+      summary: 
+        "Disconnect Lap Time"
+      description: >-
+        Disconnects an `Lap Time` from the specified `Car Programme Episode`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Lap_Time_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: car_programme_episode_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 2086
+      - name: lap_time_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: ???
+
 
   '/car-programme-episodes/{car_programme_episode_id}/images':
     get:
