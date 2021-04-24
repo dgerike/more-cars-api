@@ -3,17 +3,18 @@ info:
   version: '0.8.0'
   title: 'More Cars API » Section 2: Multimedia'
   description: >-
-    The More Cars API is divided into five sections. 
+    The More Cars API is divided into six sections. 
     <ul>
     <li> [Section 1 - Core](/apis-docs/more-cars.net/more-cars-api-section-1)<br>
     <li> [Section 2 - Multimedia](/apis-docs/more-cars.net/more-cars-api-section-2)<br>
     <li> [Section 3 - Presentation](/apis-docs/more-cars.net/more-cars-api-section-3)<br>
     <li> [Section 4 - Gaming](/apis-docs/more-cars.net/more-cars-api-section-4)<br>
     <li> [Section 5 - Motorsport](/apis-docs/more-cars.net/more-cars-api-section-5)<br>
+    <li> [Section 6 - Performance](/apis-docs/more-cars.net/more-cars-api-section-6)<br>
     </ul>
     
     <p>
-      This section covers the multimedia part, which includes images, video and online articles.
+      This section covers the multimedia part. Which images, video and online articles exist in the database and to which cars, magazines, games, racing events, etc. are they attached to.
     </p>
 
 servers:
@@ -921,6 +922,152 @@ paths:
         schema:
           type: integer
         example: 14389
+
+  '/images/{image_id}/model-cars':
+    get:
+      tags:
+        - "Images"
+      summary:
+        "Get connected Model Cars"
+      description: >-
+        Returns all `Model Cars` that have the specified `Image` attached to it.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Model_Car_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+  
+    parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 38309
+  
+  '/images/{image_id}/model-cars/{model_car_id}':
+    post:
+      tags:
+        - "Images"
+      summary:
+        "Connect Model Car"
+      description: >-
+        Connects an existing `Model Car` to the specified `Image`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Model_Car_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    delete:
+      tags:
+        - "Images"
+      summary:
+        "Disconnect Model Car"
+      description: >-
+        Disconnects a `Model Car` from the specified `Image`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Model_Car_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 38309
+      - name: model_car_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 38307
+
+  '/images/{image_id}/toy-brands':
+    get:
+      tags:
+        - "Images"
+      summary:
+        "Get connected Toy Brands"
+      description: >-
+        Returns all `Toy Brands` that have the specified `Image` attached to it.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Toy_Brand_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+  
+    parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 38309
+  
+  '/images/{image_id}/toy-brands/{toy_brand_id}':
+    post:
+      tags:
+        - "Images"
+      summary:
+        "Connect Toy Brand"
+      description: >-
+        Connects an existing `Toy Brand` to the specified `Image`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Toy_Brand_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    delete:
+      tags:
+        - "Images"
+      summary:
+        "Disconnect Toy Brand"
+      description: >-
+        Disconnects a `Toy Brand` from the specified `Image`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Toy_Brand_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    parameters:
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 38309
+      - name: toy_brand_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 38307
 
   '/images/{image_id}/racing-series':
     get:
@@ -2453,6 +2600,152 @@ paths:
         schema:
           type: integer
         example: 14389
+
+  '/online-articles/{online_article_id}/model-cars':
+    get:
+      tags:
+        - "Online Articles"
+      summary:
+        "Get connected Model Cars"
+      description: >-
+        Returns all `Model Cars` that have the specified `Online Article` attached to it.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Model_Car_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+  
+    parameters:
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 25742
+  
+  '/online-articles/{online_article_id}/model-cars/{model_car_id}':
+    post:
+      tags:
+        - "Online Articles"
+      summary:
+        "Connect Model Car"
+      description: >-
+        Connects an existing `Model Car` to the specified `Online Article`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Model_Car_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    delete:
+      tags:
+        - "Online Articles"
+      summary:
+        "Disconnect Model Car"
+      description: >-
+        Disconnects a `Model Car` from the specified `Online Article`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Model_Car_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    parameters:
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 25742
+      - name: model_car_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+
+  '/online-articles/{online_article_id}/toy-brands':
+    get:
+      tags:
+        - "Online Articles"
+      summary:
+        "Get connected Toy Brands"
+      description: >-
+        Returns all `Toy Brands` that have the specified `Online Article` attached to it.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Toy_Brand_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+  
+    parameters:
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 25742
+  
+  '/online-articles/{online_article_id}/toy-brands/{toy_brand_id}':
+    post:
+      tags:
+        - "Online Articles"
+      summary:
+        "Connect Toy Brand"
+      description: >-
+        Connects an existing `Toy Brand` to the specified `Online Article`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Toy_Brand_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    delete:
+      tags:
+        - "Online Articles"
+      summary:
+        "Disconnect Toy Brand"
+      description: >-
+        Disconnects a `Toy Brand` from the specified `Online Article`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Toy_Brand_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    parameters:
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 25742
+      - name: toy_brand_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
 
   '/online-articles/{online_article_id}/racing-series':
     get:
@@ -4059,6 +4352,152 @@ paths:
         schema:
           type: integer
         example: 14389
+
+  '/videos/{video_id}/model-cars':
+    get:
+      tags:
+        - "Videos"
+      summary:
+        "Get connected Model Cars"
+      description: >-
+        Returns all `Model Cars` that have the specified `Video` attached to it.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Model_Car_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+  
+    parameters:
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23374
+  
+  '/videos/{video_id}/model-cars/{model_car_id}':
+    post:
+      tags:
+        - "Videos"
+      summary:
+        "Connect Model Car"
+      description: >-
+        Connects an existing `Model Car` to the specified `Video`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Model_Car_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    delete:
+      tags:
+        - "Videos"
+      summary:
+        "Disconnect Model Car"
+      description: >-
+        Disconnects a `Model Car` from the specified `Video`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Model_Car_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    parameters:
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23374
+      - name: model_car_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+
+  '/videos/{video_id}/toy-brands':
+    get:
+      tags:
+        - "Videos"
+      summary:
+        "Get connected Toy Brands"
+      description: >-
+        Returns all `Toy Brands` that have the specified `Video` attached to it.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Toy_Brand_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+  
+    parameters:
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23374
+  
+  '/videos/{video_id}/toy-brands/{toy_brand_id}':
+    post:
+      tags:
+        - "Videos"
+      summary:
+        "Connect Toy Brand"
+      description: >-
+        Connects an existing `Toy Brand` to the specified `Video`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Toy_Brand_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    delete:
+      tags:
+        - "Videos"
+      summary:
+        "Disconnect Toy Brand"
+      description: >-
+        Disconnects a `Toy Brand` from the specified `Video`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Toy_Brand_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    parameters:
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 23374
+      - name: toy_brand_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
 
   '/videos/{video_id}/racing-series':
     get:
