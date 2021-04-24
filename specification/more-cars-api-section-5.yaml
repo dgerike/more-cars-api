@@ -3,17 +3,18 @@ info:
   version: '0.8.0'
   title: 'More Cars API » Section 5: Motorsport'
   description: >-
-    The More Cars API is divided into five sections. 
+    The More Cars API is divided into six sections. 
     <ul>
     <li> [Section 1 - Core](/apis-docs/more-cars.net/more-cars-api-section-1)<br>
     <li> [Section 2 - Multimedia](/apis-docs/more-cars.net/more-cars-api-section-2)<br>
     <li> [Section 3 - Presentation](/apis-docs/more-cars.net/more-cars-api-section-3)<br>
     <li> [Section 4 - Gaming](/apis-docs/more-cars.net/more-cars-api-section-4)<br>
     <li> [Section 5 - Motorsport](/apis-docs/more-cars.net/more-cars-api-section-5)<br>
+    <li> [Section 6 - Performance](/apis-docs/more-cars.net/more-cars-api-section-6)<br>
     </ul>
     
-    <p>
-      This section covers the motorsport part. The datastructure allows to store whole racing events, including the sessions (training, qualifying, race) and the race results.
+    <p> 
+      This section covers everything motorsport related. The database allows to store whole racing events, including all sessions (training, qualifying, race), the race results and the lap times.
     </p>
 
 servers:
