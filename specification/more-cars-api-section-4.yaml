@@ -273,6 +273,80 @@ paths:
           type: integer
         example: 14377
 
+  '/racing-games/{racing_game_id}/race-track-variants':
+    get:
+      tags:
+        - "Racing Games"
+      summary:
+        "Get connected Race Track Variants"
+      description: >-
+        Returns all `Race Track Variants` that can be driven on in the specified `Racing Game`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+  
+    parameters:
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+  
+  '/racing-games/{racing_game_id}/race-track-variants/{race_track_variant_id}':
+    post:
+      tags:
+        - "Racing Games"
+      summary:
+        "Connect Race Track Variant"
+      description: >-
+        Connects an existing `Race Track Variant` to the specified `Racing Game`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    delete:
+      tags:
+        - "Racing Games"
+      summary:
+        "Disconnect Race Track Variant"
+      description: >-
+        Disconnects a `Race Track Variant` from the specified `Racing Game`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Race_Track_Variant_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+  
+    parameters:
+      - name: racing_game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 21740
+      - name: race_track_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 7499
+
+
   '/racing-games/{racing_game_id}/images':
     get:
       tags:
