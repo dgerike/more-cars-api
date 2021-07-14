@@ -751,7 +751,6 @@ components:
           example: 
             - "HW J-IMPORTS 2021"
             - "Speed Champions"
-        
 
     Toy_Brand:
       type: object
@@ -1278,11 +1277,11 @@ components:
       name: order_direction
       in: query
       required: false
-      description: order direction (ASC or DESC)
+      description: order direction (asc or desc)
       schema:
         type: string
-        default: "ASC"
-      example: "DESC"
+        default: "asc"
+      example: "desc"
       
     pageParam:
       name: page
