@@ -1204,18 +1204,42 @@ components:
             system and cannot be altered.
         name:
           type: string
-          description: The official, full name name of the currency, in English.
-          example: "British pound"
-        symbol:
-          type: string
           description: >-
-            The official sign that is used for this currency. Alternativly the abbreviation, when no symbol exists.
-          example: "£"
+            The official name of this currency. In English. Not abbreviated.
+          example: 
+            - "British pound"
+            - "German mark"
+            - "United States dollar"
         iso_code:
           type: string
           description: >-
             A 3-letter currency code, according to the ISO 4217 standard.
-          example: "GBP"
+          example: 
+            - "GBP"
+            - "DEM"
+            - "USD"
+        symbol:
+          type: string
+          description: >-
+            The official sign that is used for this currency. When there exists none, alternatively the commonly used abbreviation.
+          example: 
+            - "£"
+            - "€"
+            - "$"
+        valid_from_year:
+          type: number
+          description: >-
+            In which year was this currency officially introduced?
+          example: 
+            - 1999
+            - 1792
+        valid_to_year:
+          type: number
+          description: >-
+            Since when is this not an officially accepted currency anymore?
+          example: 
+            - 2001
+            - 1990
     
     # Errors
     General_Error:
