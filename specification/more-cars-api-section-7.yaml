@@ -38,9 +38,159 @@ tags:
     `Currency` is the money that is used in a country or a region of the world.
   
 - name: "Price"
-  description: ...
+  description: >-
+    The `Price` is the amount of money that is asked for a car.
   
 paths:
+  /prices:
+    get:
+      tags:
+      - "Price"
+      summary: 
+        "Get all Prices"
+      description: >-
+        Returns a collection of all `Prices` that are stored in the *More Cars* database.
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/pageParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortParam'
+        - $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/parameters/sortDirectionParam'
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Price_COLLECTION'
+
+    post:
+      tags:
+      - "Price"
+      summary: 
+        "Create new Price"
+      description: >-
+        Adds a new `Price` to the More Cars database.
+      security:
+        - Access_Token: []
+      requestBody:
+        $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/requestBodies/Price'
+      responses:
+        '201':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Price_CREATED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '422':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/InvalidData'
+
+  '/prices/{price_id}':
+    get:
+      tags:
+      - "Price"
+      summary: 
+        "Get specific Price"
+      description: >-
+        Returns a `Price` specified by its ID.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Price_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    delete:
+      tags:
+      - "Price"
+      summary: 
+        "Delete Price"
+      description: >-
+        Deletes a `Price`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Price_DELETED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: price_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 9999
+        
+  '/prices/{price_id}/car-model-variants':
+    get:
+      tags:
+      - "Price"
+      summary: 
+        "Get connected Car Model Variant"
+      description: >-
+        Returns the `Car Model Variant` to which this price is attached.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Model_Variant_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: price_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 9999
+
+  '/prices/{price_id}/car-model-variants/{car_model_variant_id}':
+    post:
+      tags:
+      - "Price"
+      summary: 
+        "Connect Car Model Variant"
+      description: >-
+        Connects an existing `Car Model Variant` to the specified `Price`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Model_Variant_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Price"
+      summary: 
+        "Disconnect Car Model Variant"
+      description: >-
+        Disconnects a `Car Model Variant` from the specified `Price`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Model_Variant_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: price_id
+        in: path
+        required: true
+        example: 9999
+        schema:
+          type: integer
+      - name: car_model_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 9999
+
   /currencies:
     get:
       tags:
