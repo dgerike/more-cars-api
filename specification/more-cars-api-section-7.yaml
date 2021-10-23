@@ -33,13 +33,12 @@ components:
       in: header
 
 tags:
-- name: "Currency"
-  description: >-
-    `Currency` is the money that is used in a country or a region of the world.
-  
 - name: "Price"
   description: >-
     The `Price` is the amount of money that is asked for a car.
+- name: "Currency"
+  description: >-
+    `Currency` is the money that is used in a country or a region of the world.
   
 paths:
   /prices:
@@ -185,6 +184,79 @@ paths:
         schema:
           type: integer
       - name: car_model_variant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 9999
+        
+  '/prices/{price_id}/countries':
+    get:
+      tags:
+      - "Price"
+      summary: 
+        "Get connected Country"
+      description: >-
+        Returns the `Country` in which this price is/was valid.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Country_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: price_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 9999
+
+  '/prices/{price_id}/countries/{country_id}':
+    post:
+      tags:
+      - "Price"
+      summary: 
+        "Connect Country"
+      description: >-
+        Connects an existing `Country` to the specified `Price`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Country_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Price"
+      summary: 
+        "Disconnect Country"
+      description: >-
+        Disconnects a `Country` from the specified `Price`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Country_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: price_id
+        in: path
+        required: true
+        example: 9999
+        schema:
+          type: integer
+      - name: country_id
         in: path
         required: true
         schema:
