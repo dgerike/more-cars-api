@@ -634,3 +634,149 @@ paths:
         schema:
           type: integer
         example: 319
+    
+  '/ratings/{rating_id}/car-magazine-issues':
+    get:
+      tags:
+      - "Ratings"
+      summary: 
+        "Get connected Car Magazine Issue"
+      description: >-
+        Returns the `Car Magazine Issue` which produced the `Rating`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Magazine_Issue_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: rating_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: ???
+
+  '/ratings/{rating_id}/car-magazine-issues/{car_magazine_issue_id}':
+    post:
+      tags:
+      - "Ratings"
+      summary: 
+        "Connect Car Magazine Issue"
+      description: >-
+        Connects an existing `Car Magazine Issue` to the specified `Rating`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Magazine_Issue_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Ratings"
+      summary: 
+        "Disconnect Car Magazine Issue"
+      description: >-
+        Disconnects a `Car Magazine Issue` from the specified `Rating`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Magazine_Issue_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: rating_id
+        in: path
+        required: true
+        example: ???
+        schema:
+          type: integer
+      - name: car_magazine_issue_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: ???
+        
+  '/ratings/{rating_id}/car-programme-episodes':
+    get:
+      tags:
+      - "Ratings"
+      summary: 
+        "Get connected Car Programme Episode"
+      description: >-
+        Returns the `Car Programme Episode` which produced the `Rating`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Programme_Episode_ITEM'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: rating_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: ???
+
+  '/ratings/{rating_id}/car-programme-episodes/{car_programme_episode_id}':
+    post:
+      tags:
+      - "Ratings"
+      summary: 
+        "Connect Car Programme Episode"
+      description: >-
+        Connects an existing `Car Programme Episode` to the specified `Rating`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Programme_Episode_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+      - "Ratings"
+      summary: 
+        "Disconnect Car Programme Episode"
+      description: >-
+        Disconnects a `Car Programme Episode` from the specified `Rating`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Car_Programme_Episode_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: rating_id
+        in: path
+        required: true
+        example: ???
+        schema:
+          type: integer
+      - name: car_programme_episode_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: ???
