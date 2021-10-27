@@ -651,7 +651,7 @@ paths:
       tags:
       - "Car Magazine Issues"
       summary: 
-        "Get connected Car Model Variant"
+        "Get connected Car Model Variants"
       description: >-
         Returns all `Car Model Variants` that are presented in the specified `Car Magazine Issue`.
       responses:
@@ -724,7 +724,7 @@ paths:
       tags:
       - "Car Magazine Issues"
       summary: 
-        "Get connected Car Model"
+        "Get connected Car Models"
       description: >-
         Returns all `Car Models` that are presented in the specified `Car Magazine Issue`.
       responses:
