@@ -13,7 +13,7 @@ info:
     <li> [Section 6 - Performance](/apis-docs/more-cars.net/more-cars-api-section-6)<br>
     <li> [Section 7 - Prices](/apis-docs/more-cars.net/more-cars-api-section-7)<br>
     </ul>
-    
+
     <p>
       This section covers the monetary aspects. How much did a car cost in which year and in which country?
     </p>
@@ -24,7 +24,7 @@ servers:
     url: https://virtserver.swaggerhub.com/more-cars.net/more-cars-api-section-7/0.8.0
   - description: Production API
     url: https://more-cars.net/api/v1
-    
+
 components:
   securitySchemes:
     Access_Token:
@@ -33,19 +33,19 @@ components:
       in: header
 
 tags:
-- name: "Price"
-  description: >-
-    The `Price` is the amount of money that is asked for a car.
-- name: "Currency"
-  description: >-
-    `Currency` is the money that is used in a country or a region of the world.
-  
+  - name: "Prices"
+    description: >-
+      The `Price` is the amount of money that is asked for a car.
+  - name: "Currencies"
+    description: >-
+      `Currency` is the money that is used in a country or a region of the world.
+
 paths:
   /prices:
     get:
       tags:
-      - "Price"
-      summary: 
+        - "Prices"
+      summary:
         "Get all Prices"
       description: >-
         Returns a collection of all `Prices` that are stored in the *More Cars* database.
@@ -59,8 +59,8 @@ paths:
 
     post:
       tags:
-      - "Price"
-      summary: 
+        - "Prices"
+      summary:
         "Create new Price"
       description: >-
         Adds a new `Price` to the More Cars database.
@@ -79,8 +79,8 @@ paths:
   '/prices/{price_id}':
     get:
       tags:
-      - "Price"
-      summary: 
+        - "Prices"
+      summary:
         "Get specific Price"
       description: >-
         Returns a `Price` specified by its ID.
@@ -92,8 +92,8 @@ paths:
 
     delete:
       tags:
-      - "Price"
-      summary: 
+        - "Prices"
+      summary:
         "Delete Price"
       description: >-
         Deletes a `Price`.
@@ -116,12 +116,12 @@ paths:
         schema:
           type: integer
         example: 9999
-        
+
   '/prices/{price_id}/car-model-variants':
     get:
       tags:
-      - "Price"
-      summary: 
+        - "Prices"
+      summary:
         "Get connected Car Model Variant"
       description: >-
         Returns the `Car Model Variant` to which this price is attached.
@@ -142,8 +142,8 @@ paths:
   '/prices/{price_id}/car-model-variants/{car_model_variant_id}':
     post:
       tags:
-      - "Price"
-      summary: 
+        - "Prices"
+      summary:
         "Connect Car Model Variant"
       description: >-
         Connects an existing `Car Model Variant` to the specified `Price`.
@@ -159,8 +159,8 @@ paths:
 
     delete:
       tags:
-      - "Price"
-      summary: 
+        - "Prices"
+      summary:
         "Disconnect Car Model Variant"
       description: >-
         Disconnects a `Car Model Variant` from the specified `Price`.
@@ -189,12 +189,12 @@ paths:
         schema:
           type: integer
         example: 9999
-        
+
   '/prices/{price_id}/countries':
     get:
       tags:
-      - "Price"
-      summary: 
+        - "Prices"
+      summary:
         "Get connected Country"
       description: >-
         Returns the `Country` in which this price is/was valid.
@@ -215,8 +215,8 @@ paths:
   '/prices/{price_id}/countries/{country_id}':
     post:
       tags:
-      - "Price"
-      summary: 
+        - "Prices"
+      summary:
         "Connect Country"
       description: >-
         Connects an existing `Country` to the specified `Price`.
@@ -232,8 +232,8 @@ paths:
 
     delete:
       tags:
-      - "Price"
-      summary: 
+        - "Prices"
+      summary:
         "Disconnect Country"
       description: >-
         Disconnects a `Country` from the specified `Price`.
@@ -263,11 +263,229 @@ paths:
           type: integer
         example: 9999
 
+  '/prices/{price_id}/images':
+    get:
+      tags:
+        - "Prices"
+      summary:
+        "Get connected Images"
+      description: >-
+        Returns all `Images` that are attached to the specified `Price`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Price_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: price_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 910
+
+  '/prices/{price_id}/images/{image_id}':
+    post:
+      tags:
+        - "Prices"
+      summary:
+        "Connect Image"
+      description: >-
+        Attaches an existing `Image` to the specified `Price`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Price_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+        - "Prices"
+      summary:
+        "Disconnect Image"
+      description: >-
+        Disconnects an `Image` from the specified `Price`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Price_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: price_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 910
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 6437
+
+  '/prices/{price_id}/online-articles':
+    get:
+      tags:
+        - "Prices"
+      summary:
+        "Get connected Online Articles"
+      description: >-
+        Returns all `Online Articles` that are attached to the specified `Price`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: price_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 910
+
+  '/prices/{price_id}/online-articles/{online_article_id}':
+    post:
+      tags:
+        - "Prices"
+      summary:
+        "Connect Online Article"
+      description: >-
+        Attaches an existing `Online Article` to the specified `Price`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+        - "Prices"
+      summary:
+        "Disconnect Online Article"
+      description: >-
+        Disconnects an `Online Article` from the specified `Price`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: price_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 910
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28194
+
+  '/prices/{price_id}/videos':
+    get:
+      tags:
+        - "Prices"
+      summary:
+        "Get connected Videos"
+      description: >-
+        Returns all `Videos` that are attached to the specified `Price`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: price_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 910
+
+  '/prices/{price_id}/videos/{video_id}':
+    post:
+      tags:
+        - "Prices"
+      summary:
+        "Connect Video"
+      description: >-
+        Attachs an existing `Video` to the specified `Price`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+    delete:
+      tags:
+        - "Prices"
+      summary:
+        "Disconnect Video"
+      description: >-
+        Disconnects a `Video` from the specified `Price`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: price_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 910
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28210
+
   /currencies:
     get:
       tags:
-      - "Currency"
-      summary: 
+        - "Currencies"
+      summary:
         "Get all Currencies"
       description: >-
         Returns a collection of all `Currencies` that are stored in the *More Cars* database.
@@ -281,8 +499,8 @@ paths:
 
     post:
       tags:
-      - "Currency"
-      summary: 
+        - "Currencies"
+      summary:
         "Create new Currency"
       description: >-
         Adds a new `Currency` to the More Cars database.
@@ -301,8 +519,8 @@ paths:
   '/currencies/{currency_id}':
     get:
       tags:
-      - "Currency"
-      summary: 
+        - "Currencies"
+      summary:
         "Get specific Currency"
       description: >-
         Returns a `Currency` specified by its ID.
@@ -314,8 +532,8 @@ paths:
 
     delete:
       tags:
-      - "Currency"
-      summary: 
+        - "Currencies"
+      summary:
         "Delete Currency"
       description: >-
         Deletes a `Currency`.
@@ -338,12 +556,12 @@ paths:
         schema:
           type: integer
         example: 9999
-        
+
   '/currencies/{currency_id}/countries':
     get:
       tags:
-      - "Currency"
-      summary: 
+        - "Currencies"
+      summary:
         "Get connected Countries"
       description: >-
         Returns the `Countries` in which this is the official currency.
@@ -364,8 +582,8 @@ paths:
   '/currencies/{currency_id}/countries/{country_id}':
     post:
       tags:
-      - "Currency"
-      summary: 
+        - "Currencies"
+      summary:
         "Connect Country"
       description: >-
         Connects an existing `Country` to the specified `Currency`.
@@ -381,8 +599,8 @@ paths:
 
     delete:
       tags:
-      - "Currency"
-      summary: 
+        - "Currencies"
+      summary:
         "Disconnect Country"
       description: >-
         Disconnects a `Country` from the specified `Currency`.
@@ -411,3 +629,221 @@ paths:
         schema:
           type: integer
         example: 130
+
+  '/currencies/{currency_id}/images':
+    get:
+      tags:
+        - "Currencies"
+      summary:
+        "Get connected Images"
+      description: >-
+        Returns all `Images` that are attached to the specified `Currency`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Currency_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: currency_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 910
+
+  '/currencies/{currency_id}/images/{image_id}':
+    post:
+      tags:
+        - "Currencies"
+      summary:
+        "Connect Image"
+      description: >-
+        Attaches an existing `Image` to the specified `Currency`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Currency_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+        - "Currencies"
+      summary:
+        "Disconnect Image"
+      description: >-
+        Disconnects an `Image` from the specified `Currency`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Currency_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: currency_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 910
+      - name: image_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 6437
+
+  '/currencies/{currency_id}/online-articles':
+    get:
+      tags:
+        - "Currencies"
+      summary:
+        "Get connected Online Articles"
+      description: >-
+        Returns all `Online Articles` that are attached to the specified `Currency`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: currency_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 910
+
+  '/currencies/{currency_id}/online-articles/{online_article_id}':
+    post:
+      tags:
+        - "Currencies"
+      summary:
+        "Connect Online Article"
+      description: >-
+        Attaches an existing `Online Article` to the specified `Currency`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    delete:
+      tags:
+        - "Currencies"
+      summary:
+        "Disconnect Online Article"
+      description: >-
+        Disconnects an `Online Article` from the specified `Currency`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Online_Article_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: currency_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 910
+      - name: online_article_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28194
+
+  '/currencies/{currency_id}/videos':
+    get:
+      tags:
+        - "Currencies"
+      summary:
+        "Get connected Videos"
+      description: >-
+        Returns all `Videos` that are attached to the specified `Currency`.
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_COLLECTION'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+
+    parameters:
+      - name: currency_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 910
+
+  '/currencies/{currency_id}/videos/{video_id}':
+    post:
+      tags:
+        - "Currencies"
+      summary:
+        "Connect Video"
+      description: >-
+        Attachs an existing `Video` to the specified `Currency`.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_CONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+    delete:
+      tags:
+        - "Currencies"
+      summary:
+        "Disconnect Video"
+      description: >-
+        Disconnects a `Video` from the specified `Currency`.
+        <br><br>
+        🔒 Operation requires elevated permissions.
+      responses:
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/Video_DISCONNECTED'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotAuthorized'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/more-cars.net/more-cars-api-section-0/0.8.0#/components/responses/NotFound'
+      security:
+        - Access_Token: []
+
+    parameters:
+      - name: currency_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 910
+      - name: video_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 28210
